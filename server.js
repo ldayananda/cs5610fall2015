@@ -3,6 +3,7 @@ var app = express();
 
 app.use(express.static(__dirname + '/public'));
 app.use('assignment', express.static(__dirname + '/public/assignment'));
+app.use('assignment/css', express.static(__dirname + 'public/assignment/css'));
 
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
