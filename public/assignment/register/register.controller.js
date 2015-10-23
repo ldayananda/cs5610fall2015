@@ -4,8 +4,8 @@
 	app.controller("RegisterController", RegisterController);
 
 	function RegisterController ($scope, UserService) {
-		function register(username, password, email, $location) {
-			var user = User();
+		function register(username, password, email) {
+			var user = {};
 			user.username = username;
 			user.password = password;
 			user.email = email;

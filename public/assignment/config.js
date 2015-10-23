@@ -8,9 +8,10 @@
 			// 	.when("/", {
 			// 		templateUrl: "index.html"
 			// 	})
-				// .when("/profile", {
-				// 	templateUrl : "profile.html"
-				// })
+				.when("/profile", {
+					templateUrl : "profile/profile.view.html"
+					//controller : "ProfileController"
+				})
 				.when("/home", {
 					templateUrl : "home/home.view.html"
 				})
@@ -18,13 +19,13 @@
 			// 		templateUrl: "admin.html"
 			// 	})
 				.when("/login", {
-					templateUrl : "login/login.view.html",
-					controller : "LoginController"
+					templateUrl : "login/login.view.html"
+					//controller : "LoginController"
 
 				})
 				.when("/register", {
-					templateUrl : "register/register.view.html",
-					controller : "RegisterController"
+					templateUrl : "register/register.view.html"
+					//controller : "RegisterController"
 				})
 			// 	.when("/forms", {
 			// 		templateUrl: "forms.html"
@@ -33,7 +34,8 @@
 			// 		templateUrl: "form-fields.html"
 			// 	})
 				.otherwise({
-                	redirectTo: "/home"
+                	//redirectTo: "/home"
+                	redirectTo: ""
             	});
 	}
 })();

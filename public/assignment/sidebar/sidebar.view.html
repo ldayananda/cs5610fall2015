@@ -2,20 +2,6 @@
 <html lang="en" ng-app="FormBuilderApp">
 <head>
 	<meta charset="UTF-8">
-	<!-- Angular -->
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
-	<script src="app.js"></script>
-	<script src="config.js"></script>
-	<!-- Bootstrap core CSS -->
-	<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<!-- Latest compiled and minified Bootstrap JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-	<!-- Bootstrap styles for dashboard template -->
-	<link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
-	<!-- Custom styles for this template -->
-	<link href="./css/style.css" rel="stylesheet">
 </head>
 <body>
 
@@ -23,11 +9,13 @@
 	<div class="col-sm-3 col-md-2 sidebar ng-scope">
 		<ul class="nav nav-sidebar">
 			<li ng-class="{ 'active' : $location.url().indexof('home') != -1 }">
-				<a href="home.html"> Home <span class="sr-only">(current)</span></a>
+				<a href="#/home"> Home <span class="sr-only">(current)</span></a>
 			</li>
-			<li><a href="profile.html"> Profile </a></li>
-			<li><a href="admin.html"> Admin </a></li>
-			<li><a href="forms.html"> Forms </a></li>
+			<li ng-class="{ 'active' : $location.url().indexof('profile') != -1 }">
+				<a href="#/profile"> Profile </a>
+			</li>
+			<li><a href="#/admin"> Admin </a></li>
+			<li><a href="#/forms"> Forms </a></li>
 		</ul>
 	</div>
 
