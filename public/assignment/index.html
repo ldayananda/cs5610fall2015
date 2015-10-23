@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="FormBuilderApp">
+<html lang="en" ng-app="FormBuilderApp" class="ng-scope">
 <head>
 	<meta charset="UTF-8">
 	<!-- Angular -->
@@ -9,23 +9,38 @@
 	<script src="config.js"></script>
 	<script src="header/header.controller.js"></script>
 	<script src="sidebar/sidebar.controller.js"></script>
+	<script src="service/UserService.js"></script>
+	<script src="service/FormService.js"></script>
+	<script src="login/login.controller.js"></script>
+	<script src="register/register.controller.js"></script>
 	<!-- Bootstrap core CSS -->
 	<link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-	<!-- Latest compiled and minified Bootstrap JavaScript -->
+	<!-- Latest compiled and minified Bootstrap JavaScript and JQuery-->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<!-- Bootstrap styles for dashboard template -->
 	<link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
 	<!-- Custom styles for this template -->
 	<link href="./css/style.css" rel="stylesheet">
+
 </head>
 <body>
+
+	<div ng-include="'header/header.view.html'" class="ng-scope" ng-controller="HeaderController">
+	</div>
+	<div class="container-fluid">
+    	<div class="row">
+    		<div ng-include="'sidebar/sidebar.view.html'" class="ng-scope" ng-controller="SidebarController">
+    		</div>
+			<div ng-view>
+			</div>
+		</div>
+	</div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

@@ -19,19 +19,16 @@
 </head>
 <body>
 
-	<div class="container-fluid">
-		<div class="row">
-			<div class="col-sm-3 col-md-2 sidebar" ng-controller="SidebarController">
-				<ul class="nav nav-sidebar">
-					<li class="active"><a href="home.html"> Home <span class="sr-only">(current)</span></a></li>
-					<li><a href="profile.html"> Profile </a></li>
-					<li><a href="admin.html"> Admin </a></li>
-					<li><a href="forms.html"> Forms </a></li>
-				</ul>
-			</div>
-			<div ng-view>
-			</div>
-		</div>
+
+	<div class="col-sm-3 col-md-2 sidebar ng-scope">
+		<ul class="nav nav-sidebar">
+			<li ng-class="{ 'active' : $location.url().indexof('home') != -1 }">
+				<a href="home.html"> Home <span class="sr-only">(current)</span></a>
+			</li>
+			<li><a href="profile.html"> Profile </a></li>
+			<li><a href="admin.html"> Admin </a></li>
+			<li><a href="forms.html"> Forms </a></li>
+		</ul>
 	</div>
 
 
@@ -39,7 +36,5 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>
