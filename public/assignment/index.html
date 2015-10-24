@@ -2,43 +2,38 @@
 <html lang="en" ng-app="FormBuilderApp" class="ng-scope">
 <head>
 	<meta charset="UTF-8">
-	<!--
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
+	<!-- 
+	<link href="css/style.css" rel="stylesheet"/>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script src="service/UserService.js"></script>
-	<script src="service/FormService.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	-->
+
+	<script src="app.js"></script>
+	<script src="config.js"></script>
+	<script src="header/header.controller.js"></script>
+	<script src="sidebar/sidebar.controller.js"></script>
 	<script src="login/login.controller.js"></script>
 	<script src="register/register.controller.js"></script>
 	<script src="profile/profile.controller.js"></script>
-
-	Latest compiled and minified Bootstrap JavaScript and JQuery
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
--->
-
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
-<!--<link href="css/style.css" rel="stylesheet"/>-->
-
-<script src="app.js"></script>
-<script src="config.js"></script>
-<script src="header/header.controller.js"></script>
-<script src="sidebar/sidebar.controller.js"></script>
+	<script src="service/UserService.js"></script>
+	<script src="service/FormService.js"></script>
 
 </head>
 <body>
-
-	<div ng-include="'header/header.view.html'" ng-controller="HeaderController"></div>
-	<div class="container-fluid">
-		<!-- <div class="row"> -->
-	    		<!--<div ng-include="'sidebar/sidebar.view.html'" class="ng-scope" ng-controller="SidebarController">
-	    	</div>-->
-	    	<!--<div ng-include="'sidebar/sidebar.view.html'" ng-controller="SidebarController"></div>-->
-	    	<!-- <div ></div>-->
+	<div class="container">
+		<div class="row">
+			<div ng-include="'header/header.view.html'" ng-controller="HeaderController"></div>
+		</div>
+		<div class="row">
+			<div ng-include="'sidebar/sidebar.view.html'" ng-controller="SidebarController"></div>
+			<div class="col-sm-10" ng-view>
+			</div>
+		</div>
 	</div>
 
-
-<div ng-view>
-</div>
 
 </body>
 </html>

@@ -18,50 +18,50 @@
 		};
 		return service;
 
-		function findUserByUsernameAndPassword(username, password, callback) {
+		function findUserByUsernameAndPassword(username, password) {
 			var len = users.length;
 			for (var i = 0; i < len; i++) {
 				if (users[i].username == username &&
 					users[i].password == password) {
-					callback(users[i]);
+					return users[i];
 				}
 			}
-			callback(null);
+			return null;
 		}
 
-		function findAllUsers(callback) {
-			callback(users);
+		function findAllUsers() {
+			return users;
 		}
 
-		function createUser(user, callback) {
+		function createUser(user) {
 			var guid = guid(); //Guid.create();
 			//Guid.isGuid(guid);
 
 			user.id = guid;
 			users.push(user);
-			callback(user);
+			return user;
 		}
 
-		function deleteUserById(userId, callback) {
+		function deleteUserById(userId) {
 			var len = users.length;
 			for (var i = 0; i < len; i++) {
 				if (users[i].id == userId) {
 					users.splice(i, 1);
 				}
 			}
-			callback(users);
+			return users;
 		}
 
-		function updateUser(userId, newUser, callback) {
+		function updateUser(userId, newUser) {
 			var len = users.length;
 			for (var i = 0; i < len; i++) {
 				if (users[i].id == userId) {
 					users[i].username = newUser.username;
 					users[i].password = newUser.password;
-					callback(users[i]);
+					return users[i];
 				}
 			}
-			callback(null);
+			return null;
 		}
 
 		function guid() {

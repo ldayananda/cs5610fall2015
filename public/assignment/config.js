@@ -5,8 +5,8 @@
 
     function RouteController($routeProvider){
       $routeProvider
-        .when("/", {
-          templateUrl: "home/home.view.html"
+        .when("/home", {
+        	templateUrl : "home/home.view.html"
         })
         .when("/profile", {
           templateUrl: "profile/profile.view.html",
@@ -26,7 +26,7 @@
 			controller : "RegisterController"
 		})			
         .otherwise({
-          redirectTo: "/"
+          redirectTo: "/home"
         });
     }
 })();

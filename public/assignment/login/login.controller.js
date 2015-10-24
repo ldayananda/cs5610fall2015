@@ -3,15 +3,28 @@
 
 	app.controller("LoginController", LoginController);
 
-	function LoginController ($scope, UserService) {
+	function LoginController ($rootScope, $location, UserService) {
 
-		function login (username, password) {
-			$scope.user = UserService.findUserByUsernameAndPassword(username, password);
+		$rootScope.login = login;
 
+		function login (user) {
+			var user = UserService.findUserByUsernameAndPassword(user.username, user.password);
+			console.log(user);
+
+			$rootScope.location = $location;
 			if (user != null) {
 				$rootScope.user = user;
-				$location = "../profile";
+				$location.url('#/profile');
+							console.log($location.url());
+			} else {
+				$location.url('#/home');
+							console.log($location.url());
 			}
+
+			$location.path('#/profile');
+    		$location.path() == '#/profile';
+
+			console.log($location.url());
 		}
 	}
 })();
