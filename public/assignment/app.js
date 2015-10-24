@@ -1,3 +1,7 @@
+// (function(){
+// 	var app = angular.module("FormBuilderApp", ["ngRoute"]);
+// })();
+
 (function(){
-	var app = angular.module("FormBuilderApp", ["ngRoute"]);
+  angular.module("FormBuilderApp", ["ngRoute"])
 })();

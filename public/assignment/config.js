@@ -1,41 +1,32 @@
-(function() {
-	angular
-		.module("FormBuilderApp")
-		.config(RouteController);
+(function(){
+  angular
+    .module("FormBuilderApp")
+    .config(RouteController);
 
-	function RouteController($routeProvider) {
-			$routeProvider
-			// 	.when("/", {
-			// 		templateUrl: "index.html"
-			// 	})
-				.when("/profile", {
-					templateUrl : "profile/profile.view.html"
-					//controller : "ProfileController"
-				})
-				.when("/home", {
-					templateUrl : "home/home.view.html"
-				})
-			// 	.when("/admin", {
-			// 		templateUrl: "admin.html"
-			// 	})
-				.when("/login", {
-					templateUrl : "login/login.view.html"
-					//controller : "LoginController"
+    function RouteController($routeProvider){
+      $routeProvider
+        .when("/", {
+          templateUrl: "home/home.view.html"
+        })
+        .when("/profile", {
+          templateUrl: "profile/profile.view.html",
+          controller: "ProfileController"
+        })
+        .when("/admin", {
+          templateUrl: "admin/admin.view.html",
+          controller: "AdminController"
+        })
 
-				})
-				.when("/register", {
-					templateUrl : "register/register.view.html"
-					//controller : "RegisterController"
-				})
-			// 	.when("/forms", {
-			// 		templateUrl: "forms.html"
-			// 	})
-			// 	.when("/form-fields", {
-			// 		templateUrl: "form-fields.html"
-			// 	})
-				.otherwise({
-                	//redirectTo: "/home"
-                	redirectTo: ""
-            	});
-	}
+        .when("/login", {
+        	templateUrl : "login/login.view.html",
+			controller : "LoginController"
+		})
+        .when("/register", {
+        	templateUrl : "register/register.view.html",
+			controller : "RegisterController"
+		})			
+        .otherwise({
+          redirectTo: "/"
+        });
+    }
 })();
