@@ -17,8 +17,7 @@
 			newUser.email = user.email;
 
 			$rootScope.user = newUser;
-			$location.path("profile").replace();
-			$window.location = $location.absUrl();
+			$location.path("/profile");
 		}
 	}
 
