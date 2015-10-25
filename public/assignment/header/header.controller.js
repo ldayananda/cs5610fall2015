@@ -5,6 +5,10 @@
 
 	function HeaderController($scope, $location) {
 		$scope.location = $location;
-		//console.log($location.url());
+		$scope.isActive = isActive;
+
+		function isActive(viewLocation) { 
+        	return viewLocation === $location.path();
+    	}
 	}
 })();
