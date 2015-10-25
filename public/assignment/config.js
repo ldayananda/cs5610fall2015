@@ -5,6 +5,9 @@
 
     function RouteController($routeProvider){
       $routeProvider
+      	.when("/", {
+      		redirectTo : "/home"
+      	})
         .when("/home", {
         	templateUrl : "home/home.view.html"
         })

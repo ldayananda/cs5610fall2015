@@ -3,7 +3,7 @@
 
 	app.controller("LoginController", LoginController);
 
-	function LoginController ($rootScope, $location, UserService) {
+	function LoginController ($rootScope, $location, $window, UserService) {
 
 		$rootScope.login = login;
 
@@ -14,17 +14,15 @@
 			$rootScope.location = $location;
 			if (user != null) {
 				$rootScope.user = user;
-				$location.url('#/profile');
-							console.log($location.url());
+				$location.path("profile").replace();
 			} else {
-				$location.url('#/home');
-							console.log($location.url());
+				$location.path("home").replace();
 			}
 
-			$location.path('#/profile');
-    		$location.path() == '#/profile';
-
-			console.log($location.url());
+    		$window.location = $location.absUrl();
+    		console.log("location window " + $window.location);
+    		console.log("href " + $window.location.href);
+    		console.log("location " + $location.absUrl());
 		}
 	}
 })();
