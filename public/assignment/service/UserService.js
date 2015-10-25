@@ -6,7 +6,7 @@
 	function UserService() {
 		var users = [
 			{username : "Phil", password : "a"},
-			{username : "Alice", password : "b"},
+			{username : "Alice", password : "b"}
 		];
 
 		var service = {

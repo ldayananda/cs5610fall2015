@@ -14,50 +14,53 @@
         };
         return service;
 
-		function createFormForUser(userId, form, callback) {
+		function createFormForUser(userId, form) {
 			form.id = guid();
 			form.userid = userId;
 			forms.push(form);
-			callback(form);
+			return form;
 		}
 
-		function findAllFormsForUser(userId, callback) {
+		function findAllFormsForUser(userId) {
 			var found = [];
 
 			var i;
-			var len = forms.length();
+			var len = forms.length;
 			for (i = 0; i < len; i++) {
 				if (forms[i].userid == userId) {
 					found.push(forms[i]);
 				}
 			}
 
-			callback(found);
+			return found;
 		}
 
-		function deleteFormById(formId, callback) {
+		function deleteFormById(formId) {
 			var i;
-			var len = forms.length();
+			var len = forms.length;
+			console.log(forms);
+
 			for (i = 0; i < len; i++) {
+				console.log(forms[i]);
 				if (forms[i].id == formId) {
 					forms.splice(i, 1);
 				}
 			}
 
-			callback(forms);
+			return forms;
 		}
 
-		function updateFormById(formId, newForm, callback) {
+		function updateFormById(formId, newForm) {
 			var i;
-			var len = forms.length();
+			var len = forms.length;
 			for (i = 0; i < len; i++) {
 				if (forms[i].id = formId) {
 					forms[i].userid = newForm.userid;
-					callback(forms[i]);
+					return forms[i];
 				}
 			}
 
-			callback(null);
+			return null;
 		}
 
 		function guid() {
