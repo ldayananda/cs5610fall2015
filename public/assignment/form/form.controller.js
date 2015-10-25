@@ -15,6 +15,7 @@
 		$scope.addForm = addForm;
 		$scope.updateForm = updateForm;	
 		$scope.deleteForm = deleteForm;
+		$scope.selectForm = selectForm;
 
 		function addForm(form) {
 			if (user == null) {
@@ -30,11 +31,11 @@
 			if (user == null) {
 				return null;
 			}
-			var form = FormService.updateFormById(form.id, form);
+			var form = FormService.updateFormById($scope.selectForm.id, form);
 			$scope.forms = FormService.findAllFormsForUser(user.id);
 		}
 
-		function deleteForm(index) {
+		function deleteForm(index) { //TODO finish this 
 			console.log(index);
 			$scope.forms = FormService.findAllFormsForUser(user.id);
 			var allForms = $scope.forms;
@@ -42,6 +43,14 @@
 			console.log(allForms[index]);
 			console.log(allForms[index].id);
 			var forms = FormService.deleteFormById(allForms[index].id);
+		}
+
+		function selectForm(index) {//TODO finish this
+			var allForms = $scope.forms;
+			if (allForms != null ) {
+				$scope.selectedForm = allForms[index];
+				$scope.form.name = $scope.selectedForm.name;
+			}
 		}
 	}
 })();
