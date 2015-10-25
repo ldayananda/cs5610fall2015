@@ -8,16 +8,18 @@
 
 		function register(user) {
 			if (user.password != user.verifyPassword) {
+				$location.path("#/register");
 				return null;
 			}
 
-			var newUser = UserService.createUser(user);
-			newUser.username = user.username;
-			newUser.password = user.password;
-			newUser.email = user.email;
+			var newUser = {
+				username : user.username,
+				password : user.password,
+				email : user.email
+			};
 
-			$rootScope.user = newUser;
-			$location.path("/profile");
+			$rootScope.user = UserService.createUser(newUser);;
+			$location.path("#/profile");
 		}
 	}
 
