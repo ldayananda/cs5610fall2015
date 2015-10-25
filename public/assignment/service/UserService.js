@@ -14,7 +14,8 @@
 			findAllUsers : findAllUsers,
 			createUser : createUser,
 			deleteUserById : deleteUserById,
-			updateUser : updateUser
+			updateUser : updateUser,
+			guid : guid
 		};
 		return service;
 
@@ -34,9 +35,7 @@
 		}
 
 		function createUser(user) {
-			var guid = guid(); //Guid.create();
-			//Guid.isGuid(guid);
-
+			var guid = this.guid(); 
 			user.id = guid;
 			users.push(user);
 			return user;
