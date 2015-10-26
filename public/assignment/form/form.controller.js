@@ -9,8 +9,6 @@
 		} else {
 			$scope.forms = [];
 		}
-		console.log("initial forms");
-		console.log($scope.forms);
 
 		$scope.addForm = addForm;
 		$scope.updateForm = updateForm;	
@@ -24,7 +22,6 @@
 
 			var form = FormService.createFormForUser(user.id, form);
 			$scope.forms = FormService.findAllFormsForUser(user.id);
-			console.log($scope.forms);
 		};
 
 		function updateForm(form) {
@@ -35,21 +32,20 @@
 			$scope.forms = FormService.findAllFormsForUser(user.id);
 		}
 
-		function deleteForm(index) { //TODO finish this 
-			console.log(index);
+		function deleteForm(index) {
 			$scope.forms = FormService.findAllFormsForUser(user.id);
 			var allForms = $scope.forms;
-			console.log("i think ? ");
-			console.log(allForms[index]);
-			console.log(allForms[index].id);
 			var forms = FormService.deleteFormById(allForms[index].id);
 		}
 
 		function selectForm(index) {//TODO finish this
 			var allForms = $scope.forms;
 			if (allForms != null ) {
+				console.log("ind " + index);
 				$scope.selectedForm = allForms[index];
-				$scope.form.name = $scope.selectedForm.name;
+				console.log($scope.selectedForm);
+				$scope.form.name = allForms[index].name;
+				console.log($scope.selectedForm.name);
 			}
 		}
 	}

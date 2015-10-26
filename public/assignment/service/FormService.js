@@ -38,11 +38,10 @@
 		function deleteFormById(formId) {
 			var i;
 			var len = forms.length;
-			console.log(forms);
 
 			for (i = 0; i < len; i++) {
-				console.log(forms[i]);
-				if (forms[i].id == formId) {
+				var elem = forms[i];
+				if (elem != null && elem.id == formId) {
 					forms.splice(i, 1);
 				}
 			}

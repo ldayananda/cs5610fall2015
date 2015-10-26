@@ -5,17 +5,18 @@
 
 	function LoginController ($scope, $rootScope, $location, $window, UserService) {
 		$rootScope.login = login;
+		$rootScope.location = $location; 
 
 		function login (user) {
 			var user = UserService.findUserByUsernameAndPassword(user.username, user.password);
 
-			$rootScope.location = $location;
+		//	$rootScope.location = $location;
 			if (user != null) {
 				$rootScope.user = user;
-				$location.path("/profile");
+				$location.path("#/profile");
 
 			} else {
-				$location.path("/home");
+				$location.path("#/home");
 			}
 		}
 	}
