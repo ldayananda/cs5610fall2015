@@ -3,7 +3,7 @@
 
 	app.controller("LoginController", LoginController);
 
-	function LoginController ($scope, $rootScope, $location, $window, UserService) {
+	function LoginController ($scope, $rootScope, $location, UserService) {
 		$rootScope.login = login;
 		$rootScope.location = $location; 
 

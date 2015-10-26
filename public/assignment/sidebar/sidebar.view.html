@@ -19,6 +19,8 @@
 			<a href="#/profile"> Profile </a>
 		</li>
 		<li><a href="#"> Admin </a></li>
-		<li><a href="#/forms"> Forms </a></li>
+		<li ng-class="{ 'active' : $location.url().indexof('forms') != -1 }">
+			<a href="#/forms"> Forms </a>
+		</li>
 	</ul>
 </div>
