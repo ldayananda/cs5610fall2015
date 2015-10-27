@@ -3,12 +3,6 @@
 	app.controller("FormController", FormController);
 
 	function FormController($rootScope, $scope, $location, FormService) {
-		var user = $rootScope.user;
-		if (user != null) {
-			$scope.forms = FormService.findAllFormsForUser(user.id);
-		} else {
-			$scope.forms = [];
-		}
 
 		$scope.addForm = addForm;
 		$scope.updateForm = updateForm;	
@@ -21,32 +15,50 @@
 			}
 
 			var form = FormService.createFormForUser(user.id, form);
-			$scope.forms = FormService.findAllFormsForUser(user.id);
+			$scope.forms.push(form);
+			//$scope.forms = FormService.findAllFormsForUser(user.id);
 		};
 
 		function updateForm(form) {
 			if (user == null) {
 				return null;
 			}
-			var form = FormService.updateFormById($scope.selectForm.id, form);
-			$scope.forms = FormService.findAllFormsForUser(user.id);
+			console.log("update " + $scope.selectedFormIndex);
+			console.log($scope.selectedForm);
+			//var form = FormService.updateFormById($scope.selectedForm.id, form);
+			//$scope.forms = FormService.findAllFormsForUser(user.id);
+			console.log($scope.forms);
+			console.log($scope.forms[$scope.selectedFormIndex]);
+			console.log(form.name);
+			$scope.forms[$scope.selectedFormIndex].name = form.name;
+			console.log("after");
+			console.log($scope.forms);
 		}
 
 		function deleteForm(index) {
 			$scope.forms = FormService.findAllFormsForUser(user.id);
 			var allForms = $scope.forms;
+			$scope.forms.splice(index, 1);
 			var forms = FormService.deleteFormById(allForms[index].id);
+			$scope.forms = forms;
 		}
 
 		function selectForm(index) {//TODO finish this
 			var allForms = $scope.forms;
 			if (allForms != null ) {
 				console.log("ind " + index);
-				$scope.selectedForm = allForms[index];
-				console.log($scope.selectedForm);
-				$scope.form.name = allForms[index].name;
+				$rootScope.selectedFormIndex = index;
+				console.log($scope.selectedFormIndex);
+				$rootScope.selectedForm = allForms[index];
 				console.log($scope.selectedForm.name);
 			}
+		}
+
+		var user = $rootScope.user;
+		if (user != null) {
+			$scope.forms = FormService.findAllFormsForUser(user.id);
+		} else {
+			$scope.forms = [];
 		}
 	}
 })();

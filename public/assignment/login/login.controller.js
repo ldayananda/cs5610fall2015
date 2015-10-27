@@ -6,11 +6,11 @@
 	function LoginController ($scope, $rootScope, $location, UserService) {
 		$rootScope.login = login;
 		$rootScope.location = $location; 
+		$scope.location = $location;
 
 		function login (user) {
 			var user = UserService.findUserByUsernameAndPassword(user.username, user.password);
 
-		//	$rootScope.location = $location;
 			if (user != null) {
 				$rootScope.user = user;
 				$location.path("#/profile");

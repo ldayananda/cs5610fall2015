@@ -6,17 +6,6 @@
 	function ProfileController($rootScope, $scope, UserService) {
 		$scope.update = update;
 
-		var currUser = $rootScope.user;
-		if (currUser != null) {
-			$scope.user = currUser;
-
-			$scope.user.username  = currUser.username;
-			$scope.user.password  = currUser.password;
-			$scope.user.fname  = currUser.fname;
-			$scope.user.lname  = currUser.lname;
-			$scope.user.email  = currUser.email;
-		}
-
 		function update(user) {
 			var newUser = {
 				username : user.username,
@@ -27,6 +16,17 @@
 			}
 
 			return UserService.updateUser($scope.user, newUser);
+		}
+
+		var currUser = $rootScope.user;
+		if (currUser != null) {
+			$scope.user = currUser;
+
+			$scope.user.username  = currUser.username;
+			$scope.user.password  = currUser.password;
+			$scope.user.fname  = currUser.fname;
+			$scope.user.lname  = currUser.lname;
+			$scope.user.email  = currUser.email;
 		}
 	} 
 })();
