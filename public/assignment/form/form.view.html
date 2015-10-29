@@ -34,23 +34,23 @@
                     <input class="form-control" type="text" placeholder="name" id="name" ng-model="form.name"></input>
                   </td>
                   <td>
-                    <a href="" class="btn btn-default">
+                    <button class="btn btn-default">
                      <span class="glyphicon glyphicon-plus" aria-hidden="true" ng-click="addForm(form)"></span>
-                   </a>
-                   <a href="" class="btn btn-default">
+                   </button>
+                   <button class="btn btn-default">
                      <span class="glyphicon glyphicon-ok" aria-hidden="true" ng-click="updateForm(form)"></span>
-                   </a>
+                   </button>
                  </td>
                </tr>
                <tr ng-repeat="form in forms" ng-class="{'success' : $index == selectedFormIndex }">
                       <td><a href="#">{{form.name}}</a></td>
                       <td>
-                        <a href="#" class="btn btn-default">
+                        <button type="button" class="btn btn-default">
                              <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="deleteForm($index)"></span>
-                        </a>
-                        <a href="#" class="btn btn-default">
+                        </button>
+                        <button type="button" class="btn btn-default">
                              <span class="glyphicon glyphicon-pencil" aria-hidden="true" ng-click="selectForm($index)"></span>
-                        </a>
+                        </button>
                       </td>
                     </tr>
              </tbody>

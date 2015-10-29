@@ -15,7 +15,7 @@
 			}
 
 			var form = FormService.createFormForUser(user.id, form);
-			$scope.forms.push(form);
+			$rootScope.forms.push(form);
 			//$scope.forms = FormService.findAllFormsForUser(user.id);
 		};
 
@@ -23,16 +23,16 @@
 			if (user == null) {
 				return null;
 			}
-			console.log("update " + $scope.selectedFormIndex);
-			console.log($scope.selectedForm);
+			//console.log("update " + $scope.selectedFormIndex);
+			//console.log($scope.selectedForm);
 			//var form = FormService.updateFormById($scope.selectedForm.id, form);
 			//$scope.forms = FormService.findAllFormsForUser(user.id);
-			console.log($scope.forms);
-			console.log($scope.forms[$scope.selectedFormIndex]);
-			console.log(form.name);
+			// console.log($scope.forms);
+			// console.log($scope.forms[$scope.selectedFormIndex]);
+			// console.log(form.name);
 			$scope.forms[$scope.selectedFormIndex].name = form.name;
-			console.log("after");
-			console.log($scope.forms);
+			// console.log("after");
+			// console.log($scope.forms);
 		}
 
 		function deleteForm(index) {
@@ -40,17 +40,17 @@
 			var allForms = $scope.forms;
 			$scope.forms.splice(index, 1);
 			var forms = FormService.deleteFormById(allForms[index].id);
-			$scope.forms = forms;
+			$rootScope.forms = forms;
 		}
 
 		function selectForm(index) {//TODO finish this
 			var allForms = $scope.forms;
 			if (allForms != null ) {
-				console.log("ind " + index);
+				//console.log("ind " + index);
 				$rootScope.selectedFormIndex = index;
-				console.log($scope.selectedFormIndex);
+				//console.log($scope.selectedFormIndex);
 				$rootScope.selectedForm = allForms[index];
-				console.log($scope.selectedForm.name);
+				//console.log($scope.selectedForm.name);
 			}
 		}
 

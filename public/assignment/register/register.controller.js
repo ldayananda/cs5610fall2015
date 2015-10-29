@@ -18,8 +18,8 @@
 				email : user.email
 			};
 
-			$rootScope.user = UserService.createUser(newUser);;
-			$location.path("#/profile");
+			$rootScope.user = UserService.createUser(newUser);
+			$location.path("/profile");
 		}
 	}
 

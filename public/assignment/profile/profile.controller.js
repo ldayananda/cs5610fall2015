@@ -3,7 +3,7 @@
 
 	app.controller("ProfileController", ProfileController);
 
-	function ProfileController($rootScope, $scope, UserService) {
+	function ProfileController($rootScope, $scope, $location, UserService) {
 		$scope.update = update;
 
 		function update(user) {
@@ -15,6 +15,7 @@
 				 userEmail : user.email
 			}
 
+			$location.path("/profile");
 			return UserService.updateUser($scope.user, newUser);
 		}
 

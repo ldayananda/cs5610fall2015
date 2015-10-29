@@ -13,10 +13,10 @@
 
 			if (user != null) {
 				$rootScope.user = user;
-				$location.path("#/profile");
+				$location.path("/profile");
 
 			} else {
-				$location.path("#/home");
+				$location.path("/home");
 			}
 		}
 	}
