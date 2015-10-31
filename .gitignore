@@ -3,3 +3,5 @@ admin.sublime-workspace
 .DS_Store
 public/.DS_Store
 public/lectures
+public/assignment/assignment.sublime-project
+public/assignment/assignment.sublime-workspace
