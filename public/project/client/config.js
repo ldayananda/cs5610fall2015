@@ -7,6 +7,9 @@
 			.when("/home", {
 				templateUrl: "views/home/home.view.html"
 			})
+			.when("/login", {
+				templateUrl: "views/login/login.view.html"
+			})
 			.otherwise({
 				redirectTo: "/home"
 			});
