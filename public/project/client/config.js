@@ -19,6 +19,9 @@
 			.when("/dashboard", {
 				templateUrl: "views/dashboard/dashboard.view.html"
 			})
+			.when("/search", {
+				templateUrl: "views/search/search.view.html"
+			})
 			.otherwise({
 				redirectTo: "/home"
 			});
