@@ -1,0 +1,67 @@
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main ng-scope" ng-controller="RegisterController">
+  <div class="container-fluid">
+    <div class="row">
+      <h1>Register</h1>    
+    </div>
+    <div class="row">
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="name" class="col-sm-2 control-label" >Name:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="name" placeholder="First Name Last Name" ng-model="user.name">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ageRange" class="col-sm-2 control-label" >Age Range:</label>
+          <div class="col-sm-10 dropdown">
+            <button class="btn btn-default btn-block dropdown-toggle" type="button" id="age" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-model="user.age">
+              Age Range
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="age">
+              <li><a href="#">18-29</a></li>
+              <li><a href="#">30-40</a></li>
+              <li><a href="#">40-50</a></li>
+              <li><a href="#">50 onwards</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="location" class="col-sm-2 control-label" >Location:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="location" placeholder="" ng-model="user.location">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="bio" class="col-sm-2 control-label" >Biography:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="bio" placeholder="Tell me a bit about yourself" ng-model="user.bio">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="username" class="col-sm-2 control-label" >Username:</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control" id="username" placeholder="Username" ng-model="user.username">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-sm-2 control-label">Password:</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="verifyPassword" class="col-sm-2 control-label">Verify Password:</label>
+          <div class="col-sm-10">
+            <input type="password" class="form-control" id="verifyPassword" placeholder="Verify Password" ng-model="user.verifyPassword">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-default btn-block" role="button" id="registerBtn">Register</button>
+          </div>
+        </div>
+      </form>
+    </div>    
+  </div>
+</div>
