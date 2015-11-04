@@ -16,6 +16,9 @@
 			.when("/profile", {
 				templateUrl: "views/profile/profile.view.html"
 			})
+			.when("/dashboard", {
+				templateUrl: "views/dashboard/dashboard.view.html"
+			})
 			.otherwise({
 				redirectTo: "/home"
 			});
