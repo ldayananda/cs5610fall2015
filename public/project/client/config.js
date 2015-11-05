@@ -22,6 +22,12 @@
 			.when("/search", {
 				templateUrl: "views/search/search.view.html"
 			})
+			.when("/listing", {
+				templateUrl: "views/listing/listing.view.html"
+			})
+			.when("/powwow", {
+				templateUrl: "views/powwow/powwow.view.html"
+			})
 			.otherwise({
 				redirectTo: "/home"
 			});
