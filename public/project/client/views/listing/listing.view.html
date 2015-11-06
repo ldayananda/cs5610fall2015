@@ -1,12 +1,12 @@
-<div class="container col-sm-10">
+<div class="container col-sm-10" ng-controller="ListingController">
 	<div class="row">
 		<h1 class="col-sm-6">Job Title</h1>
 		<h2 class="col-sm-6 text-right">Location</h2>
 	</div>
 	<div class="row container">
-		<button class="col-sm-6 btn btn-primary btn-sm">Apply</button>
+		<button role="button" class="col-sm-6 btn btn-primary btn-sm" data-toggle="modal" data-target="#resumeDialog">Apply</button>
 		<!-- TODO create custom label style -->
-		<span class="pull-right bg-success label-success" style="padding-top:5px; padding-bottom:5px; padding-left:10px; padding-right:10px">Open</span>
+		<span class="pull-right bg-success label-success status-label" style="padding-top:5px; padding-bottom:5px; padding-left:10px; padding-right:10px">Open</span>
 	</div>
 	<div id="listing_desc">
 		<p>

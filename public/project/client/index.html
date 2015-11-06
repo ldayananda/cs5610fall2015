@@ -12,6 +12,8 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.0-beta.0/angular-route.js"></script>
 
+	<!-- Custom Style File -->
+	<script href="../css/style.css" rel="stylesheet"></script>
 	<!-- Express files -->
 	<script src="app.js"></script>
 	<script src="config.js"></script>
@@ -26,6 +28,8 @@
 	<script src="views/register/register.controller.js"></script>
 	<script src="views/resumeDialog/resumeDialog.controller.js"></script>
 	<script src="views/search/search.controller.js"></script>
+	<!-- Services -->
+	<script src="services/ModalService.js"></script>
 
 </head>
 <body>
@@ -39,6 +43,39 @@
 			</div>
 		</div>
 	</div>
-	
+	<div class="modal fade" id="resumeDialog" tabindex="-1" role="dialog" aria-labelledby="resumeDialogLabel" ng-controller="ResumeDialogController">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="resumeDialogLabel">Modal title</h4>
+				</div>
+				<div class="modal-body block-center">
+
+					<div class="row">
+						<label for="resumes" class="col-sm-2 form-label">Choose a resume:</label>
+						<div class="dropdown">
+							<button class="col-sm-9 btn btn-default dropdown-toggle" type="button" id="resumes" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+								General Resume
+								<span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" aria-labelledby="resumes">
+								<li><a href="#">General Resume</a></li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="row">
+						<label for="uploadFile" class="col-sm-2 form-label">Cover letter:</label>
+						<button id="uploadFile" type="button" class="col-sm-9 btn btn-default" type="button">Upload From Computer</button>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary btn-block">Submit</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

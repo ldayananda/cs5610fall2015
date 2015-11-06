@@ -1,0 +1,11 @@
+.container-view {
+	vertical-align: bottom;
+	float: bottom;
+	margin-top: 200px;
+	background-color: red;
+	color : red;
+}
+
+.status-label {
+	@extend .label-success;
+}

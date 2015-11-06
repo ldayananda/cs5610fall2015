@@ -28,6 +28,9 @@
 			.when("/powwow", {
 				templateUrl: "views/powwow/powwow.view.html"
 			})
+			.when("/resumeDialog", {
+				templateUrl: "views/resumeDialog/resumeDialog.view.html"
+			})
 			.otherwise({
 				redirectTo: "/home"
 			});

@@ -3,6 +3,5 @@
 	app.controller("ResumeDialogController", ResumeDialogController);
 
 	function ResumeDialogController() {
-
 	}
 })();
