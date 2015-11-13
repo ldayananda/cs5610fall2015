@@ -54,7 +54,8 @@ module.exports = function(app) {
 			}
 		}
 
-    	// return ?
+    	// return all objects
+        return users;
     }
 
     function deleteUser(userId) {
@@ -66,7 +67,8 @@ module.exports = function(app) {
 		    	users.splice(i, 1);
 			}
 		}
-
+        
+        return users;
     }
 
     function findUserByUsername(username) {
