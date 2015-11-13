@@ -11,23 +11,23 @@
 
 	<script src="app.js"></script>
 	<script src="config.js"></script>
-	<script src="header/header.controller.js"></script>
-	<script src="sidebar/sidebar.controller.js"></script>
-	<script src="login/login.controller.js"></script>
-	<script src="register/register.controller.js"></script>
-	<script src="profile/profile.controller.js"></script>
-	<script src="form/form.controller.js"></script>
-	<script src="service/UserService.js"></script>
-	<script src="service/FormService.js"></script>
+	<script src="views/header/header.controller.js"></script>
+	<script src="views/sidebar/sidebar.controller.js"></script>
+	<script src="views/login/login.controller.js"></script>
+	<script src="views/register/register.controller.js"></script>
+	<script src="views/profile/profile.controller.js"></script>
+	<script src="views/form/form.controller.js"></script>
+	<script src="services/UserService.js"></script>
+	<script src="services/FormService.js"></script>
 
 </head>
 <body>
 	<div class="container">
 		<div class="row">
-			<div ng-include="'header/header.view.html'" ng-controller="HeaderController"></div>
+			<div ng-include="'views/header/header.view.html'" ng-controller="HeaderController"></div>
 		</div>
 		<div class="row">
-			<div ng-include="'sidebar/sidebar.view.html'" ng-controller="SidebarController"></div>
+			<div ng-include="'views/sidebar/sidebar.view.html'" ng-controller="SidebarController"></div>
 			<div class="col-sm-10" ng-view>
 			</div>
 		</div>
