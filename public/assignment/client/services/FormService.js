@@ -3,9 +3,7 @@
 
 	app.factory("FormService", FormService);
 
-	function FormService() {
-		var forms = [];
-
+	function FormService($http, $q) {
 		var service = {
             createFormForUser : createFormForUser,
             findAllFormsForUser : findAllFormsForUser,
@@ -15,63 +13,100 @@
         return service;
 
 		function createFormForUser(userId, form) {
-			form.id = guid();
-			form.userid = userId;
-			forms.push(form);
-			return form;
+			var deferred = $q.defer;
+
+			$http
+				.post("/api/assignment/user/" + userId + "/form")
+				.success(function(response) {
+					deferred.resolve(response);
+				})
+
+			return deferred.promise;
+			// var guid = Guid.create();
+			// form.id = guid;
+			// form.userid = userId;
+			// forms.push(form);
+			// return form;
 		}
 
 		function findAllFormsForUser(userId) {
-			var found = [];
+			var deferred = $q.defer;
 
-			var i;
-			var len = forms.length;
-			for (i = 0; i < len; i++) {
-				if (forms[i].userid == userId) {
-					found.push(forms[i]);
-				}
-			}
+			$http
+				.get("/api/assignment/user/" + userId + "/form")
+				.success(function(response) {
+					deferred.resolve(response);
+				})
+				
+			return deferred.promise;
+			// var found = [];
 
-			return found;
+			// var i;
+			// var len = forms.length;
+			// for (i = 0; i < len; i++) {
+			// 	if (forms[i].userid == userId) {
+			// 		found.push(forms[i]);
+			// 	}
+			// }
+
+			// return found;
 		}
 
 		function deleteFormById(formId) {
-			var i;
-			var len = forms.length;
+			var deferred = $q.defer;
 
-			for (i = 0; i < len; i++) {
-				var elem = forms[i];
-				if (elem != null && elem.id == formId) {
-					forms.splice(i, 1);
-				}
-			}
+			$http
+				.delete("/api/assignment/form/" + formId)
+				.success(function(response) {
+					deferred.resolve(response);
+				})
+				
+			return deferred.promise;
+			// var i;
+			// var len = forms.length;
 
-			return forms;
+			// for (i = 0; i < len; i++) {
+			// 	var elem = forms[i];
+			// 	if (elem != null && elem.id == formId) {
+			// 		forms.splice(i, 1);
+			// 	}
+			// }
+
+			// return forms;
 		}
 
 		function updateFormById(formId, newForm) {
-			var i;
-			var len = forms.length;
-			for (i = 0; i < len; i++) {
-				if (forms[i].id = formId) {
-					forms[i].userid = newForm.userid;
-					return forms[i];
-				}
-			}
+			var deferred = $q.defer;
 
-			return null;
+			$http
+				.put("/api/assignment/form/" + formId)
+				.success(function(response) {
+					deferred.resolve(response);
+				})
+				
+			return deferred.promise;
+			// var i;
+			// var len = forms.length;
+			// for (i = 0; i < len; i++) {
+			// 	if (forms[i].id = formId) {
+			// 		forms[i].userid = newForm.userid;
+			// 		return forms[i];
+			// 	}
+			// }
+
+			// return null;
 		}
 
-		function guid() {
-  			function s4() {
-		    return Math.floor((1 + Math.random()) * 0x10000)
-		      .toString(16)
-		      .substring(1);
-			}
+		// function guid() {
+  // 			function s4() {
+		//     return Math.floor((1 + Math.random()) * 0x10000)
+		//       .toString(16)
+		//       .substring(1);
+		// 	}
 
-	    	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-	    	s4() + '-' + s4() + s4() + s4();
-		}
+	 //    	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+	 //    	s4() + '-' + s4() + s4() + s4();
+		// }
 
 	}
 

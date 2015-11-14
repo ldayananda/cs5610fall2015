@@ -14,7 +14,8 @@ module.exports = function(app) {
 
     function createForm(form) {
         // add FormId
-        // TODO?
+        var guid = Guid.create();
+        form.id = guid;
     	// add to current collection
     	forms.push(form);
     	// return collection

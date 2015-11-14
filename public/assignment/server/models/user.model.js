@@ -14,6 +14,8 @@ module.exports = function(app) {
     return api;
 
     function createUser(user) {
+        var guid = Guid.create();
+        user.id = guid;
     	// add to current collection
     	users.push(user);
     	// return collection

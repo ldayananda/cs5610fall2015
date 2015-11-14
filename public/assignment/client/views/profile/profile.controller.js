@@ -3,31 +3,46 @@
 
 	app.controller("ProfileController", ProfileController);
 
-	function ProfileController($rootScope, $scope, $location, UserService) {
-		$scope.update = update;
+	function ProfileController($rootScope, $location, UserService) {
+		var model = this;
+
+		model.update = update;
+
+		function init() {
+			UserService
+				.findAllUsers()
+				.then(function(users) {
+					model.users = users;
+				});
+		}
+		init();
 
 		function update(user) {
 			var newUser = {
+				id : user.id,
 				username : user.username,
-				 userPassword : user.password,
-				 userFirstName : user.fname,
-				 userLastName : user.lname,
-				 userEmail : user.email
+				password : user.password,
+				firstName : user.firstName,
+				lastName : user.lastName
 			}
 
 			$location.path("/profile");
-			return UserService.updateUser($scope.user, newUser);
+			UserService
+				.updateUser(user.id, newUser)
+				.then(function(users) {
+					model.users = users;
+				})
 		}
 
 		var currUser = $rootScope.user;
 		if (currUser != null) {
-			$scope.user = currUser;
+			model.user = currUser;
 
-			$scope.user.username  = currUser.username;
-			$scope.user.password  = currUser.password;
-			$scope.user.fname  = currUser.fname;
-			$scope.user.lname  = currUser.lname;
-			$scope.user.email  = currUser.email;
+			model.user.username  = currUser.username;
+			model.user.password  = currUser.password;
+			model.user.fname  = currUser.fname;
+			model.user.lname  = currUser.lname;
+			model.user.email  = currUser.email;
 		}
 	} 
 })();

@@ -3,15 +3,27 @@
 
 	app.controller("LoginController", LoginController);
 
-	function LoginController ($scope, $rootScope, $location, UserService) {
-		$rootScope.login = login;
+	function LoginController ($rootScope, $location, UserService) {
+		var model = this;
+
 		$rootScope.location = $location; 
-		$scope.location = $location;
+		model.location = $location;
+		model.login = login;
+
+		function init() {
+			// dunno what to do here
+		}
+		init();
 
 		function login (user) {
-			var user = UserService.findUserByUsernameAndPassword(user.username, user.password);
+			UserService
+				.findUserByUsernameAndPassword(user.username, user.password)
+				.then(function(user) {
+					model.user = user;
+					$rootScope.user = user;
+				});
 
-			if (user != null) {
+			if (model.user != null) {
 				$rootScope.user = user;
 				$location.path("/profile");
 
