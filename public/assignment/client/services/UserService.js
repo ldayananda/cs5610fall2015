@@ -10,8 +10,7 @@
 			findAllUsers : findAllUsers,
 			createUser : createUser,
 			deleteUserById : deleteUserById,
-			updateUser : updateUser,
-			guid : guid
+			updateUser : updateUser
 		};
 		return service;
 

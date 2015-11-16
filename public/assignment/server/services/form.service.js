@@ -1,6 +1,9 @@
-var module = angular.module("FormBuilderAppForms");
+//var module = angular.module("FormBuilderAppForms");
+var q = require("q");
 
-module.exports = function(app, model, db) {
+module.exports = function(app, model) {
+
+
 	app.post("/api/assignment/user/:userId/form", createForm);
 	app.get("/api/assignment/user/:userId/form", findAllForms);
 	app.get("/api/assignment/form/:formId", findFormById);
@@ -25,7 +28,7 @@ module.exports = function(app, model, db) {
 
 	function findFormById(req, res) {
         model
-            .findFormById(req.params.id)
+            .findFormById(req.params.formId)
             .then(function(form) {
             	res.json(form);
             });
@@ -47,5 +50,5 @@ module.exports = function(app, model, db) {
             	res.json(forms)
             });
     }
-
+    
 };

@@ -4,7 +4,6 @@
 	app.factory("FieldService", FieldService);
 
 	function FieldService($http, $q) {
-
 		var service = {
 			createFieldForForm : createFieldForForm,
 			getFieldsForForm : getFieldsForForm,

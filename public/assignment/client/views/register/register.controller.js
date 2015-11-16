@@ -15,10 +15,12 @@
 					model.users = users;
 				});
 		}
+		init();
 
 		function register(user) {
 			if (user.password != user.verifyPassword) {
 				$location.path("#/register");
+				console.log("fail");
 				return null;
 			}
 
@@ -35,6 +37,8 @@
 				.then(function(users) {
 					model.users = users;
 				});
+
+			console.log("%j %j", newUser, model.users)
 			$location.path("/profile");
 		}
 	}

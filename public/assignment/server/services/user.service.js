@@ -1,11 +1,10 @@
-var module = angular.module("FormBuilderAppUsers");
+//var module = angular.module("FormBuilderAppUsers");
+var q = require("q");
 
-module.exports = function(app, model, db) {
+module.exports = function(app, model) {
 	app.post("/api/assignment/user", createUser);
 	app.get("/api/assignment/user", findAllUsers);
 	app.get("/api/assignment/user/:id", findUserById);
-	app.get("/api/assignment/user?username=username", findUserByUsername);
-	app.get("/api/assignment/user?username=alice&password=wonderland", findUserByCredentials);
 	app.put("/api/assignment/user/:id", updateUser);
 	app.delete("/api/assignment/user/:id", deleteUser);
 
@@ -18,11 +17,34 @@ module.exports = function(app, model, db) {
     }
 
 	function findAllUsers(req, res) {
-        model
-            .findAllUsers()
-            .then(function(users) {
-            	res.json(users);
-            });
+        var username = req.query.username;
+        var password = req.query.password;
+
+        if (username != null && password != null) {
+            var credentials = {
+                username : username,
+                password : password
+            };
+
+            model
+                .findUserByCredentials(credentials)
+                .then(function(user) {
+                    res.json(user);
+                });
+
+        } else if (username != null) {
+            model
+                .findUserByUsername(username)
+                .then(function(user) {
+                    res.json(user);
+                });
+        } else {
+            model
+                .findAllUsers()
+                .then(function(users) {
+                	res.json(users);
+                });
+        }
     }
 
 	function findUserById(req, res) {

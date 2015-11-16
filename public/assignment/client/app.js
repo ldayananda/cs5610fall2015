@@ -1,3 +1,5 @@
 (function(){
-  angular.module("FormBuilderApp", ["ngRoute"])
+  var app = angular.module("FormBuilderApp", ["ngRoute"]);
+  var userModule = angular.module("FormBuilderAppUsers", ["ngRoute"]);
+  var formModule = angular.module("FormBuilderAppForms", ["ngRoute"]);
 })();

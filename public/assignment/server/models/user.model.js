@@ -1,11 +1,22 @@
-var module = angular.module("FormBuilderAppUsers");
+//var module = angular.module("FormBuilderAppUsers");
+var q = require("q");
 
 module.exports = function(app) {
-	var users = [];
+    //app.module("FormBuilderAppUsers");
+
+	var users = module.exports = 
+[
+    {"id": 123, "firstName": "Alice",   "lastName": "Wonderland",   "username": "alice",    "password": "alice"},
+    {"id": 234, "firstName": "Bob", "lastName": "Hope",         "username": "bob",  "password": "bob"},
+    {"id": 345, "firstName": "Charlie", "lastName": "Brown",        "username": "charlie", "password": "charlie"},
+    {"id": 456, "firstName": "Dan", "lastName": "Craig",        "username": "dan",  "password": "dan"},
+    {"id": 567, "firstName": "Edward",  "lastName": "Norton", "username": "ed", "password": "ed"}
+];
+    // var users = require('./user.mock.json');
     var api = {
         createUser : createUser,
         findAllUsers : findAllUsers,
-        findUsersById : findUsersById,
+        findUserById : findUserById,
         updateUser : updateUser,
         deleteUser : deleteUser,
         findUserByUsername : findUserByUsername,
@@ -14,34 +25,43 @@ module.exports = function(app) {
     return api;
 
     function createUser(user) {
+        var deferred = q.defer();
+
         var guid = Guid.create();
         user.id = guid;
     	// add to current collection
     	users.push(user);
+        deferred.resolve(users);
     	// return collection
-    	return users;
+    	return deferred.promise;
     }
 
     function findAllUsers() {
+        var deferred = q.defer();
+
     	// return collection
-    	return users;
+        deferred.resolve(users);
+    	return deferred.promise;
     }
 
-    function findUsersById(userId) {
+    function findUserById(userId) {
+        var deferred = q.defer();
+
     	// find the object in the collection with id userId
     	var len = users.length;
 		for (i = 0; i < len; i++) {
 			if (users[i].id == userId) {
 		    	// return the matching element, if found
-				return users[i];
+				deferred.resolve(users[i]);
 			}
 		}
 
-    	// return null otherwise
-    	return null;
+    	return deferred.promise;
     }
 
     function updateUser(userId, newUser) {
+        var deferred = q.defer();
+
     	// find the object in the collection with id userId
     	var len = users.length;
 		for (i = 0; i < len; i++) {
@@ -56,11 +76,14 @@ module.exports = function(app) {
 			}
 		}
 
+        deferred.resolve(users);
     	// return all objects
-        return users;
+        return deferred.promise;
     }
 
     function deleteUser(userId) {
+        var deferred = q.defer();
+
     	// find the object in the collection with id userId
     	var len = users.length;
 		for (i = 0; i < len; i++) {
@@ -70,35 +93,40 @@ module.exports = function(app) {
 			}
 		}
         
-        return users;
+        deferred.resolve(users);
+        //return all users
+        return deferred.promise;
     }
 
     function findUserByUsername(username) {
+        var deferred = q.defer();
+
     	// find the object with username value username
     	var len = users.length;
 		for (i = 0; i < len; i++) {
 			if (users[i].username == username) {
 		    	// return the matching object, if found
-		    	return users[i];
+		    	deferred.resolve(users[i]);
 			}
 		}
 
-    	// otherwise return null
-    	return null;
+    	return deferred.promise;
     }
 
     function findUserByCredentials(credentials) {
+        var deferred = q.defer();
+
     	// credentials : { username : '', password : ''}
     	// find the user in the collection who has username credentials.username and password credentials.password
     	var len = users.length;
 		for (i = 0; i < len; i++) {
 			if (users[i].username == credentials.username && users[i].password == credentials.password) {
 		    	// return the matching object, if found
-		    	return users[i];
+		    	deferred.resolve(users[i]);
 			}
 		}
 
     	// otherwise return null
-    	return null;
+    	return deferred.promise;
     }
 }
