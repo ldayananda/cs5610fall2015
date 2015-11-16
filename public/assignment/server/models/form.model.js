@@ -32,7 +32,12 @@ module.exports = function(app) {
         findFormById : findFormById,
         updateForms : updateForms,
         deleteForms : deleteForms,
-        findFormByTitle: findFormByTitle
+        findFormByTitle: findFormByTitle,
+        createField : createField,
+        findAllFields : findAllFields,
+        findFieldById : findFieldById,
+        updateField : updateField,
+        deleteField : deleteField
     };
     return api;
 
@@ -123,5 +128,109 @@ module.exports = function(app) {
 
     	// otherwise returns null
     	return deferred.promise;	
+    }
+
+    function createField(field, formId) {
+        var deferred = q.defer();
+
+        // add fieldId
+        var guid = Guid.create();
+        field.id = guid;
+
+        // add to form's collection
+        var form = findFormById(formId);
+        var fields = pushField(field, form);
+        // return collection
+        deferred.resolve(fields);
+        return deferred.promise;
+    }
+
+    function findAllFields(formId) {
+        var deferred = q.defer();
+
+        // get collection
+        var form = findFormById(formId);
+        var fields = getFields(form);
+
+        // return collection
+        deferred.resolve(fields);
+        return deferred.promise;
+    }
+
+    function findFieldById(formId, id) {
+        var deferred = q.defer();
+
+        // get collection
+        var form = findFormById(formId);
+        var fields = getFields(form);
+
+        // find field in collection whose id is id
+        var len = fields.length;
+        for (i = 0; i < len; i++) {
+            if (fields[i].id == id) {
+                // returns matching object, if found
+                deferred.resolve(forms[i]);
+            }
+        }
+        return deferred.promise;
+    }
+
+    function updateField(formId, newField) {
+        var deferred = q.defer();
+
+        // get collection
+        var form = findFormById(formId);
+        var fields = getFields(form);
+
+        // find field in collection whose id is id
+        var len = fields.length;
+        for (i = 0; i < len; i++) {
+            if (fields[i].id == id) {
+                var field = fields[i];
+                field.id = newField.id;
+                field.label = newField.label;
+                field.type = newField.type;
+                field.placeholder = newField.placeholder;
+                field.options = newField.options;
+
+                deferred.resolve(field);
+            }
+        }
+        return deferred.promise;
+    }
+
+    function deleteField(formId, id) {
+        var deferred = q.defer();
+
+        // get collection
+        var form = findFormById(formId);
+        var fields = getFields(form);
+
+        // find field in collection whose id is id
+        var len = fields.length;
+        for (i = 0; i < len; i++) {
+            if (fields[i].id == id) {
+                fields.splice(i, 1);
+                // returns remaining fields
+                deferred.resolve(forms);
+            }
+        }
+        return deferred.promise;     
+    }
+
+    function pushField(field, form) {
+        if (!form.fields) {
+            form.fields = [];
+        }
+        form.fields.push(field);
+
+        return form.fields;
+    }
+
+    function getFields(form) {
+        if (!form.fields) {
+            form.fields = [];
+        }
+        return form.fields;
     }
 }

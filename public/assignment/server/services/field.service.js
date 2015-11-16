@@ -1,6 +1,7 @@
 //var module = angular.module("FormBuilderAppForms");
+var q = require("q");
 
-module.exports = function(app, model, db) {
+module.exports = function(app, model) {
 	app.post("/api/assignment/form/:formId/field", createField);
 	app.get("/api/assignment/form/:formId/field", findAllFields);
 	app.get("/api/assignment/form/:formId/field/:fieldId", findFieldById);
@@ -11,7 +12,6 @@ module.exports = function(app, model, db) {
 		model
             .createField(req.body, req.params.formId)
             .then(function(fields) {
-            	// make sure guid() is called in field model
             	res.json(fields);
             });
 	}
@@ -34,7 +34,7 @@ module.exports = function(app, model, db) {
 
 	function updateField(req, res) {
 		model
-            .updateField(req.params.formId, req.params.id)
+            .updateField(req.params.formId, req.body)
             .then(function(fields) {
             	res.json(fields);
             });		
