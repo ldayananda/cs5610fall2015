@@ -26,7 +26,7 @@ module.exports = function(app, model) {
 
 	function findFieldById(req, res) {
 		model
-            .findFieldById(req.params.formId, req.params.id)
+            .findFieldById(req.params.formId, req.params.fieldId)
             .then(function(field) {
             	res.json(field);
             });	
@@ -34,7 +34,7 @@ module.exports = function(app, model) {
 
 	function updateField(req, res) {
 		model
-            .updateField(req.params.formId, req.body)
+            .updateField(req.params.formId, req.params.fieldId, req.body)
             .then(function(fields) {
             	res.json(fields);
             });		

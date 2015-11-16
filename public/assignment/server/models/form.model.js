@@ -67,9 +67,11 @@ module.exports = function(app) {
     	// find the object in the collection with id formId
     	var len = forms.length;
 		for (i = 0; i < len; i++) {
+            // console.log("%j\n %s\n\n", forms[i], forms[i].id);
 			if (forms[i].id == formId) {
+                var form = forms[i];
 		    	// return the matching element, if found
-				deferred.resolve(forms[i]);
+				deferred.resolve(form);
 			}
 		}
 
@@ -138,10 +140,14 @@ module.exports = function(app) {
         field.id = guid;
 
         // add to form's collection
-        var form = findFormById(formId);
-        var fields = pushField(field, form);
+        var form = api
+            .findFormById(formId)
+            .then(function(form) {
+                var fields = pushField(field, form);
+                deferred.resolve(fields);
+            });
+        
         // return collection
-        deferred.resolve(fields);
         return deferred.promise;
     }
 
@@ -149,11 +155,14 @@ module.exports = function(app) {
         var deferred = q.defer();
 
         // get collection
-        var form = findFormById(formId);
-        var fields = getFields(form);
+        var form = api
+            .findFormById(formId)
+            .then(function(form) {
+                var fields = getFields(form);
+                deferred.resolve(fields);
+            });
 
         // return collection
-        deferred.resolve(fields);
         return deferred.promise;
     }
 
@@ -161,41 +170,50 @@ module.exports = function(app) {
         var deferred = q.defer();
 
         // get collection
-        var form = findFormById(formId);
-        var fields = getFields(form);
+        var form = api
+            .findFormById(formId)
+            .then(function (form) {
+                var fields = getFields(form);
 
-        // find field in collection whose id is id
-        var len = fields.length;
-        for (i = 0; i < len; i++) {
-            if (fields[i].id == id) {
-                // returns matching object, if found
-                deferred.resolve(forms[i]);
-            }
-        }
+                // find field in collection whose id is id
+                var len = fields.length;
+                for (i = 0; i < len; i++) {
+                    if (fields[i].id == id) {
+                        var field = fields[i];
+                        // returns matching object, if found
+                        deferred.resolve(field);
+                    }
+                }
+            });
+        
         return deferred.promise;
     }
 
-    function updateField(formId, newField) {
+    function updateField(formId, id, newField) {
         var deferred = q.defer();
 
         // get collection
-        var form = findFormById(formId);
-        var fields = getFields(form);
+        var form = api
+            .findFormById(formId)
+            .then(function (form) {
+                var fields = getFields(form);
 
-        // find field in collection whose id is id
-        var len = fields.length;
-        for (i = 0; i < len; i++) {
-            if (fields[i].id == id) {
-                var field = fields[i];
-                field.id = newField.id;
-                field.label = newField.label;
-                field.type = newField.type;
-                field.placeholder = newField.placeholder;
-                field.options = newField.options;
+                // find field in collection whose id is id
+                var len = fields.length;
+                for (i = 0; i < len; i++) {
+                    if (fields[i].id == id) {
+                        var field = fields[i];
+                        field.id = newField.id;
+                        field.label = newField.label;
+                        field.type = newField.type;
+                        field.placeholder = newField.placeholder;
+                        field.options = newField.options;
 
-                deferred.resolve(field);
-            }
-        }
+                        deferred.resolve(field);
+                    }
+                }
+            });
+        
         return deferred.promise;
     }
 
@@ -203,18 +221,22 @@ module.exports = function(app) {
         var deferred = q.defer();
 
         // get collection
-        var form = findFormById(formId);
-        var fields = getFields(form);
+        var form = api
+            .findFormById(formId)
+            .then(function(form) {
+                var fields = getFields(form);
 
-        // find field in collection whose id is id
-        var len = fields.length;
-        for (i = 0; i < len; i++) {
-            if (fields[i].id == id) {
-                fields.splice(i, 1);
-                // returns remaining fields
-                deferred.resolve(forms);
-            }
-        }
+                // find field in collection whose id is id
+                var len = fields.length;
+                for (i = 0; i < len; i++) {
+                    if (fields[i].id == id) {
+                        fields.splice(i, 1);
+                        // returns remaining fields
+                        deferred.resolve(forms);
+                    }
+                }              
+            });
+        
         return deferred.promise;     
     }
 
