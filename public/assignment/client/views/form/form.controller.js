@@ -11,6 +11,11 @@
 		model.selectForm = selectForm;
 
 		function init() {
+			var user = $rootScope.user;
+			if (user == null) {
+				model.forms = [];
+			}
+
 			FormService
 				.findAllFormsForUser($rootScope.user.id)
 				.then(function(forms) {
@@ -26,35 +31,23 @@
 					// createFormForUser returns all forms
 					model.forms = forms;
 				});
-			// if (user == null) {
-			// 	return null;
-			// }
-
-			// // Don't add a form with the extact same data
-			// if ($.inArray(form, model.forms) == -1) {
-			// 	FormService.createFormForUser(user.id, form);
-			// 	model.forms.push(form);
-			// 	model.selectedFormIndex = null;
-			// 	model.selectedForm = null;
-			// }
 		};
 
 		function updateForm(form) {
 			var ind = model.selectedFormIndex;
-			var formRef = model.selectedForm;
+			var formRef = model.forms[ind];
+
+			formRef.title = form.title;
+			console.log("Sending %j to server", formRef);
 
 			FormService
-				.updateFormById(formRef.id, form)
+				.updateFormById(formRef.id, formRef)
 				.then(function(forms) {
+					console.log("controller res %j", forms[ind]);
+
 					// updateFormById returns all forms
 					model.forms = forms;
 				});
-			// if (user == null) {
-			// 	return null;
-			// }
-
-			// FormService.updateFormById(formRef.id, formRef);
-			// model.forms[ind].name = form.name;
 		}
 
 		function deleteForm(index) {
@@ -65,13 +58,6 @@
 				.then(function(forms) {
 					model.forms = forms;
 				});
-
-			// if (user == null) {
-			// 	return null;
-			// }
-			// var form = model.forms[index];
-			// FormService.deleteFormById(form.id);
-			// model.forms.splice(index, 1);
 		}
 
 		function selectForm(index) { 
@@ -86,13 +72,6 @@
 				userId : model.forms[index].userId,
 				fields: model.forms[index].fields
 			};
-		}
-
-		var user = $rootScope.user;
-		if (user != null) {
-			model.forms = FormService.findAllFormsForUser(user.id);
-		} else {
-			model.forms = [];
 		}
 	}
 })();

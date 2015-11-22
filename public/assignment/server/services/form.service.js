@@ -33,9 +33,13 @@ module.exports = function(app, model) {
     }
 
 	function updateForm(req, res) {
+        console.log("updating server side form service with %j %j", req.params, req.body);
+
         model
             .updateForm(req.params.id, req.body)
             .then(function(forms) {
+                console.log("server service: %j", forms);
+
             	res.json(forms);
             });
     }

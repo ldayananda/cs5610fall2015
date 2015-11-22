@@ -13,11 +13,13 @@
         return service;
 
 		function createFormForUser(userId, form) {
-			var deferred = $q.defer;
+			var deferred = $q.defer();
 
 			$http
-				.post("/api/assignment/user/" + userId + "/form")
+				.post("/api/assignment/user/" + userId + "/form", form)
 				.success(function(response) {
+					console.log("form service gets %j", response);
+
 					deferred.resolve(response);
 				})
 
@@ -30,7 +32,7 @@
 		}
 
 		function findAllFormsForUser(userId) {
-			var deferred = $q.defer;
+			var deferred = $q.defer();
 
 			$http
 				.get("/api/assignment/user/" + userId + "/form")
@@ -53,7 +55,7 @@
 		}
 
 		function deleteFormById(formId) {
-			var deferred = $q.defer;
+			var deferred = $q.defer();
 
 			$http
 				.delete("/api/assignment/form/" + formId)
@@ -76,11 +78,13 @@
 		}
 
 		function updateFormById(formId, newForm) {
-			var deferred = $q.defer;
+			var deferred = $q.defer();
+			console.log("replace %s with %j", formId, newForm);
 
 			$http
-				.put("/api/assignment/form/" + formId)
+				.put("/api/assignment/form/" + formId, newForm)
 				.success(function(response) {
+					console.log("client service res %j", response);
 					deferred.resolve(response);
 				})
 				
@@ -96,18 +100,6 @@
 
 			// return null;
 		}
-
-		// function guid() {
-  // 			function s4() {
-		//     return Math.floor((1 + Math.random()) * 0x10000)
-		//       .toString(16)
-		//       .substring(1);
-		// 	}
-
-	 //    	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-	 //    	s4() + '-' + s4() + s4() + s4();
-		// }
-
 	}
 
 })();

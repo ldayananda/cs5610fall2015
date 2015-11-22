@@ -11,25 +11,25 @@
 		model.login = login;
 
 		function init() {
-			// dunno what to do here
+			// Future initalization goes here
 		}
 		init();
 
-		function login (user) {
+		function login(user) {
+
 			UserService
 				.findUserByUsernameAndPassword(user.username, user.password)
 				.then(function(user) {
 					model.user = user;
 					$rootScope.user = user;
+
+					if (model.user != null) {
+						$rootScope.user = user;
+						$location.path("/profile");
+					} else {
+						$location.path("/home");
+					}
 				});
-
-			if (model.user != null) {
-				$rootScope.user = user;
-				$location.path("/profile");
-
-			} else {
-				$location.path("/home");
-			}
 		}
 	}
 })();

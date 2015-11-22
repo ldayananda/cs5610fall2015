@@ -2,9 +2,8 @@
 var q = require("q");
 
 module.exports = function(app) {
-    //app.module("FormBuilderAppUsers");
-
-	var users = module.exports = 
+    // var users = require("user.mock.json");
+    var users = module.exports = 
 [
     {"id": 123, "firstName": "Alice",   "lastName": "Wonderland",   "username": "alice",    "password": "alice"},
     {"id": 234, "firstName": "Bob", "lastName": "Hope",         "username": "bob",  "password": "bob"},
@@ -12,7 +11,7 @@ module.exports = function(app) {
     {"id": 456, "firstName": "Dan", "lastName": "Craig",        "username": "dan",  "password": "dan"},
     {"id": 567, "firstName": "Edward",  "lastName": "Norton", "username": "ed", "password": "ed"}
 ];
-    // var users = require('./user.mock.json');
+    
     var api = {
         createUser : createUser,
         findAllUsers : findAllUsers,
@@ -27,13 +26,15 @@ module.exports = function(app) {
     function createUser(user) {
         var deferred = q.defer();
 
-        var guid = Guid.create();
-        user.id = guid;
+        var uuid = require('node-uuid');
+        user.id = uuid.v1();
+
     	// add to current collection
     	users.push(user);
+
         deferred.resolve(users);
     	// return collection
-    	return deferred.promise;
+        return deferred.promise;
     }
 
     function findAllUsers() {
@@ -62,17 +63,20 @@ module.exports = function(app) {
     function updateUser(userId, newUser) {
         var deferred = q.defer();
 
+
+
     	// find the object in the collection with id userId
     	var len = users.length;
 		for (i = 0; i < len; i++) {
 			if (users[i].id == userId) {
 				var user = users[i];
+
 		    	// update found user with newUser's property values
-				user.id = newUser.id;
 				user.firstName = newUser.firstName;
 				user.lastName = newUser.lastName;
 				user.username = newUser.username;
 				user.password = newUser.password;
+                user.email = newUser.email;
 			}
 		}
 

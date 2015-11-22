@@ -2,7 +2,8 @@
 var q = require("q");
 
 module.exports = function(app) {
-	var forms = module.exports = 
+    // var forms = require("form.mock.json");
+    var forms = module.exports = 
 [
     {"id": "000", "title": "Contacts", "userId": 123,
         "fields": [
@@ -25,13 +26,14 @@ module.exports = function(app) {
         ]
     }
 ];
-//require("./form.mock.json");
+
+    
 	var api = {
         createForm : createForm,
         findAllForms : findAllForms,
         findFormById : findFormById,
-        updateForms : updateForms,
-        deleteForms : deleteForms,
+        updateForm : updateForm,
+        deleteForm : deleteForm,
         findFormByTitle: findFormByTitle,
         createField : createField,
         findAllFields : findAllFields,
@@ -45,10 +47,12 @@ module.exports = function(app) {
         var deferred = q.defer();
 
         // add FormId
-        var guid = Guid.create();
-        form.id = guid;
+        var uuid = require('node-uuid');
+        form.id = uuid.v1();
     	// add to current collection
     	forms.push(form);
+
+        console.log("sending back %j from model", form);
     	// return collection
         deferred.resolve(forms);
     	return deferred.promise;
@@ -79,12 +83,13 @@ module.exports = function(app) {
     	return deferred.promise;
     }
 
-    function updateForms(formId, newForm) {
+    function updateForm(formId, newForm) {
         var deferred = q.defer();
 
     	// find the object in the collection with id formId
     	var len = forms.length;
 		for (i = 0; i < len; i++) {
+
 			if (forms[i].id == formId) {
 				var form = forms[i];
 		    	// update found form with newForm's property values
@@ -100,7 +105,7 @@ module.exports = function(app) {
         return deferred.promise;
     }
 
-    function deleteForms(formId) {
+    function deleteForm(formId) {
         var deferred = q.defer();
 
     	// find the object in the collection with id formId
@@ -202,7 +207,9 @@ module.exports = function(app) {
                 var len = fields.length;
                 for (i = 0; i < len; i++) {
                     if (fields[i].id == id) {
+
                         var field = fields[i];
+                        console.log("going from %j to %j in model", field, newField);
                         field.id = newField.id;
                         field.label = newField.label;
                         field.type = newField.type;

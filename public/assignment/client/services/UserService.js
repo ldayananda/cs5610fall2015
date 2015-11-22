@@ -23,14 +23,6 @@
 				});
 
 			return deferred.promise;
-			// var len = users.length;
-			// for (var i = 0; i < len; i++) {
-			// 	if (users[i].username == username &&
-			// 		users[i].password == password) {
-			// 		return users[i];
-			// 	}
-			// }
-			// return null;
 		}
 
 		function findAllUsers() {
@@ -42,29 +34,23 @@
 				});
 
 			return deferred.promise;
-
-			// return users;
 		}
 
 		function createUser(user) {
-			var deferred = $q.defer;
+			var deferred = $q.defer();
 			
 			$http
-				.post("/api/assignment/user")
+				.post("/api/assignment/user", user)
 				.success(function(response) {
 					deferred.resolve(response);
 				});
 			// sends user to the web service endpoint
 
 			return deferred.promise;
-			// var guid = this.guid(); 
-			// user.id = guid;
-			// users.push(user);
-			// return user;
 		}
 
 		function deleteUserById(userId) {
-			var deferred = $q.defer;
+			var deferred = $q.defer();
 
 			$http
 				.delete("/api/assignment/user/" + userId)
@@ -73,18 +59,10 @@
 				})
 
 			return deferred.promise;
-
-			// var len = users.length;
-			// for (var i = 0; i < len; i++) {
-			// 	if (users[i].id == userId) {
-			// 		users.splice(i, 1);
-			// 	}
-			// }
-			// return users;
 		}
 
 		function updateUser(userId, newUser) {
-			var deferred = $q.defer;
+			var deferred = $q.defer();
 
 			$http
 				.put("/api/assignment/user/" + userId, newUser)
@@ -93,26 +71,6 @@
 				})
 
 			return deferred.promise;
-			// var len = users.length;
-			// for (var i = 0; i < len; i++) {
-			// 	if (users[i].id == userId) {
-			// 		users[i].username = newUser.username;
-			// 		users[i].password = newUser.password;
-			// 		return users[i];
-			// 	}
-			// }
-			// return null;
 		}
-
-		// function guid() {
-  		// 			function s4() {
-		//     return Math.floor((1 + Math.random()) * 0x10000)
-		//       .toString(16)
-		//       .substring(1);
-		// 	}
-
-	 	//    	return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-	 	//    	s4() + '-' + s4() + s4() + s4();
-		// }
 	}
 })();

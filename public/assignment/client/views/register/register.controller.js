@@ -3,7 +3,7 @@
 
 	app.controller("RegisterController", RegisterController);
 
-	function RegisterController ($rootScope, $location, $window, UserService) {
+	function RegisterController($rootScope, $location, $window, UserService) {
 		var model = this;
 
 		model.register = register;
@@ -20,12 +20,10 @@
 		function register(user) {
 			if (user.password != user.verifyPassword) {
 				$location.path("#/register");
-				console.log("fail");
 				return null;
 			}
 
 			var newUser = {
-				id : user.id,
 				firstName : user.firstName,
 				lastName : user.lastName,
 				username : user.username,
@@ -38,7 +36,6 @@
 					model.users = users;
 				});
 
-			console.log("%j %j", newUser, model.users)
 			$location.path("/profile");
 		}
 	}
