@@ -52,7 +52,6 @@ module.exports = function(app) {
     	// add to current collection
     	forms.push(form);
 
-        console.log("sending back %j from model", form);
     	// return collection
         deferred.resolve(forms);
     	return deferred.promise;
@@ -71,7 +70,6 @@ module.exports = function(app) {
     	// find the object in the collection with id formId
     	var len = forms.length;
 		for (i = 0; i < len; i++) {
-            // console.log("%j\n %s\n\n", forms[i], forms[i].id);
 			if (forms[i].id == formId) {
                 var form = forms[i];
 		    	// return the matching element, if found
@@ -209,7 +207,6 @@ module.exports = function(app) {
                     if (fields[i].id == id) {
 
                         var field = fields[i];
-                        console.log("going from %j to %j in model", field, newField);
                         field.id = newField.id;
                         field.label = newField.label;
                         field.type = newField.type;

@@ -18,7 +18,6 @@
 			$http
 				.post("/api/assignment/user/" + userId + "/form", form)
 				.success(function(response) {
-					console.log("form service gets %j", response);
 
 					deferred.resolve(response);
 				})
@@ -79,12 +78,10 @@
 
 		function updateFormById(formId, newForm) {
 			var deferred = $q.defer();
-			console.log("replace %s with %j", formId, newForm);
 
 			$http
 				.put("/api/assignment/form/" + formId, newForm)
 				.success(function(response) {
-					console.log("client service res %j", response);
 					deferred.resolve(response);
 				})
 				

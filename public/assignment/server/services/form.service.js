@@ -33,13 +33,9 @@ module.exports = function(app, model) {
     }
 
 	function updateForm(req, res) {
-        console.log("updating server side form service with %j %j", req.params, req.body);
-
         model
-            .updateForm(req.params.id, req.body)
+            .updateForm(req.params.formId, req.body)
             .then(function(forms) {
-                console.log("server service: %j", forms);
-
             	res.json(forms);
             });
     }
@@ -47,7 +43,7 @@ module.exports = function(app, model) {
 
 	function deleteForm(req, res) {
         model
-            .deleteForm(req.params.id)
+            .deleteForm(req.params.formId)
             .then(function(forms) {
             	res.json(forms)
             });

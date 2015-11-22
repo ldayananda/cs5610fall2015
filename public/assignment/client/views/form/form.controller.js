@@ -38,12 +38,10 @@
 			var formRef = model.forms[ind];
 
 			formRef.title = form.title;
-			console.log("Sending %j to server", formRef);
 
 			FormService
 				.updateFormById(formRef.id, formRef)
 				.then(function(forms) {
-					console.log("controller res %j", forms[ind]);
 
 					// updateFormById returns all forms
 					model.forms = forms;

@@ -11,7 +11,7 @@
 
 			<div class="container-fluid tab-box" ng-repeat="field in model.fields">
 				<div class="row" ng-switch="model.fieldType">
-					<div class="container-fluid" ng-switch-when="model.fieldType.singleLine">
+					<div class="container-fluid" ng-switch-when="singleLine">
 						<label class="col-xs-6">First Name:<input type="text" class="form-control" name="firstName" placeholder="First Name" ng-model="field"></input></label>
 						<div class="col-xs-2"></div>
 
@@ -23,7 +23,7 @@
 								<button type="button" class="btn btn-default">
 									<span class="glyphicon glyphicon-plus"></span>
 								</button>
-								<button type="button" class="btn btn-default" ng-click="removeField(field)">
+								<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
 									<span class="glyphicon glyphicon-remove"></span>
 								</button>
 								<button type="button" class="btn btn-default">
@@ -34,35 +34,39 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="container-fluid" ng-switch-when="model.fieldType.singleLine">
+					<div class="container-fluid" ng-switch-when="singleLine">
 						<label class="col-xs-6">Last Name:<input type="text" class="form-control" name="lastName" placeholder="Last Name" ng-model="field"></input></label>
 						<div class="col-xs-2"></div>
 						<div class="col-xs-4 container-fluid">
 							<div class="btn-group-align input-group">
 								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
 								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+								<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
+									<span class="glyphicon glyphicon-remove"></span>
+								</button>
 								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="container-fluid" ng-switch-when="model.fieldType.date">
+					<div class="container-fluid" ng-switch-when="date">
 						<label class="col-xs-6">Date of Birth:<input type="date" class="form-control" name="dob" placeholder="Select Date" ng-model="field"></input></label>
 						<div class="col-xs-2"></div>
 						<div class="col-xs-4 container-fluid">
 							<div class="btn-group-align input-group">
 								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
 								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+								<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
+									<span class="glyphicon glyphicon-remove"></span>
+								</button>
 								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="container-fluid" ng-switch-when="model.fieldType.dropdown">
+					<div class="container-fluid" ng-switch-when="dropdown">
 						<label class="col-xs-6">Gender:
 							<div class="dropdown" ng-model="field">
 								<button class="btn btn-default dropdown-toggle" type="button" id="genderDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
@@ -80,14 +84,16 @@
 							<div class="btn-group-align input-group">
 								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
 								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+								<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
+									<span class="glyphicon glyphicon-remove"></span>
+								</button>
 								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-6 container-fluid" ng-switch-when="model.fieldType.checkbox">
+					<div class="col-xs-6 container-fluid" ng-switch-when="checkbox">
 						<label for="checkBoxes" class="container-fluid">Roles:
 							<div id="checkBoxes">
 								<div class="checkbox">
@@ -107,13 +113,15 @@
 						<div class="input-group btn-group-align">
 							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
 							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+							<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
+								<span class="glyphicon glyphicon-remove"></span>
+							</button>
 							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
 						</div>
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-xs-6 container-fluid" ng-switch-when="model.fieldType.radio">
+					<div class="col-xs-6 container-fluid" ng-switch-when="radio">
 						<label for="radioGroup" class="container-fluid">License Agreement:
 							<div id="radioGroup">
 								<div class="radio">
@@ -130,7 +138,9 @@
 						<div class="input-group btn-group-align">
 							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
 							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+							<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
+								<span class="glyphicon glyphicon-remove"></span>
+							</button>
 							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
 						</div>
 					</div>
@@ -160,7 +170,7 @@
 							</label>
 						</div>
 						<div class="col-xs-2 container-fluid"></div>
-						<div class="col-xs-4 container-fluid btn-group-align" ng-click="addField(model.fieldType)">
+						<div class="col-xs-4 container-fluid btn-group-align" ng-click="model.addField(model.fieldType)">
 							<button type="button" class="btn btn-default">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>

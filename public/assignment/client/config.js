@@ -35,7 +35,7 @@
    })			
     .when("/fields", {
       templateUrl : "views/field/field.view.html",
-      controller: "",
+      controller: "FieldController",
       controllerAs : "model"
     })
     .otherwise({
