@@ -44,7 +44,9 @@
                  </td>
                </tr>
                <tr ng-repeat="form in model.forms" ng-class="{'success' : $index == selectedFormIndex }">
-                      <td><a href="#">{{form.title}}</a></td>
+                      <td>
+                        <a ng-href="#/user/{{form.userId}}/form/{{form.id}}/fields">{{form.title}}</a>
+                      </td>
                       <td>
                         <button type="button" class="btn btn-default">
                              <span class="glyphicon glyphicon-remove" aria-hidden="true" ng-click="model.deleteForm($index)"></span>

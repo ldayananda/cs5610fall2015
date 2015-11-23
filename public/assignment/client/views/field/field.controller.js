@@ -13,16 +13,33 @@
 			if (user == null) {
 				model.fields = [];
 			}
-			console.log("%j\n", $routeParams);
+
+			model.userId = $routeParams.userId
+			model.formId = $routeParams.formId
+
+			FieldService
+				.getFieldsForForm(model.formId)
+				.then(function(fields) {
+
+					model.fields = fields;
+				});
 		}
 		init();
 
-		function addField(fieldType) {
-
+		function addField(fieldType, field) {
+			FieldService
+				.createFieldForForm(model.formId, field)
+				.then(function(fields) {
+					model.fields = fields;
+				});
 		}
 
 		function removeField(field) {
-
+			FieldService
+				.deleteFieldFromForm(model.formId, field.id)
+				.then(function(fields) {
+					model.fields = fields;
+				});
 		}
 	}
 })();

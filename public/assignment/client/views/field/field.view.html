@@ -10,174 +10,129 @@
 			</ul>
 
 			<div class="container-fluid tab-box" ng-repeat="field in model.fields">
-				<div class="row" ng-switch="model.fieldType">
-					<div class="container-fluid" ng-switch-when="singleLine">
-						<label class="col-xs-6">First Name:<input type="text" class="form-control" name="firstName" placeholder="First Name" ng-model="field"></input></label>
-						<div class="col-xs-2"></div>
 
-						<div class="col-xs-4 container-fluid">
-							<div class="btn-group-align input-group">
-								<button type="button" class="btn btn-default">
-									<span class="glyphicon glyphicon-pencil"></span>
-									</button>
-								<button type="button" class="btn btn-default">
-									<span class="glyphicon glyphicon-plus"></span>
-								</button>
-								<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
-									<span class="glyphicon glyphicon-remove"></span>
-								</button>
-								<button type="button" class="btn btn-default">
-									<span class="glyphicon glyphicon-menu-hamburger"></span>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="container-fluid" ng-switch-when="singleLine">
-						<label class="col-xs-6">Last Name:<input type="text" class="form-control" name="lastName" placeholder="Last Name" ng-model="field"></input></label>
+				<div class="row container-fluid" ng-switch="field.fieldType">
+					<div ng-switch-when="singleLine">
+						<label class="col-xs-6">
+							{{field.label}}
+							<input type={{field.type}} class="form-control" placeholder={{field.placeholder}} ng-model="field"></input>
+						</label>
 						<div class="col-xs-2"></div>
-						<div class="col-xs-4 container-fluid">
-							<div class="btn-group-align input-group">
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-								<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
-									<span class="glyphicon glyphicon-remove"></span>
-								</button>
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-							</div>
-						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="container-fluid" ng-switch-when="date">
-						<label class="col-xs-6">Date of Birth:<input type="date" class="form-control" name="dob" placeholder="Select Date" ng-model="field"></input></label>
-						<div class="col-xs-2"></div>
-						<div class="col-xs-4 container-fluid">
-							<div class="btn-group-align input-group">
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-								<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
-									<span class="glyphicon glyphicon-remove"></span>
-								</button>
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-							</div>
-						</div>
+
+					<div ng-switch-when="multiLine">
+						<label class="col-xs-6">
+							{{field.label}}
+							<input type={{field.type}} class="form-control" rows="3" placeholder={{field.placeholder}} ng-model="field"></input>
+						</label>
 					</div>
-				</div>
-				<div class="row">
-					<div class="container-fluid" ng-switch-when="dropdown">
-						<label class="col-xs-6">Gender:
+
+					<div ng-switch-when="date">
+						<label class="col-xs-6">
+							{{field.label}}
+							<input type={{field.type}} class="form-control" name="dob" ng-model="field"></input>
+						</label>
+					</div>
+
+					<div ng-switch-when="dropdown">
+						<label class="col-xs-6">
+							{{field.label}}
 							<div class="dropdown" ng-model="field">
 								<button class="btn btn-default dropdown-toggle" type="button" id="genderDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-									Male
+									{{field.placeholder}}
 									<span class="caret"></span>
 								</button>
-								<ul class="dropdown-menu" aria-labelledby="genderDropdown1">
-									<li><a href="#">Male</a></li>
-									<li><a href="#">Female</a></li>
+								<ul class="dropdown-menu" aria-labelledby="genderDropdown1" for="option in field.options">
+									<li><a href="#" ng-model="option.value">{{option.label}}</a></li>
 								</ul>
 							</div>
 						</label>
-						<div class="col-xs-2"></div>
-						<div class="col-xs-4 container-fluid">
-							<div class="btn-group-align input-group">
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-								<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
-									<span class="glyphicon glyphicon-remove"></span>
-								</button>
-								<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-							</div>
-						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-6 container-fluid" ng-switch-when="checkbox">
-						<label for="checkBoxes" class="container-fluid">Roles:
-							<div id="checkBoxes">
-								<div class="checkbox">
-									<label><input type="checkbox" name="student" value="yes" ng-model="field"></input> Student</label>
-								</div>
-								<div class="checkbox">
-									<label><input type="checkbox" name="admin" value="yes" checked ng-model="field"></input> Admin</label>
-								</div>
-								<div class="checkbox">
-									<label><input type="checkbox" name="user" value="yes" checked ng-model="field"></input> User</label>
-								</div>
-							</div>
-						</label>
-					</div>
-					<div class="col-xs-2"></div>
-					<div class="col-xs-4 container-fluid">
-						<div class="input-group btn-group-align">
-							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
-							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-							<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
-								<span class="glyphicon glyphicon-remove"></span>
-							</button>
-							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-xs-6 container-fluid" ng-switch-when="radio">
-						<label for="radioGroup" class="container-fluid">License Agreement:
-							<div id="radioGroup">
-								<div class="radio">
-									<label><input type="radio" name="yesRadio" value="1" checked ng-model="field.license.yes"></input>Yes</label>
-								</div>
-								<div class="radio">
-									<label><input type="radio" name="noRadio" value="0" ng-model="field.license.no"></input>No</label>
-								</div>
-							</div>
-						</label>
-					</div>
-					<div class="col-xs-2"></div>
-					<div class="col-xs-4 container-fluid">
-						<div class="input-group btn-group-align">
-							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span></button>
-							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
-							<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
-								<span class="glyphicon glyphicon-remove"></span>
-							</button>
-							<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-menu-hamburger"></span></button>
-						</div>
-					</div>
-				</div>
-				<div class="row container-fluid">
-					<hr class="bigBorder">
-				</div>
-				<div class="row">
-					<div class="container-fluid">
-						<div class="col-xs-6">
-							<label>Add New Field:
-								<div class="dropdown">
-									<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-										Single Line Text:
-										<span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" ng-model="model.fieldType">
-										<li ng-model="model.fieldType.singleLine"><a href="#">Single Line Text</a></li>
-										<li ng-model="model.fieldType.multiLine"><a href="#">Multi Line Text</a></li>
-										<li ng-model="model.fieldType.date"><a href="#">Date</a></li>
-										<li ng-model="model.fieldType.dropdown"><a href="#">Dropdown</a></li>
-										<li ng-model="model.fieldType.checkbox"><a href="#">Checkboxes</a></li>
-										<li ng-model="model.fieldType.radio"><a href="#">Radio Buttons</a></li>
 
-									</ul>
+					<div ng-switch-when="checkbox">
+						<label for="checkBoxes" class="container-fluid">
+							{{field.label}}
+							<div id="checkBoxes">
+								<div class="checkbox" for="option in field.options">
+									<label>
+										<input type={{field.type}} value={{option.value}} ></input>
+										{{option.label}}
+									</label>
+								</div>	
+							</div>
+						</label>
+					</div>
+
+					<div ng-switch-when="radio">
+						<label for="radioGroup" class="container-fluid">
+							{{field.label}}
+							<div id="radioGroup">
+								<div class="radio" for="option in field.options">
+									<label>
+										<input type={{field.type}} value={{option.value}}></input>
+										{{option.label}}
+									</label>
 								</div>
-							</label>
-						</div>
-						<div class="col-xs-2 container-fluid"></div>
-						<div class="col-xs-4 container-fluid btn-group-align" ng-click="model.addField(model.fieldType)">
+							</div>
+						</label>
+					</div>
+
+					<!-- Glyphicons -->
+					<div class="col-xs-4 container-fluid">
+						<div class="btn-group-align input-group">
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-pencil"></span>
+							</button>
 							<button type="button" class="btn btn-default">
 								<span class="glyphicon glyphicon-plus"></span>
+							</button>
+							<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
+								<span class="glyphicon glyphicon-remove"></span>
+							</button>
+							<button type="button" class="btn btn-default">
+								<span class="glyphicon glyphicon-menu-hamburger"></span>
 							</button>
 						</div>
 					</div>
 				</div> 
 			</div>
-		</div> 
-	</div>
+			
+			<!-- Add New Field Row -->
+
+			<div class="row container-fluid">
+				<hr class="bigBorder">
+			</div>
+			<div class="row">
+				<div class="container-fluid">
+					<div class="col-xs-6">
+						<label>Add New Field:
+							<div class="dropdown">
+								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+									Single Line Text:
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" ng-model="field.fieldType">
+									<li ng-model="model.fieldType.singleLine"><a href="#">Single Line Text</a></li>
+									<li ng-model="model.fieldType.multiLine"><a href="#">Multi Line Text</a></li>
+									<li ng-model="model.fieldType.date"><a href="#">Date</a></li>
+									<li ng-model="model.fieldType.dropdown"><a href="#">Dropdown</a></li>
+									<li ng-model="model.fieldType.checkbox"><a href="#">Checkboxes</a></li>
+									<li ng-model="model.fieldType.radio"><a href="#">Radio Buttons</a></li>
+
+								</ul>
+							</div>
+						</label>
+					</div>
+					<div class="col-xs-2 container-fluid"></div>
+					<div class="col-xs-4 container-fluid btn-group-align" ng-click="model.addField(model.fieldType)">
+						<button type="button" class="btn btn-default">
+							<span class="glyphicon glyphicon-plus"></span>
+						</button>
+					</div>
+				</div>
+			</div> 
+
+		</div>
+	</div> 
+</div>
 </div>

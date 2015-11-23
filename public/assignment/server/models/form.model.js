@@ -139,8 +139,8 @@ module.exports = function(app) {
         var deferred = q.defer();
 
         // add fieldId
-        var guid = Guid.create();
-        field.id = guid;
+        var uuid = require('node-uuid');
+        field.id = uuid.v1();
 
         // add to form's collection
         var form = api
