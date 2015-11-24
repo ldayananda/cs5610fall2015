@@ -6,6 +6,10 @@
     border-width: 2px;
 }
 
+.container-view {
+    margin-top: 50px;
+}
+
 .tab-box {
     padding: 15px;
     margin-left: auto;
@@ -21,4 +25,11 @@
     border-style: solid none;
 }
 
+.dropdown-menu {
+  width: 100%; 
+}
 
+.top-bottom-small-pad {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}

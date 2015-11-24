@@ -19,5 +19,17 @@ module.exports =
 			{"id": "888", "label": "Description", "type": "TEXTAREA", "placeholder": "Title"},
 			{"id": "999", "label": "Due Date", "type": "DATE"}
 		]
+	},
+	{"id": "020", "title": "Home", "userId": 234,
+		"fields": [
+			{"id": "424", "label": "Color", "type": "RADIOS", "options": [
+				{"label": "Red", "value": "R"},
+				{"label": "Yello", "value": "Y"}
+			]},
+			{"id": "448", "label": "Material", "type": "CHECKBOXES", "options": [
+				{"label": "Glass", "value": "glass"},
+				{"label": "Plastic", "value": "plastic"}
+			]}
+		]
 	}
 ];
