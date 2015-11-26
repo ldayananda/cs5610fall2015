@@ -3,12 +3,18 @@
 
 	app.controller("HeaderController", HeaderController);
 
-	function HeaderController($scope, $location) {
+	function HeaderController($rootScope, $scope, $location) {
 		$scope.location = $location;
 		$scope.isActive = isActive;
+		$scope.logout = logout;
 
 		function isActive(viewLocation) { 
         	return viewLocation === $location.path();
+    	}
+
+    	function logout() {
+    		$rootScope.user = null;
+    		$location.path("/home");
     	}
 	}
 })();

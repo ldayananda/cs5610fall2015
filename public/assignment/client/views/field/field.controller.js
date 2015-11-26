@@ -6,7 +6,7 @@
 		var model = this;
 
 		model.addField = addField;
-		model.removeField = removeField;
+		model.deleteField = deleteField;
 
 		function init() {
 			var user = $rootScope.user;
@@ -26,7 +26,44 @@
 		}
 		init();
 
-		function addField(fieldType, field) {
+		function addField(fieldType) {
+			var field;
+
+			switch (fieldType) {
+				case "singleLine":
+					field = {"id": null, "label": "New Text Field", "type": "TEXT", "placeholder": "New Field"};
+					break;
+				case "multiLine":
+					field = {"id": null, "label": "New Text Field", "type": "TEXTAREA", "placeholder": "New Field"};
+					break;
+				case "date":
+					field = {"id": null, "label": "New Date Field", "type": "DATE"};
+					break;
+				case "dropdown":
+					field = {"id": null, "label": "New Dropdown", "type": "OPTIONS", "options": [
+						{"label": "Option 1", "value": "OPTION_1"},
+						{"label": "Option 2", "value": "OPTION_2"},
+						{"label": "Option 3", "value": "OPTION_3"}
+					]};
+					break;
+				case "checkbox":
+					field = {"id": null, "label": "New Checkboxes", "type": "CHECKBOXES", "options": [
+						{"label": "Option A", "value": "OPTION_A"},
+						{"label": "Option B", "value": "OPTION_B"},
+						{"label": "Option C", "value": "OPTION_C"}
+					]};
+					break;
+				case "radio":
+					field = {"id": null, "label": "New Radio Buttons", "type": "RADIOS", "options": [
+						{"label": "Option X", "value": "OPTION_X"},
+						{"label": "Option Y", "value": "OPTION_Y"},
+						{"label": "Option Z", "value": "OPTION_Z"}
+					]}
+					break;
+				default:
+					return;
+			}
+
 			FieldService
 				.createFieldForForm(model.formId, field)
 				.then(function(fields) {
@@ -34,7 +71,7 @@
 				});
 		}
 
-		function removeField(field) {
+		function deleteField(field) {
 			FieldService
 				.deleteFieldFromForm(model.formId, field.id)
 				.then(function(fields) {

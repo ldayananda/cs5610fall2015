@@ -23,11 +23,6 @@
      controller : "LoginController",
      controllerAs: "model"
    })
-    .when("/user/:userId/form/:formId/fields", {
-      templateUrl : "views/field/field.view.html",
-      controller : "FieldController",
-      controllerAs : "model"
-    })
     .when("/register", {
      templateUrl : "views/register/register.view.html",
      controller : "RegisterController",
@@ -37,7 +32,12 @@
      templateUrl : "views/form/form.view.html",
      controller : "FormController",
      controllerAs: "model"
-   })			
+   })		
+    .when("/user/:userId/form/:formId/fields", {
+      templateUrl : "views/field/field.view.html",
+      controller : "FieldController",
+      controllerAs : "model"
+    })	
     .when("/fields", {
       templateUrl : "views/field/field.view.html",
       controller: "FieldController",

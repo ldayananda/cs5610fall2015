@@ -42,7 +42,7 @@ module.exports = function(app, model) {
 
 	function deleteField(req, res) {
 		model
-            .deleteField(res.params.formId, res.params.id)
+            .deleteField(req.params.formId, req.params.fieldId)
             .then(function(fields) {
             	res.json(fields);
             });		

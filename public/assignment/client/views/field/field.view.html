@@ -10,9 +10,9 @@
 			</ul>
 
 			<div class="container-fluid tab-box" >
-				<div class="row container-fluid top-bottom-small-pad" ng-switch="field.type" ng-repeat="field in model.fields">
+				<div class="row container-fluid top-bottom-small-pad relative" ng-switch="field.type" ng-repeat="field in model.fields">
 
-					<!-- {"id": null, "label": "New Text Field", "type": "TEXT", "placeholder": "New Field"} -->
+					<!-- Text Field -->
 					<div ng-switch-when="TEXT" ng-model="field">
 						<label class="col-xs-6">
 							{{field.label}}
@@ -21,7 +21,7 @@
 						<div class="col-xs-2"></div>
 					</div>
 
-					<!-- {"id": null, "label": "Email", "type": "EMAIL", "placeholder": "Email"} -->
+					<!-- Text Field(Email) -->
 					<div ng-switch-when="EMAIL" ng-model="field">
 						<label class="col-xs-6">
 							{{field.label}}
@@ -30,7 +30,7 @@
 						<div class="col-xs-2"></div>
 					</div>
 
-					<!-- {"id": null, "label": "New Text Field", "type": "TEXTAREA", "placeholder": "New Field"} -->
+					<!-- Text Area -->
 					<div ng-switch-when="TEXTAREA" ng-model="field">
 						<label class="col-xs-6">
 							{{field.label}}
@@ -38,7 +38,7 @@
 						</label>
 					</div>
 
-					<!-- {"id": null, "label": "New Date Field", "type": "DATE"} -->
+					<!-- Date Picker -->
 					<div ng-switch-when="DATE" ng-model="field">
 						<label class="col-xs-6">
 							{{field.label}}
@@ -46,69 +46,42 @@
 						</label>
 					</div>
 
-					<!-- {"id": null, "label": "New Dropdown", "type": "OPTIONS", "options": [
-						{"label": "Option 1", "value": "OPTION_1"},
-						{"label": "Option 2", "value": "OPTION_2"},
-						{"label": "Option 3", "value": "OPTION_3"}
-					]}
-					 -->
+					<!-- Dropdown -->
 					<div ng-switch-when="OPTIONS">
-						<label class="col-xs-6">
+						<label for="selectDropdown" class="col-xs-6 container-fluid">
 							{{field.label}}
-							<div class="dropdown" ng-model="field">
-								<button class="btn btn-default dropdown-toggle col-sm-12" type="button" id="genderDropdown1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-									{{field.label}}
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="genderDropdown1">
-									<li><a href="#" value="{{option.value}}" ng-repeat="option in field.options">{{option.label}}</a></li>
-								</ul>
-							</div>
+							<select id="selectDropdown" class="form-control container-fluid">
+								<option value="{{option.value}}" ng-repeat="option in field.options">{{option.label}}</option>
+							</select>
 						</label>
 					</div>
 
-					<!-- {"id": null, "label": "New Checkboxes", "type": "CHECKBOXES", "options": [
-						{"label": "Option A", "value": "OPTION_A"},
-						{"label": "Option B", "value": "OPTION_B"},
-						{"label": "Option C", "value": "OPTION_C"}
-					]}
-					 -->
+					<!-- Checkboxes -->
 					<div ng-switch-when="CHECKBOXES">
-						<label for="checkBoxes" class="container-fluid">
+						<label for="checkBoxes" class="container-fluid col-xs-6">
 							{{field.label}}
-							<div id="checkBoxes">
-								<div class="checkbox" for="option in field.options">
-									<label>
-										<input type="checkbox" value="{{option.value}}" ></input>
-										{{option.label}}
-									</label>
+							<div id="checkBoxes" class="container-fluid">
+								<div class="checkbox container-fluid" ng-repeat="option in field.options">
+									<input type="checkbox" value="{{option.value}}"> {{option.label}}<br>
 								</div>	
 							</div>
 						</label>
 					</div>
 
-					<!-- {"id": null, "label": "New Radio Buttons", "type": "RADIOS", "options": [
-						{"label": "Option X", "value": "OPTION_X"},
-						{"label": "Option Y", "value": "OPTION_Y"},
-						{"label": "Option Z", "value": "OPTION_Z"}
-					]}
-					 -->
+					<!-- Radio Buttons -->
 					<div ng-switch-when="RADIOS">
-						<label for="radioGroup" class="container-fluid">
+						<label for="radioGroup" class="container-fluid col-xs-6">
 							{{field.label}}
-							<div id="radioGroup">
-								<div class="radio">
-									<label>
-										<input type="radio" value="{{option.value}}" ng-repeat="option in field.options"></input>
-										{{option.label}}
-									</label>
+							<div id="radioGroup" class="container-fluid">
+								<div class="radio container-fluid" ng-repeat="option in field.options">
+									<input type="radio" value="{{option.value}}" > {{option.label}}<br>
 								</div>
 							</div>
 						</label>
 					</div>
 
 					<!-- Glyphicons -->
-					<div class="col-xs-4 container-fluid pull-right">
+					<div class="col-xs-4 container-fluid pull-right buttons-bottom">
 						<div class="btn-group-align input-group">
 							<button type="button" class="btn btn-default">
 								<span class="glyphicon glyphicon-pencil"></span>
@@ -116,7 +89,7 @@
 							<button type="button" class="btn btn-default">
 								<span class="glyphicon glyphicon-plus"></span>
 							</button>
-							<button type="button" class="btn btn-default" ng-click="model.removeField(field)">
+							<button type="button" class="btn btn-default" ng-click="model.deleteField(field)">
 								<span class="glyphicon glyphicon-remove"></span>
 							</button>
 							<button type="button" class="btn btn-default">
@@ -135,22 +108,15 @@
 			<div class="row container-fluid">
 				<div class="container-fluid">
 					<div class="col-xs-6">
-						<label>Add New Field:
-							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-									Single Line Text:
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" ng-model="field.type">
-									<li ng-model="model.fieldType.singleLine"><a href="#">Single Line Text</a></li>
-									<li ng-model="model.fieldType.multiLine"><a href="#">Multi Line Text</a></li>
-									<li ng-model="model.fieldType.date"><a href="#">Date</a></li>
-									<li ng-model="model.fieldType.dropdown"><a href="#">Dropdown</a></li>
-									<li ng-model="model.fieldType.checkbox"><a href="#">Checkboxes</a></li>
-									<li ng-model="model.fieldType.radio"><a href="#">Radio Buttons</a></li>
-								</ul>
-							</div>
-						</label>
+					<select ng-model="model.fieldType" class="form-control">
+						<option value="singleLine">Single Line Text</option>
+						<option value="multiLine">Multi Line Text</option>
+						<option value="date">Date</option>
+						<option value="dropdown">Dropdown</option>
+						<option value="checkbox">Checkboxes</option>
+						<option value="radio">Radio Buttons</option>
+			        </select>
+
 					</div>
 					<div class="col-xs-2 container-fluid"></div>
 					<div class="col-xs-4 container-fluid btn-group-align" ng-click="model.addField(model.fieldType)">

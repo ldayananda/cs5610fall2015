@@ -235,8 +235,9 @@ module.exports = function(app) {
                 for (i = 0; i < len; i++) {
                     if (fields[i].id == id) {
                         fields.splice(i, 1);
+
                         // returns remaining fields
-                        deferred.resolve(forms);
+                        deferred.resolve(fields);
                     }
                 }              
             });

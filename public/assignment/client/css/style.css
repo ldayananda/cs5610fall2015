@@ -10,6 +10,10 @@
     margin-top: 50px;
 }
 
+.relative {
+    position: relative;
+}
+
 .tab-box {
     padding: 15px;
     margin-left: auto;
@@ -32,4 +36,10 @@
 .top-bottom-small-pad {
     padding-top: 10px;
     padding-bottom: 10px;
+}
+
+.buttons-bottom {
+    position: absolute;
+    right: 0px;
+    top: 30px;
 }
