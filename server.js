@@ -1,92 +1,82 @@
+// Set up Express.js
 var express = require('express');
 var app = express();
 
+// Set up the Body Parser to read json
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
+// Set up paths to static files for Express.js
 app.use(express.static(__dirname + '/public'));
 app.use('assignment', express.static(__dirname + '/public/assignment'));
 app.use('assignment/css', express.static(__dirname + '/public/assignment/css'));
 app.use('project', express.static(__dirname + '/public/project'));
 app.use('project/css', express.static(__dirname + '/public/project/css'));
 
-require("./public/assignment/server/app.js")(app);
-// var userModule = require("/assignment/server/models/user.model.js");
-// var userModel = new userModule(app);
-// var formModule = require("/assignment/server/models/form.model.js");
-// var formModel = new formModule(app);
-
-// // CRUD - User
-// app.post("/api/assignment/user", function(req, res) {
-// 	var user = {
-// 		id : req.body.id,
-// 		firstName : req.body.firstName,
-// 		lastName : req.body.lastName,
-// 		username : req.body.username,
-// 		password : req.body.password
-// 	};
-// 	// var users = require("/assignment/server/models/user.mock.js");
-// 	// users.push(user);
-// 	// res.send(users);
-// 	res.send(userModel.createUser(user));
-// });
-// app.get("/api/assignment/user", function(req, res) {
-// 	// var users = require("/assignment/server/models/user.mock.js");
-// 	// res.send(users);
-
-// 	var username = req.query.username;
-// 	var password = req.query.password;
-// 	if (username != null && password != null) {
-// 		var credentials = {
-// 			username : username,
-// 			password : password
-// 		};
-// 		res.send(userModule.findUserByCredentials(credentials));
-// 	} else if (username != null) {
-// 		res.send(userModule.findUserByUsername(username));
-// 	} else {
-// 		res.send(userModule.findAllUsers());
-// 	}
-// });
-// app.get("/api/assignment/user/:id", function(req, res) {
-// 	var id = req.params.id;
-// 	res.send(userModule.findUserById(id));
-// });
-// app.put("/api/assignment/user/:id", function(req, res) {
-// 	var id = req.params.id;
-// 	var user = {
-// 		id : req.body.id,
-// 		firstName : req.body.firstName,
-// 		lastName : req.body.lastName,
-// 		username : req.body.username,
-// 		password : req.body.password
-// 	};
-// 	res.send(userModule.updateUser(id, user));
-// });
-// app.put("/api/assignment/user/:id", function(req, res){
-// 	var id = req.params.id;
-// 	res.send(userModule.deleteUser(id));
-// });
-
-// // CRUD - Forms
-// app.post("/api/assignment/user/:userId/form", function(req, res){});
-// app.get("/api/assignment/user/:userId/form", function(req, res){
-// 	var forms = require("/assignment/server/models/form.mock.js");
-// 	res.send(forms);
-// });
-// app.get("/api/assignment/form/:formId", function(req, res){});
-// app.put("/api/assignment/form/:formId", function(req, res){});
-// app.put("/api/assignment/form/:formId", function(req, res){});
-
-// // CRUD - Fields
-// app.post("/api/assignment/form/:formId/field", function(req, res){});
-// app.get("/api/assignment/form/:formId/field", function(req, res){});
-// app.get("/api/assignment/form/:formId/field/:fieldId", function(req, res){});
-// app.put("/api/assignment/form/:formId/field/:fieldId", function(req, res){});
-// app.put("/api/assignment/form/:formId/field/:fieldId", function(req, res){});
-
+// Configure URLs to listen in to
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
+// Configure Mongoose to communicate with MongoDB
+var db = require('mongoose');
+db.connect('mongodb://localhost/cs5610_assignment');
+
+// Connect assignment server to main server by passing the app and Mongo instance
+require("./public/assignment/server/app.js")(app, db);
+// require("./public/project/server/app.js")(app, db);
+
+var UserSchema = new db.Schema(
+	{
+		firstName: String,
+		lastName: String,
+		username: String,
+		password: String,
+		email: String
+	}, 
+	{ collection : "user" }
+);
+
+var User = db.model("User", UserSchema);
+
+// var user = {"firstName": "Fred", "lastName" : "Folger", "username" : "Fred", password: "freddie"};
+
+
+function findAll(callback) {
+	User.find(callback);
+}
+
+function findByUsername(username, callback) {
+	User.find({ username : username }, callback);
+}
+
+function createUser(user, callback) {
+	User.create(user, function(err, result) {
+		console.log(err);
+		console.log(result);
+	});
+}
+
+function renderUsers(err, results) {
+	for (var u in results) {
+		var firstName = results[u].firstName;
+		var lastName = results[u].lastName;
+		var username = results[u].username;
+		var password = results[u].password;
+
+		console.log([firstName, lastName, username, password]);
+	}
+}
+
+app.get("/rest/user", function(req, res) {
+	findAll(function(err, results) {
+		res.json(results);
+	});
+});
+
+
+
+
+
+// Set the server to listen at port and ip:
 app.listen(port, ipaddress);

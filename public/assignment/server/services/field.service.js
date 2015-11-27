@@ -1,7 +1,7 @@
 //var module = angular.module("FormBuilderAppForms");
 var q = require("q");
 
-module.exports = function(app, model) {
+module.exports = function(app, db, model) {
 	app.post("/api/assignment/form/:formId/field", createField);
 	app.get("/api/assignment/form/:formId/field", findAllFields);
 	app.get("/api/assignment/form/:formId/field/:fieldId", findFieldById);

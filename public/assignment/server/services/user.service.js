@@ -1,7 +1,7 @@
 //var module = angular.module("FormBuilderAppUsers");
 var q = require("q");
 
-module.exports = function(app, model) {
+module.exports = function(app, db, model) {
 	app.post("/api/assignment/user", createUser);
 	app.get("/api/assignment/user", findAllUsers);
 	app.get("/api/assignment/user/:id", findUserById);

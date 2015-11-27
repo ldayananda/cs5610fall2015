@@ -1,7 +1,7 @@
 //var module = angular.module("FormBuilderAppForms");
 var q = require("q");
 
-module.exports = function(app) {
+module.exports = function(app, db) {
     // var forms = require("form.mock.json");
     var forms = module.exports = 
 [

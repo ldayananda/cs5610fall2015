@@ -1,7 +1,7 @@
 //var module = angular.module("FormBuilderAppUsers");
 var q = require("q");
 
-module.exports = function(app) {
+module.exports = function(app, db) {
     // var users = require("user.mock.json");
     var users = module.exports = 
 [
