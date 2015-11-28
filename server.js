@@ -4,8 +4,10 @@ var app = express();
 
 // Set up the Body Parser to read json
 var bodyParser = require("body-parser");
+var multer = require("multer");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(multer());
 
 // Set up paths to static files for Express.js
 app.use(express.static(__dirname + '/public'));
@@ -26,36 +28,6 @@ db.connect('mongodb://localhost/cs5610_assignment');
 require("./public/assignment/server/app.js")(app, db);
 // require("./public/project/server/app.js")(app, db);
 
-var UserSchema = new db.Schema(
-	{
-		firstName: String,
-		lastName: String,
-		username: String,
-		password: String,
-		email: String
-	}, 
-	{ collection : "user" }
-);
-
-var User = db.model("User", UserSchema);
-
-// var user = {"firstName": "Fred", "lastName" : "Folger", "username" : "Fred", password: "freddie"};
-
-
-function findAll(callback) {
-	User.find(callback);
-}
-
-function findByUsername(username, callback) {
-	User.find({ username : username }, callback);
-}
-
-function createUser(user, callback) {
-	User.create(user, function(err, result) {
-		console.log(err);
-		console.log(result);
-	});
-}
 
 function renderUsers(err, results) {
 	for (var u in results) {
@@ -68,12 +40,122 @@ function renderUsers(err, results) {
 	}
 }
 
-app.get("/rest/user", function(req, res) {
-	findAll(function(err, results) {
-		res.json(results);
-	});
-});
+function renderForms(err, results) {
+	for (var f in results) {
+		var title = results[f].title;
+		var userId = results[f].userId;
+		var fields = results[f].fields;
 
+		console.log([title, userId, "->"]);
+		for (field in fields) {
+			console.log("\t", field);
+		}
+	}
+}
+
+// var FormSchema = new db.Schema(
+// 	{
+// 		title : String,
+// 		userId : db.Schema.Types.ObjectId,
+// 		fields : Array
+// 	}, 
+// 	{collection : "cs5610.assignment.form"}
+// );
+// var FormModel = db.model("FormModel", FormSchema);
+
+// FormModel.create(
+// 	{title :"blah", userId : new db.Types.ObjectId, fields : []}, 
+// 	function(err, results) {
+// 		console.log(err);
+// 		console.log(results);
+// 	}
+// );
+
+// app.get("/rest/form", function(req, res) {
+// 	var title = req.query.title;
+
+// 	if (title != null) {
+// 		FormModel.findOne(
+// 			{ title : title },
+// 			function(err, data) {
+// 				res.json(data);
+// 			}
+// 		);
+// 	} else {
+		
+// 		FormModel.find(function(err, results) {
+// 			res.json(results);
+// 		});
+// 	}
+// });
+
+// app.get("/rest/form/:formId", function(req, res) {
+// 	FormModel.findOne({ _id : req.params.formId }, function(err, results) {
+// 		console.log(err);
+// 		res.json(results);
+// 	});
+// });
+
+// app.post("/rest/form", function(req, res) {
+// 	var form = req.body;
+
+// 	FormModel.create(form, function(err, data) {
+// 		res.json(data);
+// 	});
+// });
+
+// app.put("/rest/form/:formId", function(err, data) {
+// 	var form = req.body;
+
+// 	FormModel.findOneAndUpdate(
+// 		{_id : req.params.formId },
+// 		form, 
+// 		function(err, data) {
+// 			res.json(data);
+// 		}
+// 	);
+// });
+
+// app.delete("/rest/form/:formId", function(err, data) {
+// 		FormModel.remove( 
+// 			{ _id : req.params.formId }, 
+// 			function(err, results) {
+// 				res.json(results);
+// 			}
+// 		);
+// });
+
+// app.get("/rest/user/:id", function(req, res) {
+// 	findById(req.params.id, function(err, data) {
+// 		res.json(data);
+// 	});
+// });
+
+// app.post("/rest/user", function(req, res) {
+// 	createUser(req.body, function(err, data) {
+// 		res.json(data);
+// 	});
+// })
+
+// app.put("/rest/user/:id", function(req, res) {
+// 	var user = req.body;
+
+// 	UserModel.findOneAndUpdate(
+// 		{ _id : req.params.id }, 
+// 		user, 
+// 		function(err, data) {
+// 			res.json(data);
+// 		};
+// 	);
+// });
+
+// app.delete("/rest/user/:id", function(req, res) {
+// 	UserModel.remove({ _id : req.params.id }, function(err, data) {
+// 		UserModel.find(function(err, data) {
+// 			res.json(data);
+// 		});
+// 	});
+// });
 
 
 

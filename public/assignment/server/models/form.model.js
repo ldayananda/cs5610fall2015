@@ -3,30 +3,31 @@ var q = require("q");
 
 module.exports = function(app, db) {
     // var forms = require("form.mock.json");
-    var forms = module.exports = 
-[
-    {"id": "000", "title": "Contacts", "userId": 123,
-        "fields": [
-            {"id": "111", "label": "First Name", "type": "TEXT", "placeholder": "First Name"},
-            {"id": "222", "label": "Last Name", "type": "TEXT", "placeholder": "Last Name"},
-            {"id": "333", "label": "Address", "type": "TEXT", "placeholder": "Address"},
-            {"id": "444", "label": "State", "type": "OPTIONS", "options": [
-                {"label": "Massachussets", "value": "MA"},
-                {"label": "New Hampshire", "value": "NH"}
-            ]},
-            {"id": "555", "label": "ZIP", "type": "TEXT", "placeholder": "ZIP"},
-            {"id": "666", "label": "Email", "type": "EMAIL", "placeholder": "Email"}
-        ]
-    },
-    {"id": "010", "title": "ToDo", "userId": 234,
-        "fields": [
-            {"id": "777", "label": "Title", "type": "TEXT", "placeholder": "Title"},
-            {"id": "888", "label": "Description", "type": "TEXTAREA", "placeholder": "Title"},
-            {"id": "999", "label": "Due Date", "type": "DATE"}
-        ]
-    }
-];
-
+    //     var forms = module.exports = 
+    // [
+    //     {"id": "000", "title": "Contacts", "userId": 123,
+    //         "fields": [
+    //             {"id": "111", "label": "First Name", "type": "TEXT", "placeholder": "First Name"},
+    //             {"id": "222", "label": "Last Name", "type": "TEXT", "placeholder": "Last Name"},
+    //             {"id": "333", "label": "Address", "type": "TEXT", "placeholder": "Address"},
+    //             {"id": "444", "label": "State", "type": "OPTIONS", "options": [
+    //                 {"label": "Massachussets", "value": "MA"},
+    //                 {"label": "New Hampshire", "value": "NH"}
+    //             ]},
+    //             {"id": "555", "label": "ZIP", "type": "TEXT", "placeholder": "ZIP"},
+    //             {"id": "666", "label": "Email", "type": "EMAIL", "placeholder": "Email"}
+    //         ]
+    //     },
+    //     {"id": "010", "title": "ToDo", "userId": 234,
+    //         "fields": [
+    //             {"id": "777", "label": "Title", "type": "TEXT", "placeholder": "Title"},
+    //             {"id": "888", "label": "Description", "type": "TEXTAREA", "placeholder": "Title"},
+    //             {"id": "999", "label": "Due Date", "type": "DATE"}
+    //         ]
+    //     }
+    // ];
+    var FormSchema = require("./form.schema.js")(db);
+    var FormModel = db.model("FormModel", FormSchema);
     
 	var api = {
         createForm : createForm,
@@ -46,36 +47,63 @@ module.exports = function(app, db) {
     function createForm(form) {
         var deferred = q.defer();
 
-        // add FormId
-        var uuid = require('node-uuid');
-        form.id = uuid.v1();
-    	// add to current collection
-    	forms.push(form);
+        FormModel.create(form, function(err, data) {
+            if (err != null) {
+                console.log(err);
+            }
 
-    	// return collection
-        deferred.resolve(forms);
+            FormModel.find(function(err, forms) {
+                deferred.resolve(forms);
+            });
+        });
+
+     //    // add FormId
+     //    var uuid = require('node-uuid');
+     //    form.id = uuid.v1();
+    	// // add to current collection
+    	// forms.push(form);
+
+    	// // return collection
+     //    deferred.resolve(forms);
     	return deferred.promise;
     }
 
     function findAllForms() {
         var deferred = q.defer();
+                
+        FormModel.find(function(err, forms) {
+            if (err != null) {
+                console.log(err);
+            }
+            
+            deferred.resolve(forms);
+        });
+
+
     	// return collection
-    	deferred.resolve(forms);
+    	// deferred.resolve(forms);
         return deferred.promise;
     }
 
     function findFormById(formId) {
         var deferred = q.defer();
 
-    	// find the object in the collection with id formId
-    	var len = forms.length;
-		for (i = 0; i < len; i++) {
-			if (forms[i].id == formId) {
-                var form = forms[i];
-		    	// return the matching element, if found
-				deferred.resolve(form);
-			}
-		}
+        FormModel.findOne(
+            { _id : req.params.formId }, 
+            function(err, form) {
+                deferred.resolve(form);
+            }
+        );
+
+  //   	// find the object in the collection with id formId
+  //   	var len = forms.length;
+		// for (i = 0; i < len; i++) {
+		// 	if (forms[i].id == formId) {
+  //               var form = forms[i];
+		//     	// return the matching element, if found
+		// 		deferred.resolve(form);
+		// 	}
+		// }
 
     	// return null otherwise
     	return deferred.promise;
@@ -84,52 +112,86 @@ module.exports = function(app, db) {
     function updateForm(formId, newForm) {
         var deferred = q.defer();
 
-    	// find the object in the collection with id formId
-    	var len = forms.length;
-		for (i = 0; i < len; i++) {
+        FormModel.findOneAndUpdate(
+            {_id : formId },
+            newForm, 
+            function(err, data) {
+                FormModel.find(function(err, forms) {
+                    deferred.resolve(forms);
+                });
+            }
+        );
 
-			if (forms[i].id == formId) {
-				var form = forms[i];
-		    	// update found form with newForm's property values
-				form.id = newForm.id;
-				form.title = newForm.title;
-				form.userId = newForm.userId;
-				form.fields = newForm.fields;
-			}
-		}
+  //   	// find the object in the collection with id formId
+  //   	var len = forms.length;
+		// for (i = 0; i < len; i++) {
 
-    	// return all objects
-        deferred.resolve(forms);
+		// 	if (forms[i].id == formId) {
+		// 		var form = forms[i];
+		//     	// update found form with newForm's property values
+		// 		form.id = newForm.id;
+		// 		form.title = newForm.title;
+		// 		form.userId = newForm.userId;
+		// 		form.fields = newForm.fields;
+		// 	}
+		// }
+
+  //   	// return all objects
+  //       deferred.resolve(forms);
         return deferred.promise;
     }
 
     function deleteForm(formId) {
         var deferred = q.defer();
 
-    	// find the object in the collection with id formId
-    	var len = forms.length;
-		for (i = 0; i < len; i++) {
-			if (forms[i].id == formId) {
-		    	// remove the matching instance
-		    	forms.splice(i, 1);
-			}
-		}
+        FormModel.remove( 
+            { _id : formId }, 
+            function(err, results) {
+                if (err != null) {
+                    console.log(err);
+                }
 
-        deferred.resolve(forms);
+                FormModel.find(function(err, forms) {
+                    deferred.resolve(forms);
+                });
+            }
+        );
+
+  //   	// find the object in the collection with id formId
+  //   	var len = forms.length;
+		// for (i = 0; i < len; i++) {
+		// 	if (forms[i].id == formId) {
+		//     	// remove the matching instance
+		//     	forms.splice(i, 1);
+		// 	}
+		// }
+
+  //       deferred.resolve(forms);
         return deferred.promise;
     }
 
     function findFormByTitle(title) {
         var deferred = q.defer();
 
-    	// find form in collection whose title is title
-    	var len = forms.length;
-		for (i = 0; i < len; i++) {
-			if (forms[i].title == title) {
-		    	// returns matching object, if found
-		    	deferred.resolve(forms[i]);
-			}
-		}
+        var title = req.query.title;
+
+
+        FormModel.findOne(
+            { title : title },
+            function(err, form) {
+                deferred.resolve(form);
+            }
+        );
+
+
+  //   	// find form in collection whose title is title
+  //   	var len = forms.length;
+		// for (i = 0; i < len; i++) {
+		// 	if (forms[i].title == title) {
+		//     	// returns matching object, if found
+		//     	deferred.resolve(forms[i]);
+		// 	}
+		// }
 
     	// otherwise returns null
     	return deferred.promise;	

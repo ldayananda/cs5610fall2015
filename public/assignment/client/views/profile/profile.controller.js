@@ -12,12 +12,6 @@
 			var currUser = $rootScope.user;
 			if (currUser != null) {
 				model.user = currUser;
-
-				model.user.username  = currUser.username;
-				model.user.password  = currUser.password;
-				model.user.fname  = currUser.fname;
-				model.user.lname  = currUser.lname;
-				model.user.email  = currUser.email;
 			}
 		}
 		init();
@@ -25,7 +19,7 @@
 		function update(user) {
 
 			var newUser = {
-				id : user.id,
+				id : user._id,
 				username : user.username,
 				password : user.password,
 				firstName : user.firstName,
@@ -34,7 +28,7 @@
 			}
 
 			UserService
-				.updateUser(user.id, newUser)
+				.updateUser(user._id, newUser)
 				.then(function(users) {
 
 					model.users = users;

@@ -2,15 +2,18 @@
 var q = require("q");
 
 module.exports = function(app, db) {
-    // var users = require("user.mock.json");
-    var users = module.exports = 
-[
-    {"id": 123, "firstName": "Alice",   "lastName": "Wonderland",   "username": "alice",    "password": "alice"},
-    {"id": 234, "firstName": "Bob", "lastName": "Hope",         "username": "bob",  "password": "bob"},
-    {"id": 345, "firstName": "Charlie", "lastName": "Brown",        "username": "charlie", "password": "charlie"},
-    {"id": 456, "firstName": "Dan", "lastName": "Craig",        "username": "dan",  "password": "dan"},
-    {"id": 567, "firstName": "Edward",  "lastName": "Norton", "username": "ed", "password": "ed"}
-];
+    //     var users = module.exports = 
+    // [
+    //     {"id": 123, "firstName": "Alice",   "lastName": "Wonderland",   "username": "alice",    "password": "alice"},
+    //     {"id": 234, "firstName": "Bob", "lastName": "Hope",         "username": "bob",  "password": "bob"},
+    //     {"id": 345, "firstName": "Charlie", "lastName": "Brown",        "username": "charlie", "password": "charlie"},
+    //     {"id": 456, "firstName": "Dan", "lastName": "Craig",        "username": "dan",  "password": "dan"},
+    //     {"id": 567, "firstName": "Edward",  "lastName": "Norton", "username": "ed", "password": "ed"}
+    // ];
+
+    var UserSchema = require("./user.schema.js")(db);
+    // console.log(UserSchema);
+    var UserModel = db.model("UserModel", UserSchema);
     
     var api = {
         createUser : createUser,
@@ -26,36 +29,48 @@ module.exports = function(app, db) {
     function createUser(user) {
         var deferred = q.defer();
 
-        var uuid = require('node-uuid');
-        user.id = uuid.v1();
+        UserModel.create(user, function(err, user) {
+            if (err != null) {
+                console.log(err);
+            }
 
-    	// add to current collection
-    	users.push(user);
+            // Find and return users
+            UserModel.find(function(err, users) {
+                deferred.resolve(users);
+            });
+        });
 
-        deferred.resolve(users);
-    	// return collection
+        // return collection
         return deferred.promise;
     }
 
     function findAllUsers() {
         var deferred = q.defer();
 
-    	// return collection
-        deferred.resolve(users);
-    	return deferred.promise;
+        UserModel.find(function(err, users) {
+            // return collection
+            deferred.resolve(users);
+
+        });
+        return deferred.promise;
     }
 
     function findUserById(userId) {
         var deferred = q.defer();
 
+        UserModel.findOne({ _id : userId}, function(err, user) {
+            deferred.resolve(user);
+        });
+
+
     	// find the object in the collection with id userId
-    	var len = users.length;
-		for (i = 0; i < len; i++) {
-			if (users[i].id == userId) {
-		    	// return the matching element, if found
-				deferred.resolve(users[i]);
-			}
-		}
+        //   	var len = users.length;
+		// for (i = 0; i < len; i++) {
+		// 	if (users[i].id == userId) {
+		//     	// return the matching element, if found
+		// 		deferred.resolve(users[i]);
+		// 	}
+		// }
 
     	return deferred.promise;
     }
@@ -63,24 +78,20 @@ module.exports = function(app, db) {
     function updateUser(userId, newUser) {
         var deferred = q.defer();
 
+        UserModel.findOneAndUpdate(
+            { _id : userId }, 
+            newUser, 
+            function(err, data) {
+                if (err != null) {
+                    console.log(err);
+                }
 
+                UserModel.find(function(err, users) {
+                    deferred.resolve(users);
+                })
+            }
+        );
 
-    	// find the object in the collection with id userId
-    	var len = users.length;
-		for (i = 0; i < len; i++) {
-			if (users[i].id == userId) {
-				var user = users[i];
-
-		    	// update found user with newUser's property values
-				user.firstName = newUser.firstName;
-				user.lastName = newUser.lastName;
-				user.username = newUser.username;
-				user.password = newUser.password;
-                user.email = newUser.email;
-			}
-		}
-
-        deferred.resolve(users);
     	// return all objects
         return deferred.promise;
     }
@@ -88,16 +99,30 @@ module.exports = function(app, db) {
     function deleteUser(userId) {
         var deferred = q.defer();
 
-    	// find the object in the collection with id userId
-    	var len = users.length;
-		for (i = 0; i < len; i++) {
-			if (users[i].id == userId) {
-		    	// remove the matching instance
-		    	users.splice(i, 1);
-			}
-		}
+
+        UserModel.remove(
+            { _id : userId }, 
+            function(err, data) {
+                if (err != null) {
+                    console.log(err);
+                }
+
+                UserModel.find(function(err, users) {
+                    deferred.resolve(users);
+                });
+            }
+        );
+
+  //   	// find the object in the collection with id userId
+  //   	var len = users.length;
+		// for (i = 0; i < len; i++) {
+		// 	if (users[i].id == userId) {
+		//     	// remove the matching instance
+		//     	users.splice(i, 1);
+		// 	}
+		// }
         
-        deferred.resolve(users);
+  //       deferred.resolve(users);
         //return all users
         return deferred.promise;
     }
@@ -105,14 +130,20 @@ module.exports = function(app, db) {
     function findUserByUsername(username) {
         var deferred = q.defer();
 
-    	// find the object with username value username
-    	var len = users.length;
-		for (i = 0; i < len; i++) {
-			if (users[i].username == username) {
-		    	// return the matching object, if found
-		    	deferred.resolve(users[i]);
-			}
-		}
+
+        UserModel.findOne({ username : username }, function(err, user) {
+            res.json(data);
+            deferred.resolve(user);
+        });
+
+  //   	// find the object with username value username
+  //   	var len = users.length;
+		// for (i = 0; i < len; i++) {
+		// 	if (users[i].username == username) {
+		//     	// return the matching object, if found
+		//     	deferred.resolve(users[i]);
+		// 	}
+		// }
 
     	return deferred.promise;
     }
@@ -120,15 +151,12 @@ module.exports = function(app, db) {
     function findUserByCredentials(credentials) {
         var deferred = q.defer();
 
-    	// credentials : { username : '', password : ''}
-    	// find the user in the collection who has username credentials.username and password credentials.password
-    	var len = users.length;
-		for (i = 0; i < len; i++) {
-			if (users[i].username == credentials.username && users[i].password == credentials.password) {
-		    	// return the matching object, if found
-		    	deferred.resolve(users[i]);
-			}
-		}
+        UserModel.findOne(
+            { username : credentials.username, password : credentials.password }, 
+            function(err, user) {
+                deferred.resolve(user);
+            }
+        );
 
     	// otherwise return null
     	return deferred.promise;

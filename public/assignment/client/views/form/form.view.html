@@ -9,7 +9,7 @@
 
 <body>
 
-  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-controller="FormController">
     <div class="container-fluid">
       <div class="row">
         <h1>Forms</h1>
@@ -45,7 +45,7 @@
                </tr>
                <tr ng-repeat="form in model.forms" ng-class="{'success' : $index == selectedFormIndex }">
                       <td>
-                        <a ng-href="#/user/{{form.userId}}/form/{{form.id}}/fields">{{form.title}}</a>
+                        <a ng-href="#/user/{{form.userId}}/form/{{form._id}}/fields">{{form.title}}</a>
                       </td>
                       <td>
                         <button type="button" class="btn btn-default">

@@ -23,12 +23,13 @@
     "npm": ">= 1.0.0"
   },
   "dependencies": {
+    "body-parser": "~1.14.1",
     "express": "~3.4.4",
     "mongoose": "~4.2.5",
+    "multer": "^1.1.0",
+    "node-uuid": "~1.4.7",
     "q": "~1.4.1",
-    "body-parser": "~1.14.1",
-    "uuid-lib": "0.0.6",
-    "node-uuid": "~1.4.7"
+    "uuid-lib": "0.0.6"
   },
   "devDependencies": {},
   "bundleDependencies": [],

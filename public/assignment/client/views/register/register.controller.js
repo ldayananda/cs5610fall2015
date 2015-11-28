@@ -27,13 +27,15 @@
 				firstName : user.firstName,
 				lastName : user.lastName,
 				username : user.username,
-				password : user.password
+				password : user.password,
+				email : user.email
 			};
 
 			UserService
 				.createUser(newUser)
 				.then(function(users) {
 					model.users = users;
+					$rootScope.user = user;
 				});
 
 			$location.path("/profile");

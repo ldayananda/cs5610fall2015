@@ -16,15 +16,13 @@
 		init();
 
 		function login(user) {
-
 			UserService
 				.findUserByUsernameAndPassword(user.username, user.password)
 				.then(function(user) {
 					model.user = user;
-					$rootScope.user = user;
 
 					if (model.user != null) {
-						$rootScope.user = user;
+						$rootScope.user = model.user;
 						$location.path("/profile");
 					} else {
 						$location.path("/home");
