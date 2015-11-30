@@ -1,0 +1,23 @@
+module.exports = 
+[
+	{"_id": "5658cef0c682422cbe9e83ca", "label": "First Name", "type": "TEXT", "placeholder": "First Name"},
+	{"_id": "5658cf3cc682422cbe9e83d0", "label": "Last Name", "type": "TEXT", "placeholder": "Last Name"},
+	{"_id": "5658cf3cc682422cbe9e83d1", "label": "Address", "type": "TEXT", "placeholder": "Address"},
+	{"_id": "5658cf3cc682422cbe9e83d2", "label": "State", "type": "OPTIONS", "options": [
+		{"label": "Massachussets", "value": "MA"},
+		{"label": "New Hampshire", "value": "NH"}
+	]},
+	{"_id": "5658cf3cc682422cbe9e83d3", "label": "ZIP", "type": "TEXT", "placeholder": "ZIP"},
+	{"_id": "5658cf3cc682422cbe9e83d4", "label": "Email", "type": "EMAIL", "placeholder": "Email"},
+	{"_id": "5658d0a6c682422cbe9e83d6", "label": "Title", "type": "TEXT", "placeholder": "Title"},
+	{"_id": "5658d0a6c682422cbe9e83d7", "label": "Description", "type": "TEXTAREA", "placeholder": "Title"},
+	{"_id": "5658d0a6c682422cbe9e83d8", "label": "Due Date", "type": "DATE"},
+	{"id": "5658d14bc682422cbe9e83da", "label": "Color", "type": "RADIOS", "options": [
+		{"label": "Red", "value": "R"},
+		{"label": "Yello", "value": "Y"}
+	]},
+	{"id": "5658d14bc682422cbe9e83db", "label": "Material", "type": "CHECKBOXES", "options": [
+		{"label": "Glass", "value": "glass"},
+		{"label": "Plastic", "value": "plastic"}
+	]}
+];

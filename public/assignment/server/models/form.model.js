@@ -75,7 +75,7 @@ module.exports = function(app, db) {
             if (err != null) {
                 console.log(err);
             }
-            
+
             deferred.resolve(forms);
         });
 
@@ -89,7 +89,7 @@ module.exports = function(app, db) {
         var deferred = q.defer();
 
         FormModel.findOne(
-            { _id : req.params.formId }, 
+            { _id : formId }, 
             function(err, form) {
                 deferred.resolve(form);
             }
@@ -200,17 +200,39 @@ module.exports = function(app, db) {
     function createField(field, formId) {
         var deferred = q.defer();
 
-        // add fieldId
-        var uuid = require('node-uuid');
-        field.id = uuid.v1();
+        FormModel.findOne(
+            { _id : formId },
+            function(err, form) {
+                if (err != null) { console.log(err); }
 
-        // add to form's collection
-        var form = api
-            .findFormById(formId)
-            .then(function(form) {
-                var fields = pushField(field, form);
-                deferred.resolve(fields);
-            });
+                field._id = new db.Types.ObjectId;
+                form.fields.push(field);
+
+                form.save(function(err, form) {
+                    if (err != null) { console.log(err); }
+
+                    FormModel.findOne(
+                        { _id : formId },
+                        function(err, form) {
+                            deferred.resolve(form.fields);
+                        }
+                    );
+                });
+            }
+        );
+
+
+        // // add fieldId
+        // var uuid = require('node-uuid');
+        // field.id = uuid.v1();
+
+        // // add to form's collection
+        // var form = api
+        //     .findFormById(formId)
+        //     .then(function(form) {
+        //         var fields = pushField(field, form);
+        //         deferred.resolve(fields);
+        //     });
         
         // return collection
         return deferred.promise;
@@ -219,13 +241,25 @@ module.exports = function(app, db) {
     function findAllFields(formId) {
         var deferred = q.defer();
 
-        // get collection
-        var form = api
-            .findFormById(formId)
-            .then(function(form) {
-                var fields = getFields(form);
-                deferred.resolve(fields);
-            });
+
+        FormModel.findOne(
+            { _id : formId },
+            function(err, form) {
+                if (err != null) { 
+                    console.log(err); 
+                } else {
+                    deferred.resolve(form.fields);
+                }
+            }
+        );
+
+        // // get collection
+        // var form = api
+        //     .findFormById(formId)
+        //     .then(function(form) {
+        //         var fields = getFields(form);
+        //         deferred.resolve(fields);
+        //     });
 
         // return collection
         return deferred.promise;
@@ -234,22 +268,35 @@ module.exports = function(app, db) {
     function findFieldById(formId, id) {
         var deferred = q.defer();
 
-        // get collection
-        var form = api
-            .findFormById(formId)
-            .then(function (form) {
-                var fields = getFields(form);
+        FormModel.findOne(
+            { _id : formId },
+            function(err, form) {
+                if (err != null) { console.log(err); }
 
-                // find field in collection whose id is id
-                var len = fields.length;
-                for (i = 0; i < len; i++) {
-                    if (fields[i].id == id) {
-                        var field = fields[i];
-                        // returns matching object, if found
-                        deferred.resolve(field);
+                for (var f in form.fields) {
+                    if (form.fields[f]._id == id) {
+                        deferred.resolve(form.fields[f]);
                     }
                 }
-            });
+            }
+        );
+
+        // // get collection
+        // var form = api
+        //     .findFormById(formId)
+        //     .then(function (form) {
+        //         var fields = getFields(form);
+
+        //         // find field in collection whose id is id
+        //         var len = fields.length;
+        //         for (i = 0; i < len; i++) {
+        //             if (fields[i].id == id) {
+        //                 var field = fields[i];
+        //                 // returns matching object, if found
+        //                 deferred.resolve(field);
+        //             }
+        //         }
+        //     });
         
         return deferred.promise;
     }
@@ -257,28 +304,47 @@ module.exports = function(app, db) {
     function updateField(formId, id, newField) {
         var deferred = q.defer();
 
-        // get collection
-        var form = api
-            .findFormById(formId)
-            .then(function (form) {
-                var fields = getFields(form);
+        FormModel.findOne(
+            {_id : formId },
+            function(err, form) {
+                if (err != null) { console.log(err); }
 
-                // find field in collection whose id is id
-                var len = fields.length;
-                for (i = 0; i < len; i++) {
-                    if (fields[i].id == id) {
+                for (var f in form.fields) {
+                    if (form.fields[f]._id == id) {
+                        form.fields[f] = newField;
 
-                        var field = fields[i];
-                        field.id = newField.id;
-                        field.label = newField.label;
-                        field.type = newField.type;
-                        field.placeholder = newField.placeholder;
-                        field.options = newField.options;
-
-                        deferred.resolve(field);
+                        form.save(function(err, form) {
+                            if (err != null) { console.log(err); }
+                            deferred.resolve(form.fields[f]);
+                        });
                     }
                 }
-            });
+            }
+        );
+
+
+        // // get collection
+        // var form = api
+        //     .findFormById(formId)
+        //     .then(function (form) {
+        //         var fields = getFields(form);
+
+        //         // find field in collection whose id is id
+        //         var len = fields.length;
+        //         for (i = 0; i < len; i++) {
+        //             if (fields[i].id == id) {
+
+        //                 var field = fields[i];
+        //                 field.id = newField.id;
+        //                 field.label = newField.label;
+        //                 field.type = newField.type;
+        //                 field.placeholder = newField.placeholder;
+        //                 field.options = newField.options;
+
+        //                 deferred.resolve(field);
+        //             }
+        //         }
+        //     });
         
         return deferred.promise;
     }
@@ -286,40 +352,55 @@ module.exports = function(app, db) {
     function deleteField(formId, id) {
         var deferred = q.defer();
 
-        // get collection
-        var form = api
-            .findFormById(formId)
-            .then(function(form) {
-                var fields = getFields(form);
+        FormModel.findOne(
+            { _id : formId },
+            function(err, form) {
+                for (var f in form.fields) {
+                    if (form.fields[f]._id == id) {
+                        form.fields.splice(f, 1);
 
-                // find field in collection whose id is id
-                var len = fields.length;
-                for (i = 0; i < len; i++) {
-                    if (fields[i].id == id) {
-                        fields.splice(i, 1);
-
-                        // returns remaining fields
-                        deferred.resolve(fields);
+                        form.save(function(err, form) {
+                            deferred.resolve(form.fields);
+                        });
                     }
-                }              
-            });
+                }
+            }
+        );
+
+        // // get collection
+        // var form = api
+        //     .findFormById(formId)
+        //     .then(function(form) {
+        //         var fields = getFields(form);
+
+        //         // find field in collection whose id is id
+        //         var len = fields.length;
+        //         for (i = 0; i < len; i++) {
+        //             if (fields[i].id == id) {
+        //                 fields.splice(i, 1);
+
+        //                 // returns remaining fields
+        //                 deferred.resolve(fields);
+        //             }
+        //         }              
+        //     });
         
         return deferred.promise;     
     }
 
-    function pushField(field, form) {
-        if (!form.fields) {
-            form.fields = [];
-        }
-        form.fields.push(field);
+    // function pushField(field, form) {
+    //     if (!form.fields) {
+    //         form.fields = [];
+    //     }
+    //     form.fields.push(field);
 
-        return form.fields;
-    }
+    //     return form.fields;
+    // }
 
-    function getFields(form) {
-        if (!form.fields) {
-            form.fields = [];
-        }
-        return form.fields;
-    }
+    // function getFields(form) {
+    //     if (!form.fields) {
+    //         form.fields = [];
+    //     }
+    //     return form.fields;
+    // }
 }

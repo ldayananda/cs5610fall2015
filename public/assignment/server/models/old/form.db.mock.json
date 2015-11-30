@@ -1,0 +1,27 @@
+module.exports = 
+[
+	{"id": "000", "title": "Contacts", "userId": 123, 
+		"fields": [
+		"5658cef0c682422cbe9e83ca", 
+		"5658cf3cc682422cbe9e83d0", 
+		"5658cf3cc682422cbe9e83d1", 
+		"5658cf3cc682422cbe9e83d2", 
+		"5658cf3cc682422cbe9e83d3", 
+		"5658cf3cc682422cbe9e83d4"]
+	},
+	
+	{"id": "010", "title": "ToDo", "userId": 234,
+		"fields": [
+			"5658d0a6c682422cbe9e83d6", 
+			"5658d0a6c682422cbe9e83d7", 
+			"5658d0a6c682422cbe9e83d8"
+		]
+	},
+
+	{"id": "020", "title": "Home", "userId": 234,
+		"fields": [
+			"5658d14bc682422cbe9e83da", 
+			"5658d14bc682422cbe9e83db"
+		]
+	}
+];

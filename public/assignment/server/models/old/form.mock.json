@@ -1,0 +1,35 @@
+module.exports = 
+[
+	{"title": "Contacts", "userId": ObjectId("5654b4fee0bfaf4ce5323c65"), 
+		"fields": [
+			{"_id" : ObjectId(), "label": "First Name", "type": "TEXT", "placeholder": "First Name"},
+			{"_id" : ObjectId(), "label": "Last Name", "type": "TEXT", "placeholder": "Last Name"},
+			{"_id" : ObjectId(), "label": "Address", "type": "TEXT", "placeholder": "Address"},
+			{"_id" : ObjectId(), "label": "State", "type": "SELECT", "options": [
+				{"label": "Massachussets", "value": "MA"},
+				{"label": "New Hampshire", "value": "NH"}
+			]},
+			{"_id" : ObjectId(), "label": "ZIP", "type": "TEXT", "placeholder": "ZIP"},
+			{"_id" : ObjectId(), "label": "Email", "type": "TEXT", "placeholder": "Email"}
+		]
+	},
+	{"title": "ToDo", "userId": ObjectId("5654b527e0bfaf4ce5323c66"),
+		"fields": [
+			{"_id" : ObjectId(), "label": "Title", "type": "TEXT", "placeholder": "Title"},
+			{"_id" : ObjectId(), "label": "Description", "type": "TEXTAREA", "placeholder": "Title"},
+			{"_id" : ObjectId(), "label": "Due Date", "type": "DATE"}
+		]
+	},
+	{"title": "Home", "userId": ObjectId("5654b527e0bfaf4ce5323c66"),
+		"fields": [
+			{"_id" : ObjectId(), "label": "Color", "type": "RADIO", "options": [
+				{"label": "Red", "value": "R"},
+				{"label": "Yello", "value": "Y"}
+			]},
+			{"_id" : ObjectId(), "label": "Material", "type": "CHECKBOX", "options": [
+				{"label": "Glass", "value": "glass"},
+				{"label": "Plastic", "value": "plastic"}
+			]}
+		]
+	}
+];

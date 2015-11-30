@@ -82,11 +82,94 @@ function renderForms(err, results) {
 // 			}
 // 		);
 // 	} else {
-		
+
 // 		FormModel.find(function(err, results) {
 // 			res.json(results);
 // 		});
 // 	}
+// });
+
+// app.get("/rest/form/:formId/field", function(req, res) {
+// 	FormModel.findOne(
+// 		{ _id : formId },
+// 		function(err, form) {
+// 			if (err != null) { console.log(err); }
+// 			res.json(form.fields);
+// 		});
+// });
+
+// app.get("/rest/form/:formId/field/:fieldId", function(req, res) {
+// 	FormModel.findOne(
+// 		{ _id : formId },
+// 		function(err, form) {
+// 			if (err != null) { console.log(err); }
+
+// 			for (f in form.fields) {
+// 				if (f._id == fieldId) {
+// 					res.json(f);
+// 				}
+// 			}
+// 		});
+// });
+
+// app.post("/rest/form/:formId/field", function(req, res) {
+// 	var field = req.body;
+
+// 	FormModel.findOne(
+// 		{ _id : formId },
+// 		function(err, form) {
+// 			if (err != null) { console.log(err); }
+// 			form.fields.push(field);
+
+// 			form.save(function(err, form) {
+// 				res.json(form);
+// 			});
+
+// 			// FormModel.findOneAndUpdate(
+// 			// 	{ _id : formId },
+// 			// 	form,
+// 			// 	function(err, response) {
+// 			// 		console.log(response);
+// 			// 	}
+// 			// );
+// 		}
+// 	);
+// });
+
+// app.put("/rest/form/:formId/field/:fieldId", function(req, res) {
+// 	var field = req.body;
+
+// 	FormModel.findOne(
+// 		{_id : formId },
+// 		function(err, form) {
+// 			for (var f in form.fields) {
+// 				if (form.fields[f]._id == fieldId) {
+// 					form.fields[f] = field;
+
+// 					form.save(function(err, form) {
+// 						res.json(form);
+// 					});
+// 				}
+// 			}
+// 		}
+//  	);
+// });
+
+// app.delete("/rest/form/:formId/field/:fieldId", function(req, res) {
+// 	FormModel.findOne(
+// 		{ _id : formId },
+// 		function(err, form) {
+// 			for (var f in form.fields) {
+// 				if (form.fields[f]._id == fieldId) {
+// 					form.fields.splice(f, 1);
+
+// 					form.save(function(err, form) {
+// 						res.json(form);
+// 					});
+// 				}
+// 			}
+// 		}
+// 	);
 // });
 
 // app.get("/rest/form/:formId", function(req, res) {
