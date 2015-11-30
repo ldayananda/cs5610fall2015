@@ -38,6 +38,8 @@
 			var formRef = model.forms[ind];
 
 			formRef.title = form.title;
+			formRef.userId = form.userId;
+			formRef.fields = form.fields;
 
 			FormService
 				.updateFormById(formRef._id, formRef)
@@ -65,7 +67,7 @@
 
 			model.selectedFormIndex = index;
 			model.selectedForm = {
-				id : model.forms[index]._id,
+				_id : model.forms[index]._id,
 				title : model.forms[index].title,
 				userId : model.forms[index].userId,
 				fields: model.forms[index].fields
