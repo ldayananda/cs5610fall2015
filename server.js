@@ -22,7 +22,18 @@ var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 // Configure Mongoose to communicate with MongoDB
 var db = require('mongoose');
-db.connect('mongodb://localhost/cs5610_assignment');
+var connectionString = 'mongodb://127.0.0.1:27017/cs5610_assignment';
+
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD) {
+    connectionString = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+        process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+        process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+        process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+        process.env.OPENSHIFT_APP_NAME;
+}
+
+db.connect(connectionString);
+
 
 // Connect assignment server to main server by passing the app and Mongo instance
 require("./public/assignment/server/app.js")(app, db);
