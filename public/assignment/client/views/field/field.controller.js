@@ -75,7 +75,7 @@
 
 		function deleteField(field) {
 			FieldService
-				.deleteFieldFromForm(model.formId, field.id)
+				.deleteFieldFromForm(model.formId, field._id)
 				.then(function(fields) {
 					model.fields = fields;
 				});

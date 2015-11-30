@@ -47,6 +47,7 @@ module.exports = function(app, db) {
     function createForm(form) {
         var deferred = q.defer();
 
+        form._id = new db.Types.ObjectId;
         FormModel.create(form, function(err, data) {
             if (err != null) {
                 console.log(err);

@@ -17,7 +17,7 @@
 			}
 
 			FormService
-				.findAllFormsForUser($rootScope.user.id)
+				.findAllFormsForUser($rootScope.user._id)
 				.then(function(forms) {
 					model.forms = forms;
 				});
@@ -26,7 +26,7 @@
 
 		function addForm(form) {
 			FormService
-				.createFormForUser($rootScope.user.id, form)
+				.createFormForUser($rootScope.user._id, form)
 				.then(function(forms) {
 					// createFormForUser returns all forms
 					model.forms = forms;
@@ -40,7 +40,7 @@
 			formRef.title = form.title;
 
 			FormService
-				.updateFormById(formRef.id, formRef)
+				.updateFormById(formRef._id, formRef)
 				.then(function(forms) {
 
 					// updateFormById returns all forms
@@ -52,7 +52,7 @@
 			var form = model.forms[index];
 
 			FormService
-				.deleteFormById(form.id)
+				.deleteFormById(form._id)
 				.then(function(forms) {
 					model.forms = forms;
 				});
@@ -65,7 +65,7 @@
 
 			model.selectedFormIndex = index;
 			model.selectedForm = {
-				id : model.forms[index].id,
+				id : model.forms[index]._id,
 				title : model.forms[index].title,
 				userId : model.forms[index].userId,
 				fields: model.forms[index].fields

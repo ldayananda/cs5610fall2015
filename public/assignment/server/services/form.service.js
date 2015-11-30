@@ -9,8 +9,11 @@ module.exports = function(app, db, model) {
 	app.delete("/api/assignment/form/:formId", deleteForm);
 
 	function createForm(req, res) {
+        var form = req.body;
+        form.userId = req.param.userId;
+
         model
-            .createForm(req.body)
+            .createForm(form)
             .then(function(forms) {
             	res.json(forms);
             });
