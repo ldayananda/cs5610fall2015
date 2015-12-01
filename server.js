@@ -40,29 +40,29 @@ require("./public/assignment/server/app.js")(app, db);
 // require("./public/project/server/app.js")(app, db);
 
 
-function renderUsers(err, results) {
-	for (var u in results) {
-		var firstName = results[u].firstName;
-		var lastName = results[u].lastName;
-		var username = results[u].username;
-		var password = results[u].password;
+// function renderUsers(err, results) {
+// 	for (var u in results) {
+// 		var firstName = results[u].firstName;
+// 		var lastName = results[u].lastName;
+// 		var username = results[u].username;
+// 		var password = results[u].password;
 
-		console.log([firstName, lastName, username, password]);
-	}
-}
+// 		console.log([firstName, lastName, username, password]);
+// 	}
+// }
 
-function renderForms(err, results) {
-	for (var f in results) {
-		var title = results[f].title;
-		var userId = results[f].userId;
-		var fields = results[f].fields;
+// function renderForms(err, results) {
+// 	for (var f in results) {
+// 		var title = results[f].title;
+// 		var userId = results[f].userId;
+// 		var fields = results[f].fields;
 
-		console.log([title, userId, "->"]);
-		for (field in fields) {
-			console.log("\t", field);
-		}
-	}
-}
+// 		console.log([title, userId, "->"]);
+// 		for (field in fields) {
+// 			console.log("\t", field);
+// 		}
+// 	}
+// }
 
 // var FormSchema = new db.Schema(
 // 	{
