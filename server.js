@@ -1,3 +1,5 @@
+'use strict';
+
 // Set up Express.js
 var express = require('express');
 var app = express();
@@ -37,7 +39,7 @@ db.connect(connectionString);
 
 // Connect assignment server to main server by passing the app and Mongo instance
 require("./public/assignment/server/app.js")(app, db);
-// require("./public/project/server/app.js")(app, db);
+require("./public/project/server/app.js")(app, db);
 
 
 // function renderUsers(err, results) {

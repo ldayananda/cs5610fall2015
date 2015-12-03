@@ -1,4 +1,0 @@
-(function() {
-	var app = angular.module("FormBuilderApp");
-	app.controller("FormController", FormController);
-})();

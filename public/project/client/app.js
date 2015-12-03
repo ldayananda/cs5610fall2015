@@ -1,3 +1,4 @@
+'use strict';
 (function() {
-	angular.module("JobHuntingApp", ["ngRoute"]);
+	var app = angular.module("JobHuntingApp", ["ngRoute"]);
 })();
