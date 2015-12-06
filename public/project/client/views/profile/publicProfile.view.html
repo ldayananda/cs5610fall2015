@@ -1,0 +1,50 @@
+<div class="container col-sm-10 col-sm-offset-2 container-view" ng-controller="PublicProfileController" ng-model="user">
+	<a href="" class="thumbnail col-sm-2">
+		<img src="https://en.wikipedia.org/wiki/Stick_figure#/media/File:Stick_Figure.svg" alt="">
+	</a>
+	<div class="col-sm-10">
+		<h1> {{user.firstName}} {{user.lastName}} </h1>
+		<h4> {{user.location.city}}, {{user.location.state}}, {{user.location.county}} </h4>
+		<a href="#/powwow" class="btn btn-default btn-block container-view"> Contact {{user.firstName}} {{user.lastName}} </a>
+	</div>
+</div>
+<div class="container col-sm-10 col-sm-offset-2 container-view">
+	<p>{{user.bio}}</p>
+</div>
+
+<div class="container col-sm-10 col-sm-offset-2">
+	<h2 class="container-view">Skills and Interests</h2>
+	<!-- TODO put in css -->
+	<div class="well well-lg container-view">
+		<div class="col-sm-2" ng-repeat="skill in user.skills">
+			<p>{{skill}}</p> 
+		</div>
+	</div>
+
+	<div container="col-sm-10 col-sm-offset-2 container-view">
+		<h2>Job Experience</h2>
+		<div class="well container-view">
+			<div ng-repeat="job in user.jobs">
+				<div class="row">
+					<h5 class="col-sm-6">{{job.title}}</h5>
+					<h5 class="col-sm-6 text-right">{{job.location}}</h5>
+				</div>
+				<h6>{{job.company}}</h6>
+				<p>{{job.description}}</p>
+			</div>
+		</div>
+	</div>
+
+<div container="col-sm-10 col-sm-offset-2 container-view">
+		<h2>Education</h2>
+		<div class="well container-view">
+			<div ng-repeat="school in user.education">
+				<div class="row">
+					<h5 class="col-sm-6">{{school.name}}, {{school.degree}}</h5>
+					<h5 class="col-sm-6 text-right">{{school.location}}, {{school.yearOfGraduation}}</h5>
+				</div>
+				<p>{{school.description}}</p>
+			</div>
+		</div>
+	</div>
+</div>

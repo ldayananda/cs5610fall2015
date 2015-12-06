@@ -14,10 +14,24 @@
 				controllerAs : "model"
 			})
 			.when("/register", {
-				templateUrl: "views/register/register.view.html"
+				templateUrl: "views/register/register.view.html",
+				controller : "RegisterController",
+				controllerAs: "model"
+			})
+			.when("/profileBuilder", {
+				templateUrl : "views/addJobEducation/addJobEducation.view.html",
+				controller : "RegisterController",
+				controllerAs : "model"
 			})
 			.when("/profile", {
-				templateUrl: "views/profile/profile.view.html"
+				templateUrl: "views/profile/profile.view.html",
+				controller : "ProfileController",
+				controllerAs: "model"
+			})
+			.when("/user/:userId/profile", {
+				templateUrl : "views/publicProfile/publicProfile.view.html",
+				controller : "PublicProfileController",
+				controllerAs : "model"
 			})
 			.when("/dashboard", {
 				templateUrl: "views/dashboard/dashboard.view.html"

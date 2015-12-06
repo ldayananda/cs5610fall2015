@@ -1,106 +1,315 @@
-<div class="container col-sm-10 col-sm-offset-2 container-view">
-	<a href="" class="thumbnail col-sm-2">
-		<img src="https://en.wikipedia.org/wiki/Stick_figure#/media/File:Stick_Figure.svg" alt="">
-	</a>
-	<div class="col-sm-10">
-		<h1> FirstName LastName </h1>
-		<h4> Location, LOC, Country </h4>
-		<a href="#/powwow" class="btn btn-default btn-block container-view"> Contact FirstName LastName </a>
+<div class="container" ng-controller="ProfileController" ng-model="user">
+	<div class="row">
+		<h1 class="text-center container-view">
+			Profile
+		</h1>
+	</div>
+
+	<div class="row container-view container-fluid">
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label for="username" class="col-sm-2 control-label" >Username:</label>
+				<div class="col-sm-10">
+					<input type="username" class="form-control" id="username" placeholder="{{user.username}}" ng-model="user.username">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="password" class="col-sm-2 control-label" >Password:</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" id="password" placeholder="{{user.password}}" ng-model="user.password">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="firstName" class="col-sm-2 control-label" >First Name:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="firstName" placeholder="{{user.firstName}}" ng-model="user.firstName">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="lastName" class="col-sm-2 control-label" >Last Name:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="lastName" placeholder="{{user.lastName}}" ng-model="user.lastName">
+				</div>
+			</div>
+
+
+			<div class="form-group">
+				<label for="location" class="col-sm-2 control-label" >City:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="city" placeholder="{{user.location.city}}" ng-model="user.location.city">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="location" class="col-sm-2 control-label" >State:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="state" placeholder="{{user.location.state}}" ng-model="user.location.state">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="location" class="col-sm-2 control-label" >Country:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="country" placeholder="{{user.location.country}}" ng-model="user.location.country">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="pic" class="col-sm-2 control-label" >Profile Pic:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="pic" placeholder="{{user.profilePic}}" ng-model="user.profilePic">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="industy" class="col-sm-2 control-label" >Industy:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="industy" placeholder="{{user.industry}}" ng-model="user.industy">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="bio" class="col-sm-2 control-label" >Biography:</label>
+				<div class="col-sm-10">
+					<textarea type="text" class="form-control" id="bio" placeholder="{{user.bio}}" ng-model="user.bio"></textarea> 
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="skills" class="col-sm-2 control-label">Skills:</label>
+				<div class="well well-lg container-view col-sm-10" id="skills">
+					<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#updateSkillsDialog">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</button>
+					<div class="col-sm-2" ng-repeat="skill in user.skills">
+						<p>{{skill.value}}</p> 
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="interests" class="col-sm-2 control-label">Interests:</label>
+				<div class="well well-lg container-view col-sm-10" id="interests">
+					<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#updateInterestsDialog">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</button>
+					<div class="col-sm-2" ng-repeat="interest in user.interests">
+						<p>{{interest.value}}</p> 
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="age" class="col-sm-2 control-label" >Age Range:</label>
+				<div class="col-sm-10">
+					<select type="select" class="form-control" id="age" ng-selected="user.age">
+						<option> 18 - 29 </option>
+						<option> 30 - 39 </option>
+						<option> 40 - 49 </option>
+						<option> 50 - 59 </option>
+						<option> 60+ </option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group container-view">
+				<label for="linkedin" class="col-sm-2 control-label" >LinkedIn:</label>
+				<div class="col-sm-10">
+					<input type="text" class="form-control" id="linkedin" placeholder="{{user.linkedin.url}}" ng-model="user.linkedin.url">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="jobs" class="col-sm-2 control-label" >Jobs:</label>
+				<div class="well well-lg container-view col-sm-10" id="jobs">
+					<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#updateJobsDialog">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</button>
+					<div ng-repeat="job in user.jobs">
+						<div class="row">
+							<h5 class="col-sm-6">{{job.title}}</h5>
+							<h5 class="col-sm-6 text-right">{{job.location}}</h5>
+						</div>
+						<h6>{{job.company}}</h6>
+						<p>{{job.description}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="education" class="col-sm-2 control-label" >Education:</label>
+				<div class="well well-lg container-view col-sm-10" id="education">
+					<button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#updateEducationDialog">
+						<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+					</button>
+					<div ng-repeat="school in user.education">
+						<div class="row">
+							<h5 class="col-sm-6">{{school.name}}, {{school.degree}}</h5>
+							<h5 class="col-sm-6 text-right">{{school.location}}, {{school.yearOfGraduation}}</h5>
+						</div>
+						<p>{{school.description}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="row container-view container-fluid col-sm-10 col-sm-offset-2">
+					<button class="btn btn-default btn-block" ng-click="model.update(user)">Update Profile</button>
+				</div>
+			</div>
+		</form>
 	</div>
 </div>
-<div class="container col-sm-10 col-sm-offset-2 container-view">
-	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+
+
+
+
+
+
+<!-- Modals -->
+
+
+
+
+
+
+<div class="modal fade" id="updateSkillsDialog" tabindex="-1" role="dialog" aria-labelledby="updateSkillsDialogLabel" ng-controller="ProfileController">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="updateSkillsDialogLabel">Skills</h4>
+			</div>
+			<div class="modal-body block-center">
+				<!-- Content -->
+				<form class="form-horizontal" id="skills">
+						<div class="form-group center-block container-fluid" ng-repeat="skill in user.skills" ng-model="user.skills">
+							<input type="text" class="col-xs-11" placeholder="{{skill.value}}" ng-model="skill.value">
+							<button type="button" class="btn btn-primary" ng-click="model.updateSkills(user.skills)">
+								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+							</button>
+						</div>
+						<div class="form-group col-sm-10">
+							<button type="button" class="btn btn-primary btn-block" ng-click="model.updateSkills(user.skills)">Add Skill</button>
+						</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				
+			</div>
+		</div>
+	</div>
 </div>
 
-<div class="container col-sm-10 col-sm-offset-2">
-	<h2 class="container-view">Skills and Interests</h2>
-	<!-- TODO put in css -->
-	<div class="well well-lg container-view">
-		<div class="row">
-			<div class="col-sm-2">
-				<p>Lorem</p> 
+<div class="modal fade" id="updateInterestsDialog" tabindex="-1" role="dialog" aria-labelledby="updateInterestsDialogLabel" ng-controller="ProfileController">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="updateInterestsDialogLabel">Interests</h4>
 			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
+			<div class="modal-body block-center">
+				<!-- Content -->
+
+				<form class="form-horizontal" id="interests">
+					<div class="form-group center-block container-fluid" ng-repeat="interest in user.interests" ng-model="user.interests">
+						<input type="text" class="col-xs-11" placeholder="{{interest.value}}" ng-model="interest.value">
+						<button type="button" class="btn btn-primary" ng-click="model.updateInterests(user.interests)">
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						</button>
+					</div>
+					<div class="form-group col-sm-10">
+						<button type="button" class="btn btn-primary btn-block" ng-click="model.updateSkills(user.skills)">Add Interest</button>
+					</div>
+				</form>
 			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
-			</div>
-			<div class="col-sm-2">
-				<p>Lorem</p> 
+			<div class="modal-footer">
+				
 			</div>
 		</div>
 	</div>
+</div>
 
-	<div container="col-sm-10 col-sm-offset-2 container-view">
-		<h2>Job Experience</h2>
-		<div class="well container-view">
-			<div>
-				<div class="row">
-					<h5 class="col-sm-6">Job Title</h5>
-					<h5 class="col-sm-6 text-right">Location</h5>
-				</div>
-				<h6>Company</h6>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<div class="modal fade" id="updateJobsDialog" tabindex="-1" role="dialog" aria-labelledby="updateJobsDialogLabel" ng-controller="ProfileController">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="updateJobsDialogLabel">Jobs</h4>
+			</div>
+			<div class="modal-body block-center">
+				<!-- Content -->
+
+
+				<form class="form-horizontal" id="jobs">
+					<div class="row container-view well" ng-repeat="job in user.jobs">
+						<div class="container-fluid" >
+							<label for="title" class="control-label" >Title:</label>
+							<div class="form-group"  id="title">
+								<input type="text" class="form-control col-sm-10" placeholder="{{job.title}}" ng-model="job.title">
+							</div>
+							<label for="company" class="control-label" >Company:</label>
+							<div class="form-group" id="company">
+								<input type="text" class="form-control col-sm-10" placeholder="{{job.company}}" ng-model="job.company">
+							</div>
+							<label for="location" class="control-label" >Location:</label>
+							<div class="form-group"  id="location">
+								<input type="text" class="form-control col-sm-10" placeholder="{{job.location}}" ng-model="job.location">
+							</div>
+							<label for="desc" class="control-label" >Description:</label>
+							<div class="form-group" id="desc">
+								<textarea class="form-control col-sm-10" placeholder="{{job.description}}" ng-model="job.description"></textarea>
+							</div>
+						</div>
+						<div class="form-group col-sm-10 container-fluid">
+							<button type="button" class="btn btn-primary btn-block" ng-click="model.updateJob(job)">Update Job</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-block">Update</button>
 			</div>
 		</div>
 	</div>
+</div>
 
-<div container="col-sm-10 col-sm-offset-2 container-view">
-		<h2>Education</h2>
-		<div class="well container-view">
-			<div>
-				<div class="row">
-					<h5 class="col-sm-6">School, Degree</h5>
-					<h5 class="col-sm-6 text-right">Location, Year</h5>
-				</div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+<div class="modal fade" id="updateEducationDialog" tabindex="-1" role="dialog" aria-labelledby="updateEducationDialogLabel" ng-controller="ProfileController">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="updateEducationDialogLabel">Education</h4>
+			</div>
+			<div class="modal-body block-center">
+				<!-- Content -->
+
+				<form class="form-horizontal" id="education">
+					<div class="row container-view well" ng-repeat="school in user.education">
+						<div class="container-fluid" >
+							<label for="name" class="col-sm-2 control-label" >Name:</label>
+							<div class="form-group"  id="name">
+								<input type="text" class="form-control col-sm-10" placeholder="{{school.name}}" ng-model="school.name">
+							</div>
+							<label for="degree" class="col-sm-2 control-label" >Degree:</label>
+							<div class="form-group" id="degree">
+								<input type="text" class="form-control col-sm-10" placeholder="{{school.degree}}" ng-model="school.degree">
+							</div>
+							<label for="location" class="col-sm-2 control-label" >Location:</label>
+							<div class="form-group" id="location">
+								<input type="text" class="form-control col-sm-10" placeholder="{{school.location}}" ng-model="school.location">
+							</div>
+							<label for="yog" class="col-sm-2 control-label" >Year of Graduation:</label>
+							<div class="form-group" id="yog">
+								<input type="text" class="form-control col-sm-10" placeholder="{{school.yearOfGraduation}}" ng-model="school.yearOfGraduation">
+							</div>
+							<label for="desc" class="col-sm-2 control-label" >Description:</label>
+							<div class="form-group" id="desc">
+								<textarea class="form-control" placeholder="{{school.description}}" ng-model="school.description"></textarea>
+							</div>
+						</div>
+						<div class="form-group col-sm-10 container-fluid">
+							<button type="button" class="btn btn-primary btn-block" ng-click="model.updateSchool(school)">Update Education</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-block" ng-click="model.update(user)">Update</button>
 			</div>
 		</div>
 	</div>

@@ -1,76 +1,105 @@
-<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main ng-scope" ng-controller="RegisterController">
-  <div class="container-fluid">
-    <div class="row container-view">
-      <h1>Register</h1>    
-    </div>
-
-    <div class="row">
-      <form class="form-horizontal">
-
-        <div class="form-group container-view">
-          <label for="name" class="col-sm-2 control-label">Name:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="name" placeholder="First Name Last Name">
-          </div>
-        </div>
-
-        <div class="form-group container-view">
-          <label for="ageRange" class="col-sm-2 control-label" >Age Range:</label>
-          <div class="col-sm-10 dropdown">
-            <button class="btn btn-default btn-block dropdown-toggle" type="button" id="age" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-              Age Range
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="age">
-              <li><a href="#">18-29</a></li>
-              <li><a href="#">30-40</a></li>
-              <li><a href="#">40-50</a></li>
-              <li><a href="#">50 onwards</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="form-group container-view">
-          <label for="location" class="col-sm-2 control-label" >Location:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="location" placeholder="">
-          </div>
-        </div>
-
-        <div class="form-group container-view">
-          <label for="bio" class="col-sm-2 control-label" >Biography:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="bio" placeholder="Tell me a bit about yourself">
-          </div>
-        </div>
-
-        <div class="form-group container-view">
-          <label for="username" class="col-sm-2 control-label" >Username:</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="username" placeholder="Username">
-          </div>
-        </div>
-
-        <div class="form-group container-view">
-          <label for="password" class="col-sm-2 control-label">Password:</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="password" placeholder="Password">
-          </div>
-        </div>
-
-        <div class="form-group container-view">
-          <label for="verifyPassword" class="col-sm-2 control-label">Verify Password:</label>
-          <div class="col-sm-10">
-            <input type="password" class="form-control" id="verifyPassword" placeholder="Verify Password">
-          </div>
-        </div>
-        
-        <div class="form-group container-view">
-          <div class="col-sm-offset-2 col-sm-10">
-            <a href="#/profile" class="btn btn-default btn-block" role="button" id="registerBtn">Register</a>
-          </div>
-        </div>
-      </form>
-    </div>    
+<div class="container" ng-controller="RegisterController">
+  <div class="row">
+    <h1 class="text-center container-view">
+      Register
+    </h1>
   </div>
+
+  <div class="row container-view container-fluid">
+    <form class="form-horizontal">
+
+      <div class="form-group">
+        <label for="firstName" class="col-sm-2 control-label" >First Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="firstName" placeholder="First Name" ng-model="user.firstName">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="lastName" class="col-sm-2 control-label" >Last Name:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="lastName" placeholder="Last Name" ng-model="user.lastName">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="location" class="col-sm-2 control-label" >Location:</label>
+        <div class="col-sm-10" id="location">
+          <input type="text" class="form-control" id="city" placeholder="City" ng-model="user.location.city">
+          <input type="text" class="form-control" id="state" placeholder="State" ng-model="user.location.state">
+          <input type="text" class="form-control" id="country" placeholder="Country" ng-model="user.location.country">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pic" class="col-sm-2 control-label" >Profile Pic:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="pic" placeholder="Enter URL" ng-model="user.profilePic">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="industy" class="col-sm-2 control-label" >Industy:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="industy" placeholder="Industy" ng-model="user.industy">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="bio" class="col-sm-2 control-label" >Biography:</label>
+        <div class="col-sm-10">
+          <textarea type="text" class="form-control" id="bio" placeholder="Enter a few words about your background" ng-model="user.bio"></textarea> 
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="skills" class="col-sm-2 control-label" >Skills:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="skills" placeholder="Enter your skills separated by commas(,)" ng-model="user.skills">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="interests" class="col-sm-2 control-label" >Interests:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="interests" placeholder="Enter your interests separated by commas(,)" ng-model="user.interests">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="age" class="col-sm-2 control-label" >Age Range:</label>
+        <div class="col-sm-10">
+          <select type="select" class="form-control" id="age" ng-model="user.age">
+            <option> 18 - 29 </option>
+            <option> 30 - 39 </option>
+            <option> 40 - 49 </option>
+            <option> 50 - 59 </option>
+            <option> 60+ </option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="linkedin" class="col-sm-2 control-label" >LinkedIn:</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="linkedin" placeholder="Enter your LinkedIn profile URL" ng-model="user.linkedin.url">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="username" class="col-sm-2 control-label" >Username:</label>
+        <div class="col-sm-10">
+          <input type="username" class="form-control" id="username" placeholder="Username" ng-model="user.username">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="col-sm-2 control-label" >Password:</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="password" placeholder="Password" ng-model="user.password">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="verify_password" class="col-sm-2 control-label" >Verify Password:</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="verify_password" placeholder="Password">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <button role="button" class="btn btn-default btn-block" ng-click="model.registerAndSendToNext(user)">Next</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
 </div>

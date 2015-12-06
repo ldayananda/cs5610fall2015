@@ -1,0 +1,51 @@
+<div class="container">
+  <div class="row">
+    <h1 class="text-center container-view">
+      Add Jobs and Education
+    </h1>
+  </div>
+  <div class="form-horizontal container-view" ng-model="user">
+    <div class="form-group">
+      <label for="jobs" class="col-sm-2 control-label" >Jobs:</label>
+      <div class="col-sm-10" id="jobs" ng-model="job" >
+        <input type="text" class="form-control" placeholder="Position title" ng-model="job.title">
+        <input type="text" class="form-control" placeholder="Company name" ng-model="job.company">
+        <input type="text" class="form-control" placeholder="Location" ng-model="job.location">
+        <textarea class="form-control" placeholder="Description" ng-model="job.description"></textarea>
+        <button class="btn btn-default btn-block" ng-click="model.addJob(job)">Add Job</button>
+      </div>
+    </div>
+    <div class="well container-view col-sm-10 col-sm-offset-2 ">
+      <div ng-repeat="job in user.jobs">
+        <div class="row">
+          <h5 class="col-sm-6">{{job.title}}</h5>
+          <h5 class="col-sm-6 text-right">{{job.location}}</h5>
+        </div>
+        <h6>{{job.company}}</h6>
+        <p>{{job.description}}</p>
+      </div>
+    </div>
+
+    <div class="form-group container-view">
+      <label for="education" class="col-sm-2 control-label" >Education:</label>
+      <div class="col-sm-10" id="education" ng-model="school">
+        <input type="text" class="form-control" placeholder="Name" ng-model="school.name">
+        <input type="text" class="form-control" placeholder="Highest degree earned" ng-model="school.degree">
+        <input type="text" class="form-control" placeholder="Location" ng-model="school.location">
+        <input type="text" class="form-control" placeholder="Year of graduation" ng-model="school.yearOfGraduation">
+        <textarea class="form-control" placeholder="Description" ng-model="school.description"></textarea>
+        <button class="btn btn-default btn-block" ng-click="model.addSchool(school)">Add Education</button>
+      </div>
+    </div>
+    <div class="well container-view col-sm-10 col-sm-offset-2 ">
+      <div ng-repeat="school in user.education">
+        <div class="row">
+          <h5 class="col-sm-6">{{school.name}}, {{school.degree}}</h5>
+          <h5 class="col-sm-6 text-right">{{school.location}}, {{school.yearOfGraduation}}</h5>
+        </div>
+        <p>{{school.description}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+

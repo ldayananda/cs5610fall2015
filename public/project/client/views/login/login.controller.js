@@ -21,7 +21,7 @@
 
 					if (model.user != null) {
 						$rootScope.user = user;
-						model.location.path("/profile");
+						model.location.path("user/" + model.user._id + "/profile");
 					} else {
 						model.location.path("/login");
 					}
