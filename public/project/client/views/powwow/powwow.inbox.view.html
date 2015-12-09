@@ -1,0 +1,37 @@
+<div class="container col-sm-10" id="wholeView" ng-controller="PowwowController">
+	<div class="row col-sm-12 col-sm-offset-6">
+		<h1>Powwows</h1>
+	</div>
+	<ul class="nav nav-tabs container-view container-fluid">
+		<li role="presentation" class="active"><a href="#/powwow/inbox">Inbox</a></li>
+		<li role="presentation"><a href="#/powwow/sent">Sent</a></li>
+	</ul>
+	<div class="container-fluid small-margin-20">
+		<div id="powwow_btn_options" class="row">
+			<button class="btn btn-default">Delete</button>
+			<button class="btn btn-default">Mark Read</button>
+			<button class="btn btn-default">Mark Unread</button>
+		</div>
+	</div>
+	<div class="container-view center-block">
+		<div class="container container-fluid" id="message_list" ng-repeat="message in model.messages">
+			<div class="row container-fluid">
+				<div class="row container-fluid">
+					<div id="msg" class="row container-fluid">
+						<h4 class="col-sm-4">{{message.sender_name}}</h4>
+						<h5 class="col-sm-6 text-center">{{message.msg_title}}</h5>
+						<div class="checkbox container-fluid pull-right">
+							<input type="checkbox" aria-label="" value="">
+						</div>
+					</div>
+					<div class="row container">
+						<h5 class="col-sm-2">{{message.sender_company}}</h5>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<hr id="separator">
+			</div>
+		</div>
+	</div>
+</div>

@@ -9,14 +9,20 @@
 
 		function init() {
 			model.user = $rootScope.user;
-			model.completed_msgs = [];
 
 			PowwowService
 				.findAllMessagesReceived(model.user._id)
 				.then(function(messages) {
-					model.completed_msgs = messages;
 					model.messages = messages;
 				});
+
+			PowwowService
+				.findAllMessagesSent(model.user._id)
+				.then(function(messages) {
+					model.sent_messages = messages;
+				});
+
+
 		};
 		init();
 	}

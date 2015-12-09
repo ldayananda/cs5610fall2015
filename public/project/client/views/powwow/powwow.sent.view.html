@@ -3,8 +3,8 @@
 		<h1>Powwows</h1>
 	</div>
 	<ul class="nav nav-tabs container-view container-fluid">
-		<li role="presentation" class="active"><a href="#">Inbox</a></li>
-		<li role="presentation"><a href="#">Sent</a></li>
+		<li role="presentation"><a href="#/powwow/inbox">Inbox</a></li>
+		<li role="presentation" class="active"><a href="#/powwow/sent">Sent</a></li>
 	</ul>
 	<div class="container-fluid small-margin-20">
 		<div id="powwow_btn_options" class="row">
@@ -14,7 +14,7 @@
 		</div>
 	</div>
 	<div class="container-view center-block">
-		<div class="container container-fluid" id="message_list" ng-repeat="message in model.messages">
+		<div class="container container-fluid" id="message_list" ng-repeat="message in model.sent_messages">
 			<div class="row container-fluid">
 				<div class="row container-fluid">
 					<div id="msg" class="row container-fluid">

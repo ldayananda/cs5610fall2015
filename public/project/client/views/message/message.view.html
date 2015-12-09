@@ -1,0 +1,27 @@
+<div class="container col-sm-10" id="wholeView" ng-controller="MessageController" ng-model="model.message">
+	<div class="row col-sm-12 col-sm-offset-6">
+		<h1>Message</h1>
+	</div>
+	<div class="container-fluid small-margin-20">
+		<div id="powwow_btn_options" class="row">
+			<button class="btn btn-default" ng-click="model.delete(message)">Delete</button>
+			<button class="btn btn-default" ng-click="model.read(message)">Mark Read</button>
+			<button class="btn btn-default" ng-click="model.unread(message)">Mark Unread</button>
+		</div>
+	</div>
+	<div class="container-view center-block">
+		<div class="container container-fluid" id="message_list">
+			<div class="row container-fluid">
+				<div class="row container-fluid">
+					<div class="row container-fluid">
+						<h5 class="col-sm-4">{{model.message.sender_name}} - {{model.message.sender_company}}</h5>
+						<h5 class="col-sm-4 pull-right">{{model.message.msg_title}}</h5>
+					</div>
+					<div class="row container-fluid well well-lg">
+						<p>{{model.message.msg_body}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

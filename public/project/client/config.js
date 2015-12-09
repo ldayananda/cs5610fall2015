@@ -33,6 +33,11 @@
 				controller : "PublicProfileController",
 				controllerAs : "model"
 			})
+			.when("/powwow/:powwowId/message/:messageId", {
+				templateUrl : "views/message/message.view.html",
+				controller : "MessageController",
+				controllerAs : "model"
+			})
 			.when("/dashboard", {
 				templateUrl: "views/dashboard/dashboard.view.html"
 			})
@@ -42,8 +47,13 @@
 			.when("/listing", {
 				templateUrl: "views/listing/listing.view.html"
 			})
-			.when("/powwow", {
-				templateUrl: "views/powwow/powwow.view.html",
+			.when("/powwow/inbox", {
+				templateUrl: "views/powwow/powwow.inbox.view.html",
+				controller : "PowwowController",
+				controllerAs : "model"
+			})
+			.when("/powwow/sent", {
+				templateUrl: "views/powwow/powwow.sent.view.html",
 				controller : "PowwowController",
 				controllerAs : "model"
 			})
