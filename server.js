@@ -17,6 +17,7 @@ app.use('assignment', express.static(__dirname + '/public/assignment'));
 app.use('assignment/css', express.static(__dirname + '/public/assignment/css'));
 app.use('project', express.static(__dirname + '/public/project'));
 app.use('project/css', express.static(__dirname + '/public/project/css'));
+app.use("/assets", express.static(__dirname + 'public/project/assets'));
 
 // Configure URLs to listen in to
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
