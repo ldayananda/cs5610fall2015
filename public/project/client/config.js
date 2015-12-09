@@ -43,7 +43,9 @@
 				templateUrl: "views/listing/listing.view.html"
 			})
 			.when("/powwow", {
-				templateUrl: "views/powwow/powwow.view.html"
+				templateUrl: "views/powwow/powwow.view.html",
+				controller : "PowwowController",
+				controllerAs : "model"
 			})
 			.when("/resumeDialog", {
 				templateUrl: "views/resumeDialog/resumeDialog.view.html"

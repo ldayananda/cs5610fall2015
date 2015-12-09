@@ -6,12 +6,16 @@ module.exports = function(app) {
 
 	var api = {
 		findUserByCredentials : findUserByCredentials,
+		findUserById : findUserById,
 		updateUser : updateUser,
 		updateJob : updateJob,
 		updateSchool : updateSchool,
 		createUser : createUser,
 		addJob : addJob,
-		addSchool : addSchool
+		addSchool : addSchool,
+		addSkill : addSkill,
+		addInterest : addInterest,
+		findCurrentJob : findCurrentJob
 	};
 	return api;
 
@@ -23,6 +27,20 @@ module.exports = function(app) {
 			if (user.username == credentials.username &&
 				user.password == credentials.password) {
 
+				deferred.resolve(user);
+			}
+		}
+
+    	// otherwise return null
+    	return deferred.promise;
+	}
+
+	function findUserById(userId) {
+		var deferred = q.defer();
+
+		for (var i in UserModel) {
+			var user = UserModel[i];
+			if (user._id == userId) {
 				deferred.resolve(user);
 			}
 		}
@@ -199,7 +217,73 @@ module.exports = function(app) {
 		// 	return deferred.promise;
 		// };
 
-		
+    	// otherwise return null
+    	return deferred.promise;	
+	}
+
+	function addSkill(userId, newSkill) {
+		var deferred = q.defer();
+		var found_user;
+
+		for (var i in UserModel) {
+			var user = UserModel[i];
+			if (user._id == userId) {
+				found_user = user;
+				
+				var skills;
+				if (found_user.skills == null) {
+					skills = [];
+				} else {
+					skills = found_user.skills;
+				}
+
+				// var uuid = require('node-uuid');
+				// newSkill._id = uuid.v1();
+
+				skills.push(newSkill);
+				found_user.skills = skills;
+				deferred.resolve(found_user.skills);
+			}
+		}
+
+		// if (found_user == null) {
+		// 	deferred.reject("User " + userId + " was not found");
+		// 	return deferred.promise;
+		// };
+
+    	// otherwise return null
+    	return deferred.promise;	
+	}
+
+	function addInterest(userId, newInterest) {
+		var deferred = q.defer();
+		var found_user;
+
+		for (var i in UserModel) {
+			var user = UserModel[i];
+			if (user._id == userId) {
+				found_user = user;
+				
+				var interests;
+				if (found_user.interests == null) {
+					interests = [];
+				} else {
+					interests = found_user.interests;
+				}
+
+				// var uuid = require('node-uuid');
+				// newInterest._id = uuid.v1();
+
+				interests.push(newInterest);
+				found_user.interests = interests;
+				deferred.resolve(found_user.interests);
+			}
+		}
+
+		// if (found_user == null) {
+		// 	deferred.reject("User " + userId + " was not found");
+		// 	return deferred.promise;
+		// };
 
     	// otherwise return null
     	return deferred.promise;	
@@ -213,6 +297,42 @@ module.exports = function(app) {
 
 		UserModel.push(user);
 		deferred.resolve(user);
+
+		// otherwise return null
+    	return deferred.promise;
+	}
+
+	function findCurrentJob(userId) {
+		var deferred = q.defer();
+		var found_user;
+
+		console.log("in model, finding job");
+		for (var i in UserModel) {
+			var user = UserModel[i];
+			if (user._id == userId) {
+				found_user = user;
+				
+				var jobs;
+				if (found_user.jobs == null) {
+					deferred.reject("There are no jobs for this user");
+				} else {
+					jobs = found_user.jobs;
+					console.log("found the right jobs ", jobs);
+				
+
+					for (var j in found_user.jobs) {
+						var job = found_user.jobs[j];
+						console.log("endDate ", job.endDate);
+
+						// This is a current job
+						if (job.endDate == null || job.endDate == "-" || job.endDate == "") {
+							console.log("The job has been found");
+							deferred.resolve(job);
+						}
+					}
+				}
+			}
+		}
 
 		// otherwise return null
     	return deferred.promise;

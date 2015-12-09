@@ -9,6 +9,8 @@
 		model.registerAndSendToNext = registerAndSendToNext;
 		model.addJob = addJob;
 		model.addSchool = addSchool;
+		model.addSkill = addSkill;
+		model.addInterest = addInterest;
 
 		function init() {
 			if ($rootScope.user != null) {
@@ -60,6 +62,28 @@
 			// } else {
 			// 	model.user.education.push(school);
 			// }
+		}
+
+		function addSkill(skill) {
+			var user = model.user;
+
+			UserService
+				.addSkill(user._id, skill)
+				.then(function(skills) {
+					model.user.skills = skills;
+					model.location.path("/profileBuilder");
+				});
+		}
+
+		function addInterest(interest) {
+			var user = model.user;
+
+			UserService
+				.addInterest(user._id, interest)
+				.then(function(interests) {
+					model.user.interests = interests;
+					model.location.path("/profileBuilder");
+				});
 		}
 	}
 })();
