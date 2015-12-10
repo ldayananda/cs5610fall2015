@@ -25,6 +25,7 @@
 
 		function findAllMessagesReceived(userId) {
 			var deferred = $q.defer();
+			console.log("Trying", "/api/project/user/" + userId + "/messages?type=received");
 			$http
 				.get("/api/project/user/" + userId + "/messages?type=received")
 				.success(function(response) {

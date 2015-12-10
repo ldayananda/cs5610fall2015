@@ -1,8 +1,9 @@
 'use strict';
 var q = require("q");
 
-module.exports = function(app) {
-	var PowwowModel = require("./powwow.mock.js");
+module.exports = function(app, db) {
+	var PowwowSchema = require("./powwow.schema.js")(db);
+	var PowwowModel = db.model("PowwowModel", PowwowSchema);
 
 	var api = {
 		findAllPowwows : findAllPowwows,
@@ -32,26 +33,55 @@ module.exports = function(app) {
 
 	function findAllMessagesReceived(userId) {
 		var deferred = q.defer();
-		var msgs = [];
 
-		findAllPowwows(userId)
-			.then(function(powwows) {
+		PowwowModel.find(
+			function(err, powwows) {
+				if (err != null) { console.log(err); }
+
+				console.log(powwows);
+
+				var received = [];
 
 				for (var i in powwows) {
 					var powwow = powwows[i];
-					var messages = powwow.messages;
+					console.log(powwow.userIds, "contains", userId);
 
-					for (var j in messages) {
-						var message = messages[j];
+					if (powwow.userIds.indexOf(userId) > -1) {
 
-						if (message.recepient_id == userId) {
-							msgs.push(message);
+						for (var j in powwow.messages) {
+							var message = powwow.messages[j];
+
+							if (message.recepient_id == userId) {
+								console.log("found the right message");
+								received.push(message);
+							}
 						}
 					}
 				}
 
-				deferred.resolve(msgs);
-			});
+				console.log(received);
+				deferred.resolve(received);
+			}
+		);
+
+		// findAllPowwows(userId)
+		// 	.then(function(powwows) {
+
+		// 		for (var i in powwows) {
+		// 			var powwow = powwows[i];
+		// 			var messages = powwow.messages;
+
+		// 			for (var j in messages) {
+		// 				var message = messages[j];
+
+		// 				if (message.recepient_id == userId) {
+		// 					msgs.push(message);
+		// 				}
+		// 			}
+		// 		}
+
+		// 		deferred.resolve(msgs);
+		// 	});
 
     	// otherwise return null
     	return deferred.promise;
@@ -59,26 +89,57 @@ module.exports = function(app) {
 
 	function findAllMessagesSent(userId) {
 		var deferred = q.defer();
-		var msgs = [];
 
-		findAllPowwows(userId)
-			.then(function(powwows) {
+		PowwowModel.find(
+			function(err, powwows) {
+				if (err != null) { console.log(err); }
+
+				console.log(powwows);
+
+				var sent = [];
 
 				for (var i in powwows) {
 					var powwow = powwows[i];
-					var messages = powwow.messages;
+					console.log(powwow.userIds, "contains", userId);
 
-					for (var j in messages) {
-						var message = messages[j];
+					if (powwow.userIds.indexOf(userId) > -1) {
 
-						if (message.sender_id == userId) {
-							msgs.push(message);
+						for (var j in powwow.messages) {
+							var message = powwow.messages[j];
+
+							if (message.sender_id == userId) {
+								console.log("found the right message");
+								sent.push(message);
+							}
 						}
 					}
 				}
 
-				deferred.resolve(msgs);
-			});
+				console.log(sent);
+				deferred.resolve(sent);
+			}
+		);
+		// var deferred = q.defer();
+		// var msgs = [];
+
+		// findAllPowwows(userId)
+		// 	.then(function(powwows) {
+
+		// 		for (var i in powwows) {
+		// 			var powwow = powwows[i];
+		// 			var messages = powwow.messages;
+
+		// 			for (var j in messages) {
+		// 				var message = messages[j];
+
+		// 				if (message.sender_id == userId) {
+		// 					msgs.push(message);
+		// 				}
+		// 			}
+		// 		}
+
+		// 		deferred.resolve(msgs);
+		// 	});
 
     	// otherwise return null
     	return deferred.promise;

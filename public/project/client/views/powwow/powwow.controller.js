@@ -9,6 +9,7 @@
 
 		function init() {
 			model.user = $rootScope.user;
+			console.log("user in page", model.user);
 
 			PowwowService
 				.findAllMessagesReceived(model.user._id)
@@ -18,6 +19,7 @@
 					for (var i in model.messages) {
 						model.powwowIds[i] = model.messages[i].powwow_id;
 					}
+					console.log("received is", model.messages, model.powwowIds);
 				});
 
 			PowwowService
@@ -25,9 +27,11 @@
 				.then(function(messages) {
 					model.sent_messages = messages;
 					model.sent_powwowIds =  [];
-					for (var i in sent_messages) {
+					for (var i in model.sent_messages) {
 						model.sent_powwowIds[i] = model.sent_messages[i].powwow_id;
 					}
+
+					console.log("sent is", model.sent_messages, model.sent_powwowIds);
 				});
 		};
 		init();

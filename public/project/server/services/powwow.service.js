@@ -16,8 +16,9 @@ module.exports = function(app, db, model) {
 
 	function findAllMessagesReceived(req, res) {
 		var type = req.query.type;
-
+		console.log("type queryied", type);
 		if (type == "received") {
+			console.log("getting received");
 			model
 				.findAllMessagesReceived(req.params.userId)
 				.then(function(messages) {
@@ -25,6 +26,7 @@ module.exports = function(app, db, model) {
 				});
 
 		} else {
+			console.log("getting sent");
 			model
 				.findAllMessagesSent(req.params.userId)
 				.then(function(messages) {
