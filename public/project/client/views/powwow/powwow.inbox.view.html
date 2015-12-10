@@ -19,8 +19,7 @@
 				<div class="row container-fluid">
 					<div id="msg" class="row container-fluid">
 						<h4 class="col-sm-4">{{message.sender_name}}</h4>
-						<!--#/powwow/model.powwowIds[$index]/message/{{model.message._id}}-->
-						<a href="">
+						<a href="#/powwow/{{model.powwowIds[$index]}}/message/{{message._id}}">
 							<h5 class="col-sm-6 text-center">{{message.msg_title}}</h5>
 						</a>
 						<div class="checkbox container-fluid pull-right">
