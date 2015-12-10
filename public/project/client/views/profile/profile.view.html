@@ -175,15 +175,18 @@
 			<div class="modal-body block-center">
 				<!-- Content -->
 				<form class="form-horizontal" id="skills">
-						<div class="form-group center-block container-fluid" ng-repeat="skill in user.skills" ng-model="user.skills">
-							<input type="text" class="col-xs-11" placeholder="{{skill.value}}" ng-model="skill.value">
-							<button type="button" class="btn btn-primary" ng-click="model.updateSkills(user.skills)">
+						<div class="form-group center-block container-fluid" ng-model="newSkill">
+							<input type="text" class="col-xs-11" placeholder="Enter new skill" ng-model="newSkill.value">
+							<button type="button" class="btn btn-primary" ng-click="model.addSkill(newSkill)">
 								<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 							</button>
 						</div>
-						<div class="form-group col-sm-10">
-							<button type="button" class="btn btn-primary btn-block" ng-click="model.updateSkills(user.skills)">Add Skill</button>
-						</div>
+						<div class="form-group center-block container-fluid" ng-repeat="skill in user.skills" ng-model="user.skills">
+							<input type="text" class="col-xs-11" placeholder="{{skill.value}}" ng-model="skill.value">
+							<button type="button" class="btn btn-primary" ng-click="model.updateSkills(user.skills)">
+								<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+							</button>
+						</div> 	
 				</form>
 			</div>
 			<div class="modal-footer">
@@ -204,14 +207,17 @@
 				<!-- Content -->
 
 				<form class="form-horizontal" id="interests">
-					<div class="form-group center-block container-fluid" ng-repeat="interest in user.interests" ng-model="user.interests">
-						<input type="text" class="col-xs-11" placeholder="{{interest.value}}" ng-model="interest.value">
-						<button type="button" class="btn btn-primary" ng-click="model.updateInterests(user.interests)">
+					<div class="form-group center-block container-fluid" ng-model="newInterest">
+						<input type="text" class="col-xs-11" placeholder="{{interest.value}}" ng-model="newInterest.value">
+						<button type="button" class="btn btn-primary" ng-click="model.addInterest(newInterest)">
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 						</button>
 					</div>
-					<div class="form-group col-sm-10">
-						<button type="button" class="btn btn-primary btn-block" ng-click="model.updateSkills(user.skills)">Add Interest</button>
+					<div class="form-group center-block container-fluid" ng-repeat="interest in user.interests" ng-model="user.interests">
+						<input type="text" class="col-xs-11" placeholder="{{interest.value}}" ng-model="interest.value">
+						<button type="button" class="btn btn-primary" ng-click="model.updateInterests(user.interests)">
+							<span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+						</button>
 					</div>
 				</form>
 			</div>
@@ -253,7 +259,7 @@
 								<textarea class="form-control col-sm-10" placeholder="{{job.description}}" ng-model="job.description"></textarea>
 							</div>
 						</div>
-						<div class="form-group col-sm-10 container-fluid">
+						<div class="form-group col-sm-12 container-fluid">
 							<button type="button" class="btn btn-primary btn-block" ng-click="model.updateJob(job)">Update Job</button>
 						</div>
 					</div>
@@ -261,7 +267,6 @@
 
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary btn-block">Update</button>
 			</div>
 		</div>
 	</div>
@@ -309,7 +314,6 @@
 
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary btn-block" ng-click="model.update(user)">Update</button>
 			</div>
 		</div>
 	</div>

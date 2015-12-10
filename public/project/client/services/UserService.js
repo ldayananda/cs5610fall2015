@@ -15,7 +15,9 @@
 			addSchool : addSchool,
 			createUser : createUser,
 			addSkill : addSkill,
-			addInterest : addInterest
+			updateSkills : updateSkills,
+			addInterest : addInterest,
+			updateInterests : updateInterests
 		};
 		return service;
 		
@@ -137,11 +139,35 @@
 			return deferred.promise;
 		}
 
+		function updateSkills(userId, skills) {
+			var deferred = $q.defer();
+
+			$http
+				.put("/api/project/user/" + userId + "/skill", skills)
+				.success(function(response) {
+					deferred.resolve(response);
+				});
+
+			return deferred.promise;
+		}
+
 		function addInterest(userId, interest) {
 			var deferred = $q.defer();
 
 			$http
 				.post("/api/project/user/" + userId + "/interest", interest)
+				.success(function(response) {
+					deferred.resolve(response);
+				});
+
+			return deferred.promise;
+		}
+
+		function updateInterests(userId, interest) {
+			var deferred = $q.defer();
+
+			$http
+				.put("/api/project/user/" + userId + "/interest", interest)
 				.success(function(response) {
 					deferred.resolve(response);
 				});

@@ -15,7 +15,9 @@ module.exports = function(app, db) {
 		addJob : addJob,
 		addSchool : addSchool,
 		addSkill : addSkill,
+		updateSkills : updateSkills,
 		addInterest : addInterest,
+		updateInterests : updateInterests,
 		findCurrentJob : findCurrentJob
 	};
 	return api;
@@ -124,20 +126,28 @@ module.exports = function(app, db) {
                 	if (user.jobs[i]._id == jobId) {
                 		newJob._id = jobId;
                 		user.jobs[i] = newJob;
-
-                		user.save(function(err, user) {
-                			if (err != null) {console.log(err); }
-
-                			UserModel.findOne( 
-                				{ _id : userId },
-                				function(err, user) {
-		                			if (err != null) {console.log(err); }
-                					deferred.resolve(user.jobs);
-                				}
-                			);
-                		})
                 	}
                 }
+
+                console.log("updated jobs", user.jobs);
+
+        		UserModel.update(
+        			{ _id : userId },
+        			user,
+        			function(err, user) {
+            			if (err != null) {
+            				console.log(err);
+            				deferred.reject(err);
+	        			} else {
+	            			UserModel.findOne( 
+	            				{ _id : userId },
+	            				function(err, user) {
+	            					deferred.resolve(user.jobs);
+	            				}
+	            			);
+	            		}
+        			}
+        		);
             }
         );
 
@@ -370,9 +380,15 @@ module.exports = function(app, db) {
 						function(err, user) {
 							if (err != null) {
 								console.log(err);
-							}
+							} else {
 
-							deferred.resolve(user);
+								UserModel.findOne(
+									{ _id : userId },
+									function(err, user) {
+										deferred.resolve(user.skills);
+									}
+								);
+							}
 						}
 					);
 				}
@@ -409,6 +425,45 @@ module.exports = function(app, db) {
     	return deferred.promise;	
 	}
 
+	function updateSkills(userId, newSkills) {
+		var deferred = q.defer();
+
+		UserModel.findOne(
+			{ _id : userId },
+			function(err, user) {
+				if (err != null) { 
+					console.log(err);
+					deferred.reject(err);
+				} else {
+
+					user.skills = newSkills;
+
+					UserModel.update(
+						{ _id : userId },
+						user,
+						function(err, user) {
+							if (err != null ) { 
+								deferred.reject(err);
+							} else {
+
+								UserModel.findOne(
+									{ _id : userId },
+									function(err, user) {
+										deferred.resolve(user.skills);
+									}
+								);
+							}
+						}
+					);
+				}
+
+			}
+		);
+
+		// otherwise return null
+    	return deferred.promise;	
+	}
+
 	function addInterest(userId, newInterest) {
 		var deferred = q.defer();
 		var found_user;
@@ -429,9 +484,14 @@ module.exports = function(app, db) {
 					function(err, user) {
 						if (err != null) {
 							console.log(err);
+						} else {
+							UserModel.findOne(
+								{ _id : userId },
+								function(err, user) {
+									deferred.resolve(user.interests);
+								}
+							);
 						}
-
-						deferred.resolve(user);
 					}
 				);
 			}
@@ -462,6 +522,41 @@ module.exports = function(app, db) {
 		// 	deferred.reject("User " + userId + " was not found");
 		// 	return deferred.promise;
 		// };
+
+    	// otherwise return null
+    	return deferred.promise;	
+	}
+
+	function updateInterests(userId, newInterests) {
+		var deferred = q.defer();
+
+		UserModel.findOne(
+			{ _id : userId },
+			function(err, user) {
+				if (err != null) {
+					console.log(err);
+				}
+
+				user.interests = newInterests;
+
+				UserModel.update(
+					{ _id : userId },
+					user,
+					function(err, user) {
+						if (err != null) {
+							console.log(err);
+						} else {
+							UserModel.findOne(
+								{ _id : userId },
+								function(err, user) {
+									deferred.resolve(user.interests);
+								}
+							);
+						}
+					}
+				);
+			}
+		);
 
     	// otherwise return null
     	return deferred.promise;	

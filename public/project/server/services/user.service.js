@@ -12,7 +12,10 @@ module.exports = function(app, db, model) {
 	app.post("/api/project/user/:userId/job", addJob);
 	app.post("/api/project/user/:userId/school", addSchool);
 	app.post("/api/project/user/:userId/skill", addSkill);
+	app.put("/api/project/user/:userId/skill", updateSkills);
 	app.post("/api/project/user/:userId/interest", addInterest);
+	app.put("/api/project/user/:userId/interest", updateInterests)
+
 
 	function findAllUsers(req, res) {
 		var username = req.query.username;
@@ -123,9 +126,25 @@ module.exports = function(app, db, model) {
 			});
 	}
 
+	function updateSkills(req, res) {
+		model
+			.updateSkills(req.params.userId, req.body)
+			.then(function(skills) {
+				res.json(skills);
+			});
+	}
+
 	function addInterest(req, res) {
 		model
 			.addInterest(req.params.userId, req.body)
+			.then(function(interests) {
+				res.json(interests);
+			});
+	}
+
+	function updateInterests(req, res) {
+		model
+			.updateInterests(req.params.userId, req.body)
 			.then(function(interests) {
 				res.json(interests);
 			});
