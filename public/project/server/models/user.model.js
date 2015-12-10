@@ -194,21 +194,30 @@ module.exports = function(app, db) {
                 for (var i in user.education) {
                 	if (user.education[i]._id == schoolId) {
                 		newSchool._id = schoolId;
+                		console.log("found school", user.education[i], "new schoolId", newSchool);
                 		user.education[i] = newSchool;
-
-                		user.save(function(err, user) {
-                			if (err != null) {console.log(err); }
-
-                			UserModel.findOne( 
-                				{ _id : userId },
-                				function(err, user) {
-		                			if (err != null) {console.log(err); }
-                					deferred.resolve(user.education);
-                				}
-                			);
-                		})
                 	}
                 }
+
+                console.log("updated schools", user.education);
+                UserModel.update(
+	    			{ _id : userId },
+	    			user,
+	    			function(err, user) {
+		    			if (err != null) {
+		    				console.log(err);
+		    				deferred.reject(err);
+		    			} else {
+
+			    			UserModel.findOne( 
+			    				{ _id : userId },
+			    				function(err, user) {
+			    					deferred.resolve(user.education);
+			    				}
+			    			);
+			    		}
+	    			}
+	    		);
             }
         );
 

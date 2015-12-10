@@ -158,10 +158,12 @@
 
 		function updateSchool(school) {
 			var user = model.user;
+			console.log("school", school);
 
 			UserService
 				.updateSchool(user._id, school._id, school)
 				.then(function(schools) {
+					console.log("got schools back", schools);
 					model.user.education = schools;
 				});
 		}
