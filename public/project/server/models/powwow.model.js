@@ -16,16 +16,28 @@ module.exports = function(app, db) {
 
 	function findAllPowwows(userId) {
 		var deferred = q.defer();
-		var powwows = [];
-
-		for (var i in PowwowModel) {
-			var powwow = PowwowModel[i];
-			if (powwow.userIds.indexOf(userId) > -1) {
-				powwows.push(powwow);
+		PowwowModel.find(
+			function(err, powwows) {
+				if (err != null) {
+					deferred.reject(err);
+					console.log(err);
+				} else {
+					deferred.resolve(powwows)
+				}
 			}
-		}
+		);
 
-		deferred.resolve(powwows);
+
+		// var powwows = [];
+
+		// for (var i in PowwowModel) {
+		// 	var powwow = PowwowModel[i];
+		// 	if (powwow.userIds.indexOf(userId) > -1) {
+		// 		powwows.push(powwow);
+		// 	}
+		// }
+
+		// deferred.resolve(powwows);
 
     	// otherwise return null
     	return deferred.promise;
@@ -163,21 +175,35 @@ module.exports = function(app, db) {
 	function findMessageById(powwowId, messageId) {
 		var deferred = q.defer();
 
-		for (var i in PowwowModel) {
-			var powwow = PowwowModel[i];
+		PowwowModel.findOne(
+			{ _id : powwowId },
+			function(err, powwow) {
+				if (err != null) { console.log(err); }
 
-			if (powwow._id == powwowId) {
-			var messages = powwow.messages;
-
-				for (var j in messages) {
-					var message = messages[j];
-
-					if (message._id == messageId) {
-						deferred.resolve(message);
+				for (var i in powwow.messages) {
+					console.log("checking", powwow.messages[i]._id, messageId);
+					if (powwow.messages[i]._id == messageId) {
+						deferred.resolve(powwow.messages[i]);
 					}
 				}
 			}
-		}
+		);
+
+		// for (var i in PowwowModel) {
+		// 	var powwow = PowwowModel[i];
+
+		// 	if (powwow._id == powwowId) {
+		// 	var messages = powwow.messages;
+
+		// 		for (var j in messages) {
+		// 			var message = messages[j];
+
+		// 			if (message._id == messageId) {
+		// 				deferred.resolve(message);
+		// 			}
+		// 		}
+		// 	}
+		// }
 
     	// otherwise return null
     	return deferred.promise;	
