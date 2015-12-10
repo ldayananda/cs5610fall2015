@@ -7,6 +7,7 @@ module.exports = [
 		],
 		"messages" : [
 			{ 
+				"powwow_id" : "00",
 				"_id" : "0",
 				"sender_id" : "0",
 				"sender_name" : "Frodo Baggins",
@@ -18,6 +19,7 @@ module.exports = [
 				"msg_body" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 			},
 			{ 
+				"powwow_id" : "00",
 				"_id" : "1",
 				"status" : "read",
 				"sender_id" : "1",
@@ -38,6 +40,7 @@ module.exports = [
 		],
 		"messages" : [
 			{ 
+				"powwow_id" : "01",
 				"_id" : "0",
 				"sender_id" : "1",
 				"sender_name" : "Pharell Williams",
@@ -49,6 +52,7 @@ module.exports = [
 				"msg_body" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 			},
 			{ 
+				"powwow_id" : "01",
 				"_id" : "1",
 				"sender_id" : "0",
 				"sender_name" : "Frodo Baggins",

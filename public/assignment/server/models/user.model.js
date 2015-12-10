@@ -13,7 +13,7 @@ module.exports = function(app, db) {
 
     var UserSchema = require("./user.schema.js")(db);
     // console.log(UserSchema);
-    var UserModel = db.model("UserModel", UserSchema);
+    var UserFormBuilderModel = db.model("UserFormBuilderModel", UserSchema);
     
     var api = {
         createUser : createUser,
@@ -29,13 +29,13 @@ module.exports = function(app, db) {
     function createUser(user) {
         var deferred = q.defer();
 
-        UserModel.create(user, function(err, user) {
+        UserFormBuilderModel.create(user, function(err, user) {
             if (err != null) {
                 console.log(err);
             }
 
             // Find and return users
-            UserModel.find(function(err, users) {
+            UserFormBuilderModel.find(function(err, users) {
                 deferred.resolve(users);
             });
         });
@@ -47,7 +47,7 @@ module.exports = function(app, db) {
     function findAllUsers() {
         var deferred = q.defer();
 
-        UserModel.find(function(err, users) {
+        UserFormBuilderModel.find(function(err, users) {
             // return collection
             deferred.resolve(users);
 
@@ -58,7 +58,7 @@ module.exports = function(app, db) {
     function findUserById(userId) {
         var deferred = q.defer();
 
-        UserModel.findOne({ _id : userId}, function(err, user) {
+        UserFormBuilderModel.findOne({ _id : userId}, function(err, user) {
             deferred.resolve(user);
         });
 
@@ -72,24 +72,24 @@ module.exports = function(app, db) {
 		// 	}
 		// }
 
-    	return deferred.promise;
-    }
+       return deferred.promise;
+   }
 
-    function updateUser(userId, newUser) {
-        var deferred = q.defer();
+   function updateUser(userId, newUser) {
+    var deferred = q.defer();
 
-        UserModel.findOneAndUpdate(
-            { _id : userId }, 
-            newUser, 
-            function(err, data) {
-                if (err != null) {
-                    console.log(err);
-                }
-
-                UserModel.find(function(err, users) {
-                    deferred.resolve(users);
-                })
+    UserFormBuilderModel.findOneAndUpdate(
+        { _id : userId }, 
+        newUser, 
+        function(err, data) {
+            if (err != null) {
+                console.log(err);
             }
+
+            UserModel.find(function(err, users) {
+                deferred.resolve(users);
+            })
+        }
         );
 
     	// return all objects
@@ -100,7 +100,7 @@ module.exports = function(app, db) {
         var deferred = q.defer();
 
 
-        UserModel.remove(
+        UserFormBuilderModel.remove(
             { _id : userId }, 
             function(err, data) {
                 if (err != null) {
@@ -111,7 +111,7 @@ module.exports = function(app, db) {
                     deferred.resolve(users);
                 });
             }
-        );
+            );
 
   //   	// find the object in the collection with id userId
   //   	var len = users.length;
@@ -131,7 +131,7 @@ module.exports = function(app, db) {
         var deferred = q.defer();
 
 
-        UserModel.findOne({ username : username }, function(err, user) {
+        UserFormBuilderModel.findOne({ username : username }, function(err, user) {
             res.json(data);
             deferred.resolve(user);
         });
@@ -145,17 +145,17 @@ module.exports = function(app, db) {
 		// 	}
 		// }
 
-    	return deferred.promise;
-    }
+       return deferred.promise;
+   }
 
-    function findUserByCredentials(credentials) {
-        var deferred = q.defer();
+   function findUserByCredentials(credentials) {
+    var deferred = q.defer();
 
-        UserModel.findOne(
-            { username : credentials.username, password : credentials.password }, 
-            function(err, user) {
-                deferred.resolve(user);
-            }
+    UserFormBuilderModel.findOne(
+        { username : credentials.username, password : credentials.password }, 
+        function(err, user) {
+            deferred.resolve(user);
+        }
         );
 
     	// otherwise return null

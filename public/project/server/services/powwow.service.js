@@ -1,7 +1,7 @@
 'use strict';
 var q = require("q");
 
-module.exports = function(app, model) {
+module.exports = function(app, db, model) {
 	app.get("/api/project/user/:userId/powwow", findAllPowwows);
 	app.get("/api/project/user/:userId/messages", findAllMessagesReceived);
 	app.get("/api/project/powwow/:powwowId/message/:messageId", findMessageById);

@@ -1,14 +1,14 @@
 'use strict';
 var q = require("q");
 
-module.exports = function(app, model) {
+module.exports = function(app, db, model) {
 	app.get("/api/project/user", findAllUsers);
 	app.post("/api/project/user/", createUser);
 	app.get("/api/project/user/:userId", findUserById);
 	app.get("/api/project/user/:userId/job", findAllJobs);
 	app.put("/api/project/user/:userId", updateUser);
 	app.put("/api/project/user/:userId/job/:jobId", updateJob);
-	app.put("/api/project/user/:userId/school/:schoolId", updateSchool)
+	app.put("/api/project/user/:userId/school/:schoolId", updateSchool);
 	app.post("/api/project/user/:userId/job", addJob);
 	app.post("/api/project/user/:userId/school", addSchool);
 	app.post("/api/project/user/:userId/skill", addSkill);
